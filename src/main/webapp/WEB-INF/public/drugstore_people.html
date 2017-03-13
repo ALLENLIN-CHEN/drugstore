@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>医保药店消费分析</title>
+    <link href="css/drugstore.css" rel="stylesheet"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/bootstrap-table.min.css" rel="stylesheet"/>
+    <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap-table.min.js"></script>
+    <script type="text/javascript" src="js/echarts3/echarts.min.js"></script>
+    <!--<script type="text/javascript" src="echarts-all.js"></script>-->
+    <!--<script type="text/javascript" src="js/pharmacy.js"></script>-->
+    <script type="text/javascript">
+      window.onload = function(){
+	    var top_chart = echarts.init(document.getElementById("top-chart"));
+		var top_option = {
+				baseOption: {
+					timeline: {
+						axisType: 'category',
+						autoPlay: true,
+						playInterval: 1000,
+						data: [
+							'2002-01-01','2003-01-01','2004-01-01',
+							'2005-01-01',
+							'2006-01-01', '2007-01-01','2008-01-01','2009-01-01','2010-01-01',
+							'2012-01-01'
+						],
+						label: {
+							formatter : function(s) {
+								return (new Date(s)).getFullYear();
+							}
+						}
+					},
+					title: {
+						subtext: ''
+					},
+					tooltip: {},
+					legend: {
+						x: 'right',
+						data: ['处方药', '非处方药', '医疗器械', '保健品', '妆特字化妆品', '其他']
+					},
+					calculable : true,
+					grid: {
+						top: 80,
+						bottom: 100
+					},
+					xAxis: [
+						{
+							'type':'category',
+							'axisLabel':{'interval':0},
+							'data':[
+								'处方药', '非处方药', '医疗器械', '保健品', '妆特字化妆品', '其他'
+							],
+							splitLine: {show:false}
+						}
+					],
+					yAxis: [
+						{
+							type: 'value',
+							name: '人数（人）'
+						}
+					],
+					series: [
+					    {
+						  name:'购买人数',
+						  type:'bar'
+						},
+						{
+							name: '人数比例',
+							type: 'pie',
+							center: ['75%', '20%'],
+							radius: '30%'
+						}
+					]
+				},
+				options: [
+					{
+						title: {text: '不同药品类别购买人次'},
+						series: [
+							{data: [
+								{name: '处方药', value:'2000'},
+								{name: '非处方药', value: '1000'},
+								{name: '医疗器械', value: '1500'},
+								{name: '保健品', value: '1600'},
+								{name: '妆特字化妆品', value: '1300'},
+								{name: '其他', value: '1200'}
+							]},
+							{data: [
+								{name: '处方药', value:'2000'},
+								{name: '非处方药', value: '1000'},
+								{name: '医疗器械', value: '1500'},
+								{name: '保健品', value: '1600'},
+								{name: '妆特字化妆品', value: '1300'},
+								{name: '其他', value: '1200'}
+							]}
+						]
+					},	
+					{
+						title: {text: '不同药品类别购买人次'},
+						series: [
+							{data: [
+								{name: '处方药', value:'2000'},
+								{name: '非处方药', value: '1000'},
+								{name: '医疗器械', value: '1500'},
+								{name: '保健品', value: '1600'},
+								{name: '妆特字化妆品', value: '1300'},
+								{name: '其他', value: '1200'}
+							]},
+							{data: [
+								{name: '处方药', value:'2000'},
+								{name: '非处方药', value: '1000'},
+								{name: '医疗器械', value: '1500'},
+								{name: '保健品', value: '1600'},
+								{name: '妆特字化妆品', value: '1300'},
+								{name: '其他', value: '1200'}
+							]}
+						]
+					},	
+					{
+						title: {text: '不同药品类别购买人次'},
+						series: [
+							{data: [
+								{name: '处方药', value:'2000'},
+								{name: '非处方药', value: '1000'},
+								{name: '医疗器械', value: '1500'},
+								{name: '保健品', value: '1600'},
+								{name: '妆特字化妆品', value: '1300'},
+								{name: '其他', value: '1200'}
+							]},
+							{data: [
+								{name: '处方药', value:'2000'},
+								{name: '非处方药', value: '1000'},
+								{name: '医疗器械', value: '1500'},
+								{name: '保健品', value: '1600'},
+								{name: '妆特字化妆品', value: '1300'},
+								{name: '其他', value: '1200'}
+							]}
+						]
+					},
+					{
+						title: {text: '不同药品类别购买人次'},
+						series: [
+							{data: [
+								{name: '处方药', value:'2000'},
+								{name: '非处方药', value: '1000'},
+								{name: '医疗器械', value: '1500'},
+								{name: '保健品', value: '1600'},
+								{name: '妆特字化妆品', value: '1300'},
+								{name: '其他', value: '1200'}
+							]},
+							{data: [
+								{name: '处方药', value:'2000'},
+								{name: '非处方药', value: '1000'},
+								{name: '医疗器械', value: '1500'},
+								{name: '保健品', value: '1600'},
+								{name: '妆特字化妆品', value: '1300'},
+								{name: '其他', value: '1200'}
+							]}
+						]
+					},	
+					{
+						title: {text: '不同药品类别购买人次'},
+						series: [
+							{data: [
+								{name: '处方药', value:'2000'},
+								{name: '非处方药', value: '1000'},
+								{name: '医疗器械', value: '1500'},
+								{name: '保健品', value: '1600'},
+								{name: '妆特字化妆品', value: '1300'},
+								{name: '其他', value: '1200'}
+							]},
+							{data: [
+								{name: '处方药', value:'2000'},
+								{name: '非处方药', value: '1000'},
+								{name: '医疗器械', value: '1500'},
+								{name: '保健品', value: '1600'},
+								{name: '妆特字化妆品', value: '1300'},
+								{name: '其他', value: '1200'}
+							]}
+						]
+					},	
+					{
+						title: {text: '不同药品类别购买人次'},
+						series: [
+							{data: [
+								{name: '处方药', value:'2000'},
+								{name: '非处方药', value: '1000'},
+								{name: '医疗器械', value: '1500'},
+								{name: '保健品', value: '1600'},
+								{name: '妆特字化妆品', value: '1300'},
+								{name: '其他', value: '1200'}
+							]},
+							{data: [
+								{name: '处方药', value:'2000'},
+								{name: '非处方药', value: '1000'},
+								{name: '医疗器械', value: '1500'},
+								{name: '保健品', value: '1600'},
+								{name: '妆特字化妆品', value: '1300'},
+								{name: '其他', value: '1200'}
+							]}
+						]
+					},
+					{
+						title: {text: '不同药品类别购买人次'},
+						series: [
+							{data: [
+								{name: '处方药', value:'2000'},
+								{name: '非处方药', value: '1000'},
+								{name: '医疗器械', value: '1500'},
+								{name: '保健品', value: '1600'},
+								{name: '妆特字化妆品', value: '1300'},
+								{name: '其他', value: '1200'}
+							]},
+							{data: [
+								{name: '处方药', value:'2000'},
+								{name: '非处方药', value: '1000'},
+								{name: '医疗器械', value: '1500'},
+								{name: '保健品', value: '1600'},
+								{name: '妆特字化妆品', value: '1300'},
+								{name: '其他', value: '1200'}
+							]}
+						]
+					},
+					{
+						title: {text: '不同药品类别购买人次'},
+						series: [
+							{data: [
+								{name: '处方药', value:'2000'},
+								{name: '非处方药', value: '1000'},
+								{name: '医疗器械', value: '1500'},
+								{name: '保健品', value: '1600'},
+								{name: '妆特字化妆品', value: '1300'},
+								{name: '其他', value: '1200'}
+							]},
+							{data: [
+								{name: '处方药', value:'2000'},
+								{name: '非处方药', value: '1000'},
+								{name: '医疗器械', value: '1500'},
+								{name: '保健品', value: '1600'},
+								{name: '妆特字化妆品', value: '1300'},
+								{name: '其他', value: '1200'}
+							]}
+						]
+					},
+					{
+						title: {text: '不同药品类别购买人次'},
+						series: [
+							{data: [
+								{name: '处方药', value:'2000'},
+								{name: '非处方药', value: '1000'},
+								{name: '医疗器械', value: '1500'},
+								{name: '保健品', value: '1600'},
+								{name: '妆特字化妆品', value: '1300'},
+								{name: '其他', value: '1200'}
+							]},
+							{data: [
+								{name: '处方药', value:'2000'},
+								{name: '非处方药', value: '1000'},
+								{name: '医疗器械', value: '1500'},
+								{name: '保健品', value: '1600'},
+								{name: '妆特字化妆品', value: '1300'},
+								{name: '其他', value: '1200'}
+							]}
+						]
+					},	
+					{
+						title: {text: '不同药品类别购买人次'},
+						series: [
+							{data: [
+								{name: '处方药', value:'2000'},
+								{name: '非处方药', value: '1000'},
+								{name: '医疗器械', value: '1500'},
+								{name: '保健品', value: '1600'},
+								{name: '妆特字化妆品', value: '1300'},
+								{name: '其他', value: '1200'}
+							]},
+							{data: [
+								{name: '处方药', value:'2000'},
+								{name: '非处方药', value: '1000'},
+								{name: '医疗器械', value: '1500'},
+								{name: '保健品', value: '1600'},
+								{name: '妆特字化妆品', value: '1300'},
+								{name: '其他', value: '1200'}
+							]}
+						]
+					}
+				]
+			};
+					
+		top_chart.setOption(top_option);
+		
+		var bottom_option ={
+		   title:{
+		     text:''
+		   },
+		   tooltip:{
+		   },
+		   toolbox:{
+		   },
+		   legend:{
+		     data: ['处方药', '非处方药', '医疗器械', '保健品', '妆特字化妆品', '其他']
+		   },
+		   xAxis:[{
+		    type:'category',
+		    data:['2001','2002','2003']
+		   }],
+		   yAxis:[{
+		     type:'value',
+			 name:'人数(人)'
+		   }
+		   ],
+		   series:[
+		     {
+			   name:'处方药',
+               type:'bar',
+               data:[100,310,400]			   
+			 },
+			 		     {
+			   name:'非处方药',
+               type:'bar',
+               data:[120,320,420]			   
+			 },
+			 {
+			   name:'医疗器械',
+               type:'bar',
+               data:[130,330,430]			   
+			 },
+			 {
+			   name:'保健品',
+               type:'bar',
+               data:[140,340,440]			   
+			 },
+			 {
+			   name:'妆特字化妆品',
+               type:'bar',
+               data:[150,350,450]			   
+			 },
+		     {
+			   name:'其他',
+               type:'bar',
+               data:[160,360,460]			   
+			 },
+			 {
+			   name:'处方药',
+               type:'line',
+               data:[100,310,390]			   
+			 },
+			 {
+			   name:'非处方药',
+               type:'line',
+               data:[110,320,400]			   
+			 },
+			 {
+			   name:'医疗器械',
+               type:'line',
+               data:[120,340,410]			   
+			 },
+			 {
+			   name:'保健品',
+               type:'line',
+               data:[130,400,420]			   
+			 },
+			 {
+			   name:'妆特字化妆品',
+               type:'line',
+               data:[150,304,430]			   
+			 },
+			 {
+			   name:'其他',
+               type:'line',
+               data:[180,380,450]			   
+			 }		 
+		   ]
+		}
+	  var bottom_chart = echarts.init(document.getElementById("bottom-chart"));
+	  bottom_chart.setOption(bottom_option);
+	 }
+    </script>
+</head>
+<body>
+<!--页面主容器分两列布局-->
+<div class="main">
+    <!--左侧菜单列-->
+    <div class="left">
+        <ul class="list-group menu">
+            <li class="list-group-item">购药次数人数统计</li>
+            <li class="list-group-item active">购买人次统计</li>
+            <li class="list-group-item">总金额统计</li>
+            <li class="list-group-item">平均金额统计</li>
+        </ul>
+    </div>
+    <!--右侧图表列，一次分上下展示两个图表-->
+    <div class="right">
+	    <div class="chart-container">
+            <div class="chart-title">不同药品类别购买人次统计分析</div>
+            <div id="top-chart">
+                
+            </div>
+			<div id="bottom-chart">
+                
+            </div>
+        </div>
+        <div class="chart-container">
+            <div class="chart-title">不同药品类别购买人次统计分析</div>
+			<!--列表-->
+            <table class="table text-center table-bordered">
+			   <caption></caption>
+			   <thead>
+			          <th class="text-center">年份</th>
+			          <th class="text-center">购买处方药人数</th>
+			          <th class="text-center">购买非处方药人数</th>
+			          <th class="text-center">购买医疗器械人数</th>
+			          <th class="text-center">购买保健品人数</th>
+			          <th class="text-center">购买“妆特字”化妆品人数</th>
+			          <th class="text-center">购买消毒用品人数</th>
+			          <th class="text-center">购买其他人数</th>
+			   </thead>
+			   <tbody>
+			      <tr>
+				   <td>2002</td>
+				   <td>3000</td>
+				   <td>3000</td>
+				   <td>2002</td>
+				   <td>3000</td>
+				   <td>3000</td>
+				   <td>2002</td>
+				   <td>3000</td>
+				  </tr>
+                  <tr>
+				   <td>2002</td>
+				   <td>3000</td>
+				   <td>3000</td>
+				   <td>2002</td>
+				   <td>3000</td>
+				   <td>3000</td>
+				   <td>2002</td>
+				   <td>3000</td>
+				  </tr>
+			      <tr>
+				   <td>2002</td>
+				   <td>3000</td>
+				   <td>3000</td>
+				   <td>2002</td>
+				   <td>3000</td>
+				   <td>3000</td>
+				   <td>2002</td>
+				   <td>3000</td>
+				  </tr>
+			      <tr>
+				   <td>2002</td>
+				   <td>3000</td>
+				   <td>3000</td>
+				   <td>2002</td>
+				   <td>3000</td>
+				   <td>3000</td>
+				   <td>2002</td>
+				   <td>3000</td>
+				  </tr>
+			     
+			   </tbody>
+			</table>
+			<!--分页栏-->
+			<ul class="page">
+			   <li><a href="">&laquo;</a></li>
+			   <li><a href="">1</a></li>
+			   <li><a href="">2</a></li>
+			   <li><a href="">3</a></li>
+			   <li><a href="">4</a></li>
+			   <li><a href="">&raquo;</a></li>
+			<ul>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

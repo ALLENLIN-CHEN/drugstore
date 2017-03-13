@@ -1,0 +1,94 @@
+<!--关于医保药店消费分析数据的可视化页面-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>医保药店消费分析</title>
+    <link href="css/drugstore.css" rel="stylesheet"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/bootstrap-table.min.css" rel="stylesheet"/>
+    <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap-table.min.js"></script>
+    <script type="text/javascript" src="js/echarts3/echarts.min.js"></script>
+
+    <script type="text/javascript">
+      window.onload = function(){
+	    var piechart = echarts.init(document.getElementById("bottom-chart"));
+		var option = {
+			title:{
+			  text:'购药总金额'
+			},
+			tooltip:{
+			  show:true
+			},
+			legend:{
+			   data:['总金额(万元)']
+			},
+			xAxis:[
+			{
+			type:'category',
+			data:['2002','2003','2004','2005','2006','2007','2008','2009','2010','2011']
+			}
+			],
+			yAxis:{},
+			series:[{
+			  name:'总金额(万元)',
+			  type:'line',
+			  data:[100,200,30,400,150,66,170,80,90,110]
+			}]
+		};
+	   piechart.setOption(option); 
+	  }
+    </script>
+</head>
+<body>
+<!--页面主容器分两列布局-->
+<div class="main">
+    <!--左侧菜单列-->
+    <div class="left">
+        <ul class="list-group menu">
+            <li class="list-group-item">购药次数人数统计</li>
+            <li class="list-group-item">购买人次统计</li>
+            <li class="list-group-item active">总金额统计</li>
+            <li class="list-group-item">平均金额统计</li>
+        </ul>
+    </div>
+    <!--右侧图表列，一次分上下展示两个图表-->
+    <div class="right">
+        <div class="chart-container">
+            <div class="chart-title">购药总金额统计分析</div>
+			<!--列表-->
+            <table class="table text-center table-bordered">
+			   <caption></caption>
+			   <thead>
+			          <th class="text-center">年份</th>
+			          <th class="text-center">购药总金额</th>
+			   </thead>
+			   <tbody>
+			      <tr><td>2002</td><td>3000</td></tr>
+			      <tr><td>2002</td><td>3000</td></tr>
+			      <tr><td>2002</td><td>3000</td></tr>
+			      <tr><td>2002</td><td>3000</td></tr>
+			      <tr><td>2002</td><td>3000</td></tr>
+			   </tbody>
+			</table>
+			<!--分页栏-->
+			<ul class="page">
+			   <li><a href="">&laquo;</a></li>
+			   <li><a href="">1</a></li>
+			   <li><a href="">2</a></li>
+			   <li><a href="">3</a></li>
+			   <li><a href="">4</a></li>
+			   <li><a href="">&raquo;</a></li>
+			<ul>
+        </div>
+        <div class="chart-container">
+            <div class="chart-title">购药总金额</div>
+            <div id="bottom-chart">
+                
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
