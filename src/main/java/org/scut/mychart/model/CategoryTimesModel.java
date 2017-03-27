@@ -5,37 +5,8 @@ package org.scut.mychart.model;
  */
 public class CategoryTimesModel {
     private Integer year;//时间:年份
-    private Integer presDrugs;// 购买处方药的人次
-    private Integer nopresDrugs;//购买非处方药的人次
-    private Integer mediAppIns;//购买医疗器械的人次
-    private Integer healPros;//购买保健品人次
-    private Integer mkCos;//购买“妆特字”化妆品人次
-    private Integer disSupp;//购买消毒用品的人次
-    private Integer others;//购买其他的人次
-
-    public Integer getPresDrugs() {
-        return presDrugs;
-    }
-
-    public void setPresDrugs(Integer presDrugs) {
-        this.presDrugs = presDrugs;
-    }
-
-    public Integer getNopresDrugs() {
-        return nopresDrugs;
-    }
-
-    public void setNopresDrugs(Integer nopresDrugs) {
-        this.nopresDrugs = nopresDrugs;
-    }
-
-    public Integer getMediAppIns() {
-        return mediAppIns;
-    }
-
-    public void setMediAppIns(Integer mediAppIns) {
-        this.mediAppIns = mediAppIns;
-    }
+    private Integer num;//购买人次
+    private String con;//购买类别
 
     public Integer getYear() {
         return year;
@@ -45,36 +16,19 @@ public class CategoryTimesModel {
         this.year = year;
     }
 
-    public Integer getHealPros() {
-
-        return healPros;
+    public Integer getNum() {
+        return num;
     }
 
-    public void setHealPros(Integer healPros) {
-        this.healPros = healPros;
+    public void setNum(Integer num) {
+        this.num = num;
     }
 
-    public Integer getMkCos() {
-        return mkCos;
+    public String getCon() {
+        return con;
     }
 
-    public void setMkCos(Integer mkCos) {
-        this.mkCos = mkCos;
-    }
-
-    public Integer getDisSupp() {
-        return disSupp;
-    }
-
-    public void setDisSupp(Integer disSupp) {
-        this.disSupp = disSupp;
-    }
-
-    public Integer getOthers() {
-        return others;
-    }
-
-    public void setOthers(Integer others) {
-        this.others = others;
+    public void setCon(String con) {
+        this.con = con;
     }
 }

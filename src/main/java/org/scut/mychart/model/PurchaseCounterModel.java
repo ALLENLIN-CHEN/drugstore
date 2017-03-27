@@ -1,34 +1,25 @@
 package org.scut.mychart.model;
 
 /**
- * Created by crh on 2017/3/2.
+ * Created by crh on 2017/3/23.
  */
 public class PurchaseCounterModel {
-    private Integer yaer;//年份
-    private Integer freCount;//购买次数>3的人数
-    private Integer rareCount;//购买次数<=3的人数
+   private int year;
+   private int total;
 
-    public Integer getYaer() {
-        return yaer;
+    public int getYear() {
+        return year;
     }
 
-    public void setYaer(Integer yaer) {
-        this.yaer = yaer;
+    public void setYear(int year) {
+        this.year = year;
     }
 
-    public Integer getFreCount() {
-        return freCount;
+    public int getTotal() {
+        return total;
     }
 
-    public void setFreCount(Integer freCount) {
-        this.freCount = freCount;
-    }
-
-    public Integer getRareCount() {
-        return rareCount;
-    }
-
-    public void setRareCount(Integer rareCount) {
-        this.rareCount = rareCount;
+    public void setTotal(int total) {
+        this.total = total;
     }
 }

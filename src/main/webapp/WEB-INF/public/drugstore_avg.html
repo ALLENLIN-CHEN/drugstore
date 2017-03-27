@@ -13,72 +13,329 @@
     <!--<script type="text/javascript" src="echarts-all.js"></script>-->
     <!--<script type="text/javascript" src="js/pharmacy.js"></script>-->
     <script type="text/javascript">
-      window.onload = function(){
-	    var piechart = echarts.init(document.getElementById("bottom-chart"));
-		var idx = 1;
-	var option = {
-    title: {
-    },
-    tooltip: {
-        trigger: 'axis'
-    },
-    legend: {
-        data:['购买处方药平均金额','购买非处方药平均金额','购买医疗器械平均金额','购买保健品平均金额','购买“妆特字”化妆品平均金额','购买消毒用品平均金额','购买其他平均金额']
-    },
-    toolbox: {
-        show: false
-    },
-    xAxis:  {
+    var year = new Array();//年份
+    var rawData = new Array();
+    var list1 = new Array();//处方药
+    var list2 = new Array();//非处方药
+    var list3 = new Array();//医疗器械
+    var list4 = new Array();//保健品
+    var list5 = new Array();//妆特字化妆品
+    var list6 = new Array();//消毒用品
+    var list7 = new Array();//其他
+
+    $(function(){
+     var piechart = echarts.init(document.getElementById("bottom-chart"));
+      $.ajax(
+      {
+      url:'drugstore/categoryconavg',
+      success:function(data){
+        constructData(data);
+        drawChart();
+        drawList();
+      }
+      }
+      );
+      function constructData(data){
+        if(!data)
+          return;
+        var record = null;
+        for(key in data){
+          record = data[key];
+          rawData.push(record);
+          year.push(key);
+          list1.push(record['item1']);
+          list2.push(record['item2']);
+          list3.push(record['item3']);
+          list4.push(record['item4']);
+          list5.push(record['item5']);
+          list6.push(record['item6']);
+          list7.push(record['item7']);
+         // console.log(key);
+        }
+      }
+      function drawChart()
+      {
+      var option = {
+		title: {
+		},
+		tooltip: {
+			 trigger: 'axis',
+			axisPointer: {
+				lineStyle: {
+					color: '#57617B'
+				}
+			}
+		},
+		legend: {
+			icon: 'rect',
+			itemWidth: 14,
+			itemHeight: 5,
+			itemGap: 13,
+			right: '4%',
+			textStyle: {
+				fontSize: 12,
+				color: '#333'
+			},
+			data:['购买处方药平均金额','购买非处方药平均金额','购买医疗器械平均金额','购买保健品平均金额','购买“妆特字”化妆品平均金额','购买消毒用品平均金额','购买其他平均金额']
+		},
+		grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+        },
+		toolbox: {
+			show: false
+		},
+		xAxis:  {
         type: 'category',
         boundaryGap: false,
-        data: ['2004','2005','2006','2007','2008','2009','2010']
-    },
-    yAxis: {
-        type: 'value',
-        axisLabel: {
-            formatter: '{value} 万元'
+        axisLine: {
+            lineStyle: {
+                color: '#57617B'
+            }
+        },
+        data: year
+        },
+		yAxis:
+		 [{
+			type: 'value',
+			axisTick: {
+				show: false
+			},
+			axisLine: {
+				lineStyle: {
+					color: '#57617B'
+				}
+			},
+			axisLabel: {
+				margin: 10,
+				textStyle: {
+					fontSize: 14
+				},
+				formatter: '{value} 元'
+			},
+			splitLine: {
+				lineStyle: {
+					color: '#57617B'
+				}
+			},
+			min:'dataMin'
+		}],
+		series: [
+			{
+				name:'购买处方药平均金额',
+				type:'line',
+				smooth: true,
+				symbol: 'circle',
+				symbolSize: 5,
+				showSymbol: false,
+				lineStyle: {
+					normal: {
+						width: 1
+					}
+				},
+				areaStyle: {
+					normal: {
+						color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+							offset: 0,
+							color: 'rgba(137, 189, 27, 0.3)'
+						}, {
+							offset: 0.8,
+							color: 'rgba(137, 189, 27, 0)'
+						}], false),
+						shadowColor: 'rgba(0, 0, 0, 0.1)',
+						shadowBlur: 10
+					}
+				},
+				itemStyle: {
+					normal: {
+						color: 'rgb(137,189,27)',
+						borderColor: 'rgba(137,189,2,0.27)',
+						borderWidth: 12
+
+					}
+				},
+				data:list1,
+			},
+			{
+				name:'购买非处方药平均金额',
+				type: 'line',
+				smooth: true,
+				symbol: 'circle',
+				symbolSize: 5,
+				showSymbol: false,
+				lineStyle: {
+					normal: {
+						width: 1
+					}
+				},
+				areaStyle: {
+					normal: {
+						color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+							offset: 0,
+							color: 'rgba(0, 136, 212, 0.3)'
+						}, {
+							offset: 0.8,
+							color: 'rgba(0, 136, 212, 0)'
+						}], false),
+						shadowColor: 'rgba(0, 0, 0, 0.1)',
+						shadowBlur: 10
+					}
+				},
+				itemStyle: {
+					normal: {
+						color: 'rgb(0,136,212)',
+						borderColor: 'rgba(0,136,212,0.2)',
+						borderWidth: 12
+
+					}
+				},
+				data:list2
+			},
+			{
+				name:'购买医疗器械平均金额',
+				type:'line',
+				smooth: true,
+				symbol: 'circle',
+				symbolSize: 5,
+				showSymbol: false,
+				lineStyle: {
+					normal: {
+						width: 1
+					}
+				},
+				areaStyle: {
+					normal: {
+						shadowColor: 'rgba(0, 0, 0, 0.1)',
+						shadowBlur: 10
+					}
+				},
+				itemStyle: {
+					normal: {
+
+						color: 'rgb(219,50,51)',
+						borderColor: 'rgba(219,50,51,0.2)',
+						borderWidth: 12
+					}
+				},
+				data:list3
+			},
+			{
+				name:'购买保健品平均金额',
+				type:'line',
+				 smooth: true,
+				symbol: 'circle',
+				symbolSize: 5,
+				showSymbol: false,
+				lineStyle: {
+					normal: {
+						width: 1
+					}
+				},
+				areaStyle: {
+					normal: {
+						shadowColor: 'rgba(0, 0, 0, 0.1)',
+						shadowBlur: 10
+					}
+				},
+				itemStyle: {
+					normal: {
+						borderWidth: 12
+					}
+				},
+				data:list4
+			},
+			{
+				name:'购买“妆特字”化妆品平均金额',
+				type:'line',
+				 smooth: true,
+				symbol: 'circle',
+				symbolSize: 5,
+				showSymbol: false,
+				lineStyle: {
+					normal: {
+						width: 1
+					}
+				},
+				areaStyle: {
+					normal: {
+						shadowColor: 'rgba(0, 0, 0, 0.1)',
+						shadowBlur: 10
+					}
+				},
+				itemStyle: {
+					normal: {
+						borderWidth: 12
+					}
+				},
+				data:list5
+			},
+			{
+				name:'购买消毒用品平均金额',
+				type:'line',
+				 smooth: true,
+				symbol: 'circle',
+				symbolSize: 5,
+				showSymbol: false,
+				lineStyle: {
+					normal: {
+						width: 1
+					}
+				},
+				areaStyle: {
+					normal: {
+						shadowColor: 'rgba(0, 0, 0, 0.1)',
+						shadowBlur: 10
+					}
+				},
+				itemStyle: {
+					normal: {
+						borderWidth: 12
+					}
+				},
+				data:list6
+			},
+			{
+				name:'购买其他平均金额',
+				type:'line',
+				 smooth: true,
+				symbol: 'circle',
+				symbolSize: 5,
+				showSymbol: false,
+				lineStyle: {
+					normal: {
+						width: 1
+					}
+				},
+				areaStyle: {
+					normal: {
+						shadowColor: 'rgba(0, 0, 0, 0.1)',
+						shadowBlur: 10
+					}
+				},
+				itemStyle: {
+					normal: {
+						borderWidth: 12
+					}
+				},
+				data:list7
+			}
+		]
+      }
+       piechart.setOption(option);
+      }
+      function drawList(){
+        var tbhtml = "";
+        var tuple = null;
+        for(var i=0;i<rawData.length;i++){
+          tuple = rawData[i];
+          tbhtml = tbhtml+"<tr><td>"+year[i]+"</td><td>"+tuple['item1']+"</td><td>"+tuple['item2']+"</td><td>"+tuple['item3']+"</td><td>"+tuple['item4']+"</td><td>"+tuple['item5']+"</td><td>"+tuple['item6']+"</td><td>"+tuple['item7']+"</td></tr>"
         }
-    },
-    series: [
-        {
-            name:'购买处方药平均金额',
-            type:'line',
-            data:[11, 11, 15, 13, 12, 13, 10],
-        },
-        {
-            name:'购买非处方药平均金额',
-            type:'line',
-            data:[1, 2, 2, 5, 3, 2, 0]
-        },
-        {
-            name:'购买医疗器械平均金额',
-            type:'line',
-            data:[1, 4, 2, 5, 3, 2, 0]
-        },
-        {
-            name:'购买保健品平均金额',
-            type:'line',
-            data:[1, 7, 2, 5, 6, 2, 0]
-        }, 
-		{
-            name:'购买“妆特字”化妆品平均金额',
-            type:'line',
-            data:[1, 3, 2, 5, 3, 2, 8]
-        },
-		{
-            name:'购买消毒用品平均金额',
-            type:'line',
-            data:[1, 1, 6, 5, 3, 2, 7]
-        },
-		{
-            name:'购买其他平均金额',
-            type:'line',
-            data:[1, 5, 2, 5, 3, 2, 8]
-        }	
-    ]
-};
-	   piechart.setOption(option); 
-	  }
+       // console.log(tbhtml);
+        $('.table tbody').html(tbhtml);
+      }
+    });
     </script>
 </head>
 <body>
@@ -117,58 +374,17 @@
 			          <th class="text-center">购买其他平均金额</th>
 			   </thead>
 			   <tbody>
-			      <tr>
-				   <td>2002</td>
-				   <td>3000</td>
-				   <td>3000</td>
-				   <td>2002</td>
-				   <td>3000</td>
-				   <td>3000</td>
-				   <td>2002</td>
-				   <td>3000</td>
-				  </tr>
-                  <tr>
-				   <td>2002</td>
-				   <td>3000</td>
-				   <td>3000</td>
-				   <td>2002</td>
-				   <td>3000</td>
-				   <td>3000</td>
-				   <td>2002</td>
-				   <td>3000</td>
-				  </tr>
-			      <tr>
-				   <td>2002</td>
-				   <td>3000</td>
-				   <td>3000</td>
-				   <td>2002</td>
-				   <td>3000</td>
-				   <td>3000</td>
-				   <td>2002</td>
-				   <td>3000</td>
-				  </tr>
-			      <tr>
-				   <td>2002</td>
-				   <td>3000</td>
-				   <td>3000</td>
-				   <td>2002</td>
-				   <td>3000</td>
-				   <td>3000</td>
-				   <td>2002</td>
-				   <td>3000</td>
-				  </tr>
-			     
 			   </tbody>
 			</table>
 			<!--分页栏-->
-			<ul class="page">
+			<!--<ul class="page">
 			   <li><a href="">&laquo;</a></li>
 			   <li><a href="">1</a></li>
 			   <li><a href="">2</a></li>
 			   <li><a href="">3</a></li>
 			   <li><a href="">4</a></li>
 			   <li><a href="">&raquo;</a></li>
-			<ul>
+			<ul>-->
         </div>
 
     </div>

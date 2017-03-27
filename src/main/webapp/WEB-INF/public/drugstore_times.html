@@ -10,30 +10,59 @@
     <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="js/bootstrap-table.min.js"></script>
     <script type="text/javascript" src="js/echarts3/echarts.min.js"></script>
-    <!--<script type="text/javascript" src="echarts-all.js"></script>-->
-    <!--<script type="text/javascript" src="js/pharmacy.js"></script>-->
+
     <script type="text/javascript">
-      window.onload = function(){
-	    var piechart = echarts.init(document.getElementById("bottom-chart"));
-		var idx = 1;
-		var option = {
+      var options = new Array();
+      var years = new Array();
+      var rawData = null;
+      $(function(){
+         var piechart = echarts.init(document.getElementById("bottom-chart"));
+         $.ajax({
+         url:'drugstore/timespeople',
+         success:function(data){
+          constructData(data);
+          drawChart();
+          drawList();
+         }
+         });
+         function constructData(data){
+           if(!data||!data.length)
+             return;
+           rawData = data;
+           var item;
+           for(var i=0;i<data.length;i++){
+             item = data[i];
+             years.push(item.year);
+             options.push({
+               series:[{
+               data:[{
+               name:'次数>3的人数',
+               value:item.freq
+               },
+               {
+                name:'次数<=3的人数',
+                value:item.rare
+               }]
+               }]
+             });
+
+           }
+             console.log(rawData);
+             console.log(options);
+         }
+         //绘制饼图
+         function drawChart(){
+                        var option = {
 			baseOption :{
 				timeline : {
-				 data : [
-					'2002-01-01', '2003-02-01', '2004-03-01',
-					'2005-03-01','2006-03-01','2007-03-01',
-					'2008-03-01','2009-03-01','2010-03-01',
-					'2011-03-01'],
-
+				 data : years,
 				 label : {
 					formatter : function(s) {
-						return (new Date(s)).getFullYear();
+						return s;
 					}
 				 }
 			    },
 				title : {
-				        align:'right',
-						text: '购药次数大于3的人数比例'
 					},
 				tooltip : {
 						trigger: 'item',
@@ -54,113 +83,23 @@
 					  radius:'50%'
 					  }
 					]
-				},	     
-				options:[
-				{
-		
-					series :[
-		                {
-					
-					      data:[{name:'次数>3的人数',value: idx++ * 128 + 80},
-							{name:'次数<=3的人数',value: idx * 64  + 160}]
-                        }
-					]
 				},
-				{
-		
-					series :[
-		                {
-					
-					      data:[{name:'次数>3的人数',value: idx++ * 128 + 80},
-							{name:'次数<=3的人数',value: idx * 64  + 160}]
-                        }
-					]
-				},
-				{
-		
-					series :[
-		                {
-					
-					      data:[{name:'次数>3的人数',value: idx++ * 128 + 80},
-							{name:'次数<=3的人数',value: idx * 64  + 160}]
-                        }
-					]
-				},
-				{
-		
-					series :[
-		                {
-					
-					      data:[{name:'次数>3的人数',value: idx++ * 128 + 80},
-							{name:'次数<=3的人数',value: idx * 64  + 160}]
-                        }
-					]
-				},
-				{
-		
-					series :[
-		                {
-					
-					      data:[{name:'次数>3的人数',value: idx++ * 128 + 80},
-							{name:'次数<=3的人数',value: idx * 64  + 160}]
-                        }
-					]
-				},
-				{
-		
-					series :[
-		                {
-					
-					      data:[{name:'次数>3的人数',value: idx++ * 128 + 80},
-							{name:'次数<=3的人数',value: idx * 64  + 160}]
-                        }
-					]
-				},
-				{
-		
-					series :[
-		                {
-					
-					      data:[{name:'次数>3的人数',value: idx++ * 128 + 80},
-							{name:'次数<=3的人数',value: idx * 64  + 160}]
-                        }
-					]
-				},
-				{
-		
-					series :[
-		                {
-					
-					      data:[{name:'次数>3的人数',value: idx++ * 128 + 80},
-							{name:'次数<=3的人数',value: idx * 64  + 160}]
-                        }
-					]
-				},
-				{
-		
-					series : [
-								                {
-					
-				  data:[{name:'次数>3的人数',value: idx++ * 128 + 80},
-							{name:'次数<=3的人数',value: idx * 64  + 160}]
-                        }
-						
-					]
-				},
-				{
-					series : [
-					 {
-					
-				       data:[{name:'次数>3的人数',value: idx++ * 128 + 80},
-							{name:'次数<=3的人数',value: idx * 64  + 160}]
-                        }
-						
-					]
-				}
-	           ]
-		};
-	   piechart.setOption(option); 
-	  }
+				options:options
+		    };
+	       piechart.setOption(option);
+         }
+         //填充列表
+         function drawList()
+         {
+           var tbhtml = "";
+           var item = null;
+           for(var i=0;i<rawData.length;i++){
+             item = rawData[i];
+             tbhtml = tbhtml + "<tr><td>"+item.year+"</td><td>"+item.freq+"</td><td>"+item.rare+"</td></tr>"
+           }
+           $('.table tbody').html(tbhtml);
+         }
+      });
     </script>
 </head>
 <body>
@@ -194,22 +133,18 @@
 			          <th class="text-center">购药次数&lt;=3的人数</th>
 			   </thead>
 			   <tbody>
-			      <tr><td>2002</td><td>3000</td><td>3000</td></tr>
-			      <tr><td>2002</td><td>3000</td><td>3000</td></tr>
-			      <tr><td>2002</td><td>3000</td><td>3000</td></tr>
-			      <tr><td>2002</td><td>3000</td><td>3000</td></tr>
-			      <tr><td>2002</td><td>3000</td><td>3000</td></tr>
+
 			   </tbody>
 			</table>
 			<!--分页栏-->
-			<ul class="page">
+			<!--<ul class="page">
 			   <li><a href="/">&laquo;</a></li>
 			   <li><a href="">1</a></li>
 			   <li><a href="">2</a></li>
 			   <li><a href="">3</a></li>
 			   <li><a href="">4</a></li>
 			   <li><a href="">&raquo;</a></li>
-			<ul>
+			<ul>-->
         </div>
     </div>
 </div>

@@ -6,7 +6,7 @@ package org.scut.mychart.service;
 
 import org.scut.mychart.model.CategoryConAvgModel;
 import org.scut.mychart.model.CategoryTimesModel;
-import org.scut.mychart.model.PurchaseCounterModel;
+import org.scut.mychart.model.RareFreqModel;
 
 import java.util.List;
 import java.util.Map;
@@ -19,13 +19,13 @@ public interface DrugStoreService {
      * 获取购药次数统计的数据
      * @return
      */
-    public List<PurchaseCounterModel> getPurchaseTiemsData();
+     public List<RareFreqModel> getPurchaseTimesData();
 
     /**
      * 获取各类别的购买人次的统计数据
      * @return
      */
-    public List<CategoryTimesModel> getCatTimesData();
+    public Map<Integer,Object> getCatTimesData();
 
     /**
      * 获取消费金额数据
@@ -37,5 +37,5 @@ public interface DrugStoreService {
      *
      * @return
      */
-    public List<CategoryConAvgModel> getCatConAvgData();
+    public Map<Integer,Object> getCatConAvgData();
 }

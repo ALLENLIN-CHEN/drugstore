@@ -9,26 +9,99 @@
     <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
     <script type="text/javascript" src="js/bootstrap-table.min.js"></script>
     <script type="text/javascript" src="js/echarts3/echarts.min.js"></script>
-    <!--<script type="text/javascript" src="echarts-all.js"></script>-->
-    <!--<script type="text/javascript" src="js/pharmacy.js"></script>-->
+
     <script type="text/javascript">
-      window.onload = function(){
-	    var top_chart = echarts.init(document.getElementById("top-chart"));
-		var top_option = {
+    var rawData = new Array();
+    var year = new Array();
+    var list1 = new Array();
+    var list2 = new Array();
+    var list3 = new Array();
+    var list4 = new Array();
+    var list5 = new Array();
+    var list6 = new Array();
+    var list7 = new Array();
+    $(function(){
+      var top_chart = echarts.init(document.getElementById("top-chart"));
+      var bottom_chart = echarts.init(document.getElementById("bottom-chart"));
+      $.ajax({
+      url:'drugstore/categorytimes',
+      success:function(data){
+       constructData(data);
+       drawChart();
+       drawList();
+      }
+      });
+      function drawList(){
+        var tuple = null;
+        var tbhtml = "";
+        for(key in rawData){
+          tuple = rawData[key];
+          tbhtml = tbhtml+"<tr><td>"+key+"</td><td>"+tuple['item1']+"</td><td>"+tuple['item2']+"</td><td>"+tuple['item3']+"</td><td>"+tuple['item4']+"</td><td>"+tuple['item5']+"</td><td>"+tuple['item6']+"</td><td>"+tuple['item7']+"</td></tr>"
+        }
+        $('.table tbody').html(tbhtml);
+      }
+      function constructData(data){
+       if(!data)
+        return;
+       rawData = data;
+       var tuple = null;
+       //console.log(data);
+       for(key in data){
+         //console.log(key);
+         tuple = data[key];
+         //console.log(tuple);
+         year.push(key);
+         list1.push(tuple['item1']);
+         list2.push(tuple['item2']);
+         list3.push(tuple['item3']);
+         list4.push(tuple['item4']);
+         list5.push(tuple['item5']);
+         list6.push(tuple['item6']);
+         list7.push(tuple['item7']);
+       }
+       console.log(year);
+       console.log(list1);
+      }
+      function drawChart(){
+        var options = new Array();
+        var tuple = null;
+        for(key in rawData){
+          tuple = rawData[key];
+          options.push({
+						title: {},
+						series: [
+							{data: [
+								{name: '处方药', value:tuple['item1']},
+								{name: '非处方药', value: tuple['item2']},
+								{name: '医疗器械', value: tuple['item3']},
+								{name: '保健品', value: tuple['item4']},
+								{name: '妆特字化妆品', value: tuple['item5']},
+								{name: '消毒用品', value: tuple['item6']},
+								{name: '其他', value: tuple['item7']}
+							]},
+							{data: [
+								{name: '处方药', value:tuple['item1']},
+								{name: '非处方药', value: tuple['item2']},
+								{name: '医疗器械', value: tuple['item3']},
+								{name: '保健品', value: tuple['item4']},
+								{name: '妆特字化妆品', value: tuple['item5']},
+								{name: '消毒用品', value: tuple['item6']},
+								{name: '其他', value: tuple['item7']}
+							]}
+						]
+					});
+        }
+        console.log(top_option);
+        var top_option = {
 				baseOption: {
 					timeline: {
 						axisType: 'category',
 						autoPlay: true,
 						playInterval: 1000,
-						data: [
-							'2002-01-01','2003-01-01','2004-01-01',
-							'2005-01-01',
-							'2006-01-01', '2007-01-01','2008-01-01','2009-01-01','2010-01-01',
-							'2012-01-01'
-						],
+						data: year,
 						label: {
 							formatter : function(s) {
-								return (new Date(s)).getFullYear();
+								return s;
 							}
 						}
 					},
@@ -38,7 +111,7 @@
 					tooltip: {},
 					legend: {
 						x: 'right',
-						data: ['处方药', '非处方药', '医疗器械', '保健品', '妆特字化妆品', '其他']
+						data: ['处方药', '非处方药', '医疗器械', '保健品', '妆特字化妆品','消毒用品', '其他']
 					},
 					calculable : true,
 					grid: {
@@ -46,19 +119,20 @@
 						bottom: 100
 					},
 					xAxis: [
+					    {
+							type: 'value',
+							name: '人次'
+						}
+
+					],
+					yAxis: [
 						{
 							'type':'category',
 							'axisLabel':{'interval':0},
 							'data':[
-								'处方药', '非处方药', '医疗器械', '保健品', '妆特字化妆品', '其他'
+								'处方药', '非处方药', '医疗器械', '保健品', '妆特字化妆品','消毒用品', '其他'
 							],
 							splitLine: {show:false}
-						}
-					],
-					yAxis: [
-						{
-							type: 'value',
-							name: '人数（人）'
 						}
 					],
 					series: [
@@ -69,313 +143,128 @@
 						{
 							name: '人数比例',
 							type: 'pie',
-							center: ['75%', '20%'],
+							center: ['80%', '20%'],
 							radius: '30%'
 						}
 					]
 				},
-				options: [
-					{
-						title: {text: '不同药品类别购买人次'},
-						series: [
-							{data: [
-								{name: '处方药', value:'2000'},
-								{name: '非处方药', value: '1000'},
-								{name: '医疗器械', value: '1500'},
-								{name: '保健品', value: '1600'},
-								{name: '妆特字化妆品', value: '1300'},
-								{name: '其他', value: '1200'}
-							]},
-							{data: [
-								{name: '处方药', value:'2000'},
-								{name: '非处方药', value: '1000'},
-								{name: '医疗器械', value: '1500'},
-								{name: '保健品', value: '1600'},
-								{name: '妆特字化妆品', value: '1300'},
-								{name: '其他', value: '1200'}
-							]}
-						]
-					},	
-					{
-						title: {text: '不同药品类别购买人次'},
-						series: [
-							{data: [
-								{name: '处方药', value:'2000'},
-								{name: '非处方药', value: '1000'},
-								{name: '医疗器械', value: '1500'},
-								{name: '保健品', value: '1600'},
-								{name: '妆特字化妆品', value: '1300'},
-								{name: '其他', value: '1200'}
-							]},
-							{data: [
-								{name: '处方药', value:'2000'},
-								{name: '非处方药', value: '1000'},
-								{name: '医疗器械', value: '1500'},
-								{name: '保健品', value: '1600'},
-								{name: '妆特字化妆品', value: '1300'},
-								{name: '其他', value: '1200'}
-							]}
-						]
-					},	
-					{
-						title: {text: '不同药品类别购买人次'},
-						series: [
-							{data: [
-								{name: '处方药', value:'2000'},
-								{name: '非处方药', value: '1000'},
-								{name: '医疗器械', value: '1500'},
-								{name: '保健品', value: '1600'},
-								{name: '妆特字化妆品', value: '1300'},
-								{name: '其他', value: '1200'}
-							]},
-							{data: [
-								{name: '处方药', value:'2000'},
-								{name: '非处方药', value: '1000'},
-								{name: '医疗器械', value: '1500'},
-								{name: '保健品', value: '1600'},
-								{name: '妆特字化妆品', value: '1300'},
-								{name: '其他', value: '1200'}
-							]}
-						]
-					},
-					{
-						title: {text: '不同药品类别购买人次'},
-						series: [
-							{data: [
-								{name: '处方药', value:'2000'},
-								{name: '非处方药', value: '1000'},
-								{name: '医疗器械', value: '1500'},
-								{name: '保健品', value: '1600'},
-								{name: '妆特字化妆品', value: '1300'},
-								{name: '其他', value: '1200'}
-							]},
-							{data: [
-								{name: '处方药', value:'2000'},
-								{name: '非处方药', value: '1000'},
-								{name: '医疗器械', value: '1500'},
-								{name: '保健品', value: '1600'},
-								{name: '妆特字化妆品', value: '1300'},
-								{name: '其他', value: '1200'}
-							]}
-						]
-					},	
-					{
-						title: {text: '不同药品类别购买人次'},
-						series: [
-							{data: [
-								{name: '处方药', value:'2000'},
-								{name: '非处方药', value: '1000'},
-								{name: '医疗器械', value: '1500'},
-								{name: '保健品', value: '1600'},
-								{name: '妆特字化妆品', value: '1300'},
-								{name: '其他', value: '1200'}
-							]},
-							{data: [
-								{name: '处方药', value:'2000'},
-								{name: '非处方药', value: '1000'},
-								{name: '医疗器械', value: '1500'},
-								{name: '保健品', value: '1600'},
-								{name: '妆特字化妆品', value: '1300'},
-								{name: '其他', value: '1200'}
-							]}
-						]
-					},	
-					{
-						title: {text: '不同药品类别购买人次'},
-						series: [
-							{data: [
-								{name: '处方药', value:'2000'},
-								{name: '非处方药', value: '1000'},
-								{name: '医疗器械', value: '1500'},
-								{name: '保健品', value: '1600'},
-								{name: '妆特字化妆品', value: '1300'},
-								{name: '其他', value: '1200'}
-							]},
-							{data: [
-								{name: '处方药', value:'2000'},
-								{name: '非处方药', value: '1000'},
-								{name: '医疗器械', value: '1500'},
-								{name: '保健品', value: '1600'},
-								{name: '妆特字化妆品', value: '1300'},
-								{name: '其他', value: '1200'}
-							]}
-						]
-					},
-					{
-						title: {text: '不同药品类别购买人次'},
-						series: [
-							{data: [
-								{name: '处方药', value:'2000'},
-								{name: '非处方药', value: '1000'},
-								{name: '医疗器械', value: '1500'},
-								{name: '保健品', value: '1600'},
-								{name: '妆特字化妆品', value: '1300'},
-								{name: '其他', value: '1200'}
-							]},
-							{data: [
-								{name: '处方药', value:'2000'},
-								{name: '非处方药', value: '1000'},
-								{name: '医疗器械', value: '1500'},
-								{name: '保健品', value: '1600'},
-								{name: '妆特字化妆品', value: '1300'},
-								{name: '其他', value: '1200'}
-							]}
-						]
-					},
-					{
-						title: {text: '不同药品类别购买人次'},
-						series: [
-							{data: [
-								{name: '处方药', value:'2000'},
-								{name: '非处方药', value: '1000'},
-								{name: '医疗器械', value: '1500'},
-								{name: '保健品', value: '1600'},
-								{name: '妆特字化妆品', value: '1300'},
-								{name: '其他', value: '1200'}
-							]},
-							{data: [
-								{name: '处方药', value:'2000'},
-								{name: '非处方药', value: '1000'},
-								{name: '医疗器械', value: '1500'},
-								{name: '保健品', value: '1600'},
-								{name: '妆特字化妆品', value: '1300'},
-								{name: '其他', value: '1200'}
-							]}
-						]
-					},
-					{
-						title: {text: '不同药品类别购买人次'},
-						series: [
-							{data: [
-								{name: '处方药', value:'2000'},
-								{name: '非处方药', value: '1000'},
-								{name: '医疗器械', value: '1500'},
-								{name: '保健品', value: '1600'},
-								{name: '妆特字化妆品', value: '1300'},
-								{name: '其他', value: '1200'}
-							]},
-							{data: [
-								{name: '处方药', value:'2000'},
-								{name: '非处方药', value: '1000'},
-								{name: '医疗器械', value: '1500'},
-								{name: '保健品', value: '1600'},
-								{name: '妆特字化妆品', value: '1300'},
-								{name: '其他', value: '1200'}
-							]}
-						]
-					},	
-					{
-						title: {text: '不同药品类别购买人次'},
-						series: [
-							{data: [
-								{name: '处方药', value:'2000'},
-								{name: '非处方药', value: '1000'},
-								{name: '医疗器械', value: '1500'},
-								{name: '保健品', value: '1600'},
-								{name: '妆特字化妆品', value: '1300'},
-								{name: '其他', value: '1200'}
-							]},
-							{data: [
-								{name: '处方药', value:'2000'},
-								{name: '非处方药', value: '1000'},
-								{name: '医疗器械', value: '1500'},
-								{name: '保健品', value: '1600'},
-								{name: '妆特字化妆品', value: '1300'},
-								{name: '其他', value: '1200'}
-							]}
-						]
-					}
-				]
+				options: options
 			};
-					
+
 		top_chart.setOption(top_option);
-		
+
 		var bottom_option ={
+		   color: ["#cff7cd", "#03c9a9", "#37adff", "#745afe", "#6cf0da", "#44d0ff", "#8b75fd", "#ffc272"],
 		   title:{
 		     text:''
 		   },
 		   tooltip:{
-		   },
+			   trigger: 'axis',
+			   axisPointer: { // 坐标轴指示器，坐标轴触发有效
+				type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+			   }
+           },
 		   toolbox:{
 		   },
 		   legend:{
-		     data: ['处方药', '非处方药', '医疗器械', '保健品', '妆特字化妆品', '其他']
+		     data: ['处方药', '非处方药', '医疗器械', '保健品', '妆特字化妆品', '消毒用品','其他']
 		   },
 		   xAxis:[{
-		    type:'category',
-		    data:['2001','2002','2003']
+			type: 'category',
+			axisTick:{
+				show:false
+			 },
+			data:year
 		   }],
 		   yAxis:[{
-		     type:'value',
-			 name:'人数(人)'
+		    type:'value',
+			name:'人数(人)',
+			axisTick:{
+            show:false
+			},
+			splitLine:{
+				lineStyle:{
+					color:"#333333"
+				}
+			}
 		   }
 		   ],
 		   series:[
 		     {
 			   name:'处方药',
                type:'bar',
-               data:[100,310,400]			   
+               itemStyle:{
+				  normal:{
+					  barBorderRadius:5
+				  }
+               },
+               data:list1
 			 },
-			 		     {
+			 {
 			   name:'非处方药',
                type:'bar',
-               data:[120,320,420]			   
+               itemStyle:{
+				  normal:{
+					  barBorderRadius:5
+				  }
+               },
+               data:list2
 			 },
 			 {
 			   name:'医疗器械',
                type:'bar',
-               data:[130,330,430]			   
+               itemStyle:{
+				  normal:{
+					  barBorderRadius:5
+				  }
+               },
+               data:list3
 			 },
 			 {
 			   name:'保健品',
                type:'bar',
-               data:[140,340,440]			   
+               itemStyle:{
+				  normal:{
+					  barBorderRadius:5
+				  }
+               },
+               data:list4
 			 },
 			 {
 			   name:'妆特字化妆品',
                type:'bar',
-               data:[150,350,450]			   
+               itemStyle:{
+				  normal:{
+					  barBorderRadius:5
+				  }
+               },
+               data:list5
 			 },
 		     {
+			   name:'消毒用品',
+               type:'bar',
+               itemStyle:{
+				  normal:{
+					  barBorderRadius:5
+				  }
+               },
+               data:list6
+			 },
+			 {
 			   name:'其他',
                type:'bar',
-               data:[160,360,460]			   
-			 },
-			 {
-			   name:'处方药',
-               type:'line',
-               data:[100,310,390]			   
-			 },
-			 {
-			   name:'非处方药',
-               type:'line',
-               data:[110,320,400]			   
-			 },
-			 {
-			   name:'医疗器械',
-               type:'line',
-               data:[120,340,410]			   
-			 },
-			 {
-			   name:'保健品',
-               type:'line',
-               data:[130,400,420]			   
-			 },
-			 {
-			   name:'妆特字化妆品',
-               type:'line',
-               data:[150,304,430]			   
-			 },
-			 {
-			   name:'其他',
-               type:'line',
-               data:[180,380,450]			   
-			 }		 
+               itemStyle:{
+				  normal:{
+					  barBorderRadius:5
+				  }
+               },
+               data:list7
+			 }
 		   ]
 		}
-	  var bottom_chart = echarts.init(document.getElementById("bottom-chart"));
-	  bottom_chart.setOption(bottom_option);
-	 }
+	    bottom_chart.setOption(bottom_option);
+      }
+    });
     </script>
 </head>
 <body>
@@ -408,67 +297,27 @@
 			   <caption></caption>
 			   <thead>
 			          <th class="text-center">年份</th>
-			          <th class="text-center">购买处方药人数</th>
-			          <th class="text-center">购买非处方药人数</th>
-			          <th class="text-center">购买医疗器械人数</th>
-			          <th class="text-center">购买保健品人数</th>
-			          <th class="text-center">购买“妆特字”化妆品人数</th>
-			          <th class="text-center">购买消毒用品人数</th>
-			          <th class="text-center">购买其他人数</th>
+			          <th class="text-center">购买处方药人次</th>
+			          <th class="text-center">购买非处方药人次</th>
+			          <th class="text-center">购买医疗器械人次</th>
+			          <th class="text-center">购买保健品人次</th>
+			          <th class="text-center">购买“妆特字”化妆品人次</th>
+			          <th class="text-center">购买消毒用品人次</th>
+			          <th class="text-center">购买其他人次</th>
 			   </thead>
 			   <tbody>
-			      <tr>
-				   <td>2002</td>
-				   <td>3000</td>
-				   <td>3000</td>
-				   <td>2002</td>
-				   <td>3000</td>
-				   <td>3000</td>
-				   <td>2002</td>
-				   <td>3000</td>
-				  </tr>
-                  <tr>
-				   <td>2002</td>
-				   <td>3000</td>
-				   <td>3000</td>
-				   <td>2002</td>
-				   <td>3000</td>
-				   <td>3000</td>
-				   <td>2002</td>
-				   <td>3000</td>
-				  </tr>
-			      <tr>
-				   <td>2002</td>
-				   <td>3000</td>
-				   <td>3000</td>
-				   <td>2002</td>
-				   <td>3000</td>
-				   <td>3000</td>
-				   <td>2002</td>
-				   <td>3000</td>
-				  </tr>
-			      <tr>
-				   <td>2002</td>
-				   <td>3000</td>
-				   <td>3000</td>
-				   <td>2002</td>
-				   <td>3000</td>
-				   <td>3000</td>
-				   <td>2002</td>
-				   <td>3000</td>
-				  </tr>
-			     
+
 			   </tbody>
 			</table>
 			<!--分页栏-->
-			<ul class="page">
+			<!--<ul class="page">
 			   <li><a href="">&laquo;</a></li>
 			   <li><a href="">1</a></li>
 			   <li><a href="">2</a></li>
 			   <li><a href="">3</a></li>
 			   <li><a href="">4</a></li>
 			   <li><a href="">&raquo;</a></li>
-			<ul>
+			<ul>-->
         </div>
 
     </div>

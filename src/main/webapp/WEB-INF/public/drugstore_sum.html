@@ -12,33 +12,150 @@
     <script type="text/javascript" src="js/echarts3/echarts.min.js"></script>
 
     <script type="text/javascript">
-      window.onload = function(){
-	    var piechart = echarts.init(document.getElementById("bottom-chart"));
-		var option = {
+      var dataList = null;
+      var year = new Array();
+      var sum = new Array();
+      var m = 0;
+      var listLen = 10;
+      $(function(){
+        var piechart = echarts.init(document.getElementById("bottom-chart"));
+        $.ajax({
+        url:'drugstore/consum',
+        success:function(data){
+		   dataList = data.consum;
+		   if(dataList){
+		     for(var i=0;i<dataList.length;i++){
+		       var oneyear = dataList[i];
+		       console.log(oneyear.year+":"+oneyear.sum);
+		       year.push(oneyear.year);
+		       sum.push(oneyear.sum);
+		       //m = Math.min(m,oneyear.sum);
+		     }
+		     drawList();
+		     drawChart();
+		   }
+        }
+        });
+        function drawChart(){
+          var option = {
 			title:{
-			  text:'购药总金额'
 			},
 			tooltip:{
-			  show:true
+			  trigger: 'asix',
+              axisPointer: {
+              lineStyle: {
+                color: '#ddd'
+              }
+        },
+        backgroundColor: 'rgba(255,255,255,1)',
+        padding: [5, 10],
+        textStyle: {
+            color: '#7588E4',
+        },
+        extraCssText: 'box-shadow: 0 0 5px rgba(0,0,0,0.3)'
 			},
 			legend:{
-			   data:['总金额(万元)']
+			   data:['总金额(元)']
 			},
 			xAxis:[
-			{
-			type:'category',
-			data:['2002','2003','2004','2005','2006','2007','2008','2009','2010','2011']
-			}
+             {
+                type: 'category',
+                data: year,
+                boundaryGap: false,
+                splitLine: {
+                    show: true,
+                    interval: 'auto',
+                    lineStyle: {
+                        color: ['#D4DFF5']
+                    }
+                },
+                axisTick: {
+                    show: false
+                },
+                axisLine: {
+                    lineStyle: {
+                        color: '#609ee9'
+                    }
+                },
+                axisLabel: {
+                    margin: 10,
+                    textStyle: {
+                        fontSize: 14
+                    }
+                }
+            }
 			],
-			yAxis:{},
+			yAxis:{
+			min:'dataMin',
+			 type: 'value',
+            splitLine: {
+                lineStyle: {
+                    color: ['#D4DFF5']
+                }
+            },
+            axisTick: {
+                show: false
+            },
+            axisLine: {
+                lineStyle: {
+                    color: '#609ee9'
+                }
+            },
+            axisLabel: {
+                margin: 10,
+                textStyle: {
+                    fontSize: 14
+                }
+            }
+			},
 			series:[{
-			  name:'总金额(万元)',
-			  type:'line',
-			  data:[100,200,30,400,150,66,170,80,90,110]
+			name:'总金额(元)',
+			type: 'line',
+            smooth: true,
+            showSymbol: false,
+            symbol: 'circle',
+            symbolSize: 6,
+            data: sum,
+            areaStyle: {
+                normal: {
+                    color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                        offset: 0,
+                        color: 'rgba(199, 237, 250,0.5)'
+                    }, {
+                        offset: 1,
+                        color: 'rgba(199, 237, 250,0.2)'
+                    }], false)
+                }
+            },
+            itemStyle: {
+                normal: {
+                    color: '#f7b851'
+                }
+            },
+            lineStyle: {
+                normal: {
+                    width: 3
+                }
+            }
 			}]
-		};
-	   piechart.setOption(option); 
-	  }
+		  };
+	      piechart.setOption(option);
+        }
+        function drawList(){
+          var tbhtml = "";
+          for(var i=0;i<dataList.length&&i<listLen;i++){
+            tbhtml = tbhtml + "<tr><td>"+dataList[i].year+"</td>"+"<td>"+dataList[i].sum+"</td></tr>";
+          }
+          $('.table tbody').html(tbhtml);
+          //updatePage();
+        }
+        function page(index){
+
+        }
+        function updatePage(){
+
+        }
+      });
     </script>
 </head>
 <body>
@@ -62,25 +179,25 @@
 			   <caption></caption>
 			   <thead>
 			          <th class="text-center">年份</th>
-			          <th class="text-center">购药总金额</th>
+			          <th class="text-center">购药总金额(元)</th>
 			   </thead>
 			   <tbody>
+			     <!-- <tr><td>2002</td><td>3000</td></tr>
 			      <tr><td>2002</td><td>3000</td></tr>
 			      <tr><td>2002</td><td>3000</td></tr>
 			      <tr><td>2002</td><td>3000</td></tr>
-			      <tr><td>2002</td><td>3000</td></tr>
-			      <tr><td>2002</td><td>3000</td></tr>
+			      <tr><td>2002</td><td>3000</td></tr>-->
 			   </tbody>
 			</table>
 			<!--分页栏-->
-			<ul class="page">
+			<!--<ul class="page">
 			   <li><a href="">&laquo;</a></li>
 			   <li><a href="">1</a></li>
 			   <li><a href="">2</a></li>
 			   <li><a href="">3</a></li>
 			   <li><a href="">4</a></li>
 			   <li><a href="">&raquo;</a></li>
-			<ul>
+			<ul>-->
         </div>
         <div class="chart-container">
             <div class="chart-title">购药总金额</div>

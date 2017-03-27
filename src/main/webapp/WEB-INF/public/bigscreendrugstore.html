@@ -1,0 +1,918 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>医保药店消费分析大屏</title>
+  <meta charset="utf-8"/>
+  <script src='js/jquery-1.7.2.min.js'></script>
+  <script src="js/echarts3/echarts.min.js"></script>
+  <style type="text/css">
+  body.html{
+    height:100%;
+	width:100%;
+  }
+  body{
+  width:1920px;
+  height:1080px;
+  transform-origin:left top 0px;
+  background:url('images/background.png') 0% 0% / 100%;
+  }
+  #datavLoading{
+    position:fixed;
+	top:0;
+	left:0;
+	height:100%;
+	width:100%;
+	background:#0f2a42;
+  }
+  #datavLoading img{
+    position:absolute;
+	top:50%;
+	left:50%;
+	margin:-60px 0 0 -60px;
+	width:120px;
+  }
+
+ .main-title{
+   position:absolute;
+   left:592px;
+   top:8px;
+   height:80px;
+   width:812px;
+   z-index:20;
+ }
+ .main-title .wrapper{
+   width:812px;
+   height:80px;
+   display:flex;
+   align-items:center;
+   justify-content:center;
+   color:rgb(255,255,255);
+   font-weight:normal;
+   font-family: "Microsoft Yahei"; 
+   font-size:40px; 
+   text-overflow:ellipsis;
+   white-space:nowrap;
+   overflow:hidden;
+ }
+
+ .border-left-top{
+  position:absolute;
+  left:10px; 
+  top:72px;
+  width:1064px;
+  height:632px;
+  z-index:0;
+ }
+ .border-left-top .wrapper{
+   background:url('images/border_left_top.png') no-repeat;
+   height:632px;
+   width:1064px;
+   background-size:100% 100%;
+ }
+
+ .border-right-bottom{
+   position:absolute;
+   left:1056px;
+   top:568px;
+   width:832px;
+   height:496px;
+   z-index:11;
+ }
+ .border-right-bottom .wrapper{
+   background:url('images/border_right_bottom.png') no-repeat;
+   height:496px;
+   width:832px;
+   background-size:100% 100%;
+  }
+  .sub-title{
+   position:absolute;
+   height:40px;
+   text-align:center;
+   z-index:16;
+  }
+  .sub-title-1{
+    width:400px;
+    left:44px;
+    top:152px;
+  }
+  .sub-title-9{
+    width:300px;
+    left:44px;
+	top:744px;
+  }
+  .sub-title-8{
+    width:300px;
+    left:384px;
+	top:744px;
+  }
+  .sub-title-7{
+    width:400px;
+    left:744px;
+	top:744px;
+  }
+  .sub-title-6{
+   width:400px;
+   left:1336px;
+   top:744px;
+  }
+  .sub-title-5{
+    width:400px;
+    left:1336px;
+	top:440px;
+  }
+  .sub-title-4{
+  width:400px;
+  left:1336px;
+  top:152px;
+  }
+  .sub-title-3{
+    width:400px;
+    left:832px;
+	top:152px;
+  }
+  .sub-title-2{
+   width:328px;
+   left:464px;
+   top:152px;
+  }
+  .sub-title .wrapper{
+  width: 100%;
+  height: 40px; 
+  text-align:center;
+  line-height:40px;
+  align-items: center;  
+  color: rgb(255, 255, 255); 
+  font-weight: normal; 
+  background:url('images/sub_title_bg.png') no-repeat;
+  background-size:100% 100%;
+  font-family: "Microsoft Yahei"; 
+  font-size: 18px; 
+  text-overflow: ellipsis; 
+  white-space: nowrap; 
+  overflow: hidden;
+  }
+  .carouse-table
+  {
+   position:absolute;
+   z-index:22;
+  }
+  .carouse-table-1{
+    top:208px;
+	width:400px;
+	height:375px;
+	left:44px;
+	overflow:hidden;
+  }
+  .carouse-table-2{
+    top:208px;
+	width:328px;
+	height:495px;
+	overflow:hidden;
+	left:464px;
+	top:208px;
+  }
+  .carouse-table-3{
+   top:208px;
+   width:400px;
+   height:400px;
+   left:832px;
+  }
+ .line .header{
+	display: flex;
+	align-items: center;
+	background-color: rgba(19,68,88,0);
+	height: 50px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	vertical-align: middle;
+	color: #44D3E4;
+}
+.line{
+  height:45px;
+}
+.index-list{
+	display: inline-block;
+	vertical-align: middle;
+	width: 14%;
+	height: 45px;
+}
+.column-title{
+	width: 40%;
+	height:45px;
+	line-height:45px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	text-align:center;
+	vertical-align: middle;
+	background-color: transparent;
+	font-family: Microsoft Yahei;
+	font-size: 14px;
+	color: #44D3E4;
+	font-weight: normal;
+}
+.carouse-table-3{
+  height:315px;
+  overflow:hidden;
+}
+.carouse-table-3 .index-list{
+  width:50px;
+}
+.year{
+  width:80px;
+}
+.gt,.lteq{
+  width:120px;
+}
+.year,.gt,.lteq
+{
+	height:45px;
+	line-height:45px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	text-align:center;
+	vertical-align: middle;
+	background-color: transparent;
+	font-family: Microsoft Yahei;
+	font-size: 14px;
+	color: #44D3E4;
+	font-weight: normal;
+}
+.index{
+  width:14%;
+}
+.cell-content{
+  width:40%;
+}
+.column{
+  display:inline-block;
+  height:45px;
+}
+.row{
+	height: 45px; 
+	text-overflow: ellipsis;
+	overflow: hidden; 
+	vertical-align: middle; 
+	display: flex; 
+	align-items: center; 
+	background-color: rgba(10, 39, 50, 0);
+}
+.carouse-table-1 .row{
+ margin-top:10px;
+}
+.index-bg{
+  background-color: #44d3e4;
+  width: 41px;
+  height: 41px;
+  line-height:41px;
+  margin:auto;
+  color:#fff;
+  border-radius:20.5px;
+  text-align:center;
+}
+.cell-content{
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  line-height:45px;
+  overflow: hidden;
+  text-align:center;
+  vertical-align: middle;
+  background-color: transparent;
+  font-family: Microsoft Yahei;
+  font-size: 14px;
+  color: #44d3e4;
+  text-align:center;
+  font-weight: normal;
+}
+#chart-1{
+  position:absolute;
+  height:240px;
+  width:520px;
+  left:1336px;
+  top:200px;
+  z-index:24;
+}
+#chart-2{
+ position:absolute;
+ height:256px;
+ width:520px;
+ left:1336px;
+ top:488px;
+ z-index:22;
+}
+#chart-3{
+ position:absolute;
+ height:256px;
+ width:520px;
+ left:1336px;
+ top:792px;
+ z-index:22;
+}
+#chart-4{
+ position:absolute;
+ height:256px;
+ width:520px;
+ left:744px;
+ top:782px;
+ z-index:22;
+}
+#chart-5{
+ position:absolute;
+ height:256px;
+ width:300px;
+ left:384px;
+ top:782px;
+ z-index:22;
+}
+#chart-6{
+ position:absolute;
+ height:256px;
+ width:340px;
+ left:44px;
+ top:782px;
+ z-index:22;
+}
+  </style>
+  <script>
+	$(function(){
+	var index = 0;
+	var rows = $('.carouse-table-1 .row');
+	var windowsize = 6;
+	function scroll(){
+	 if(index==6){
+	  for(var i=0;i<6;i++){
+		$(rows[i]).css({'height':'45px','margin-top':'10px'});
+	  }
+	  index = 0;
+	 }
+	 $(rows[index]).animate({'height':0,'margin':0},500);
+	 index++;
+	}
+	function reset(list,wsize,before){
+	  for(var i=0;i<list.length&&i<wsize;i++){
+	    $(list[i]).css(before);
+	  }
+	}
+	function CarouseTable(list,wsize,before,after){
+		   this.list = list;
+		   this.wsize = wsize;
+		   this.after = after;
+		   this.before = before;
+		   this.index = 0;
+		   var self = this;
+		   this.start = function(){
+			   console.log('start...');
+			   console.log(self);
+			   self.timer = setInterval(self.scroll,1000);
+		   }
+		   this.scroll = function(){
+			   if(self.index==self.wsize){
+				 self.reset();
+				 return;
+				}
+			   var item = self.list[self.index];
+			   $(item).animate(self.after,500);
+			   self.index++;
+		   }
+		   this.reset = function(){
+			  var list = self.list;
+			  var before = self.before;		  
+			  for(var i=0;i<self.wsize;i++)
+			  {
+				$(list[i]).css(before);
+			  }
+			  self.index = 0;
+		   }
+		   this.stop = function(){
+			 if(self.timer){
+			   clearInterval(self.timer);
+			   self.timer = null;
+			 }
+		   }
+	}
+	var t2 = new CarouseTable($('.carouse-table-2 .row'),12,{'height':'45px'},{'height':0});
+	t2.start();
+	
+	var t3 = new CarouseTable($('.carouse-table-3 .row'),10,{'height':'45px'},{'height':0});
+	t3.start();
+	var timer = setInterval(scroll,1500);
+	function chart()
+	{
+	  var chart1 = echarts.init(document.getElementById('chart-1'));
+	  var chart2 = echarts.init(document.getElementById('chart-2'));
+	  var chart3 = echarts.init(document.getElementById('chart-3')); 
+	  var chart4 = echarts.init(document.getElementById('chart-4')); 
+	  var chart5 = echarts.init(document.getElementById('chart-5')); 
+	  var chart6 = echarts.init(document.getElementById('chart-6')); 
+	  var option = {
+			title: {
+			},
+			tooltip: {
+				trigger: 'axis'
+			},
+			legend: {
+				data:['最高','最低']
+			},
+			toolbox: {
+				show: false
+			},
+			xAxis:  {
+				type: 'category',
+				boundaryGap: false,
+				data: ['2005','2006','2007','2007','2008','2009','2010'],
+				axisLine:{lineStyle:{color:'#fff'}}
+			},
+			yAxis: {
+				type: 'value',
+				axisLabel: {
+					formatter: '{value} 万元'
+				},
+				axisLine:{lineStyle:{color:'#fff'}}
+			},
+			series: [
+				{
+					name:'购药总额',
+					type:'line',
+					data:[12, 110, 150, 130, 102, 113, 100],
+					markPoint: {
+						data: [
+							{type: 'max', name: '最大值'},
+							{type: 'min', name: '最小值'}
+						]
+					},
+					markLine: {
+						data: [
+							{type: 'average', name: '平均值'}
+						]
+					}
+				}
+			]
+		};
+	   var option1 = {
+			tooltip: {
+				trigger: 'item',
+				formatter: "{a} <br/>{b}: {c} ({d}%)"
+			},
+			legend: {
+				orient: 'horizontial',
+				x: 'top',
+				data:['处方药','非处方药','医疗器械','消毒用品','妆特字化装品','其他'],
+				textStyle:{color:'#fff'}
+			},
+			series: [
+				{
+					name:'访问来源',
+					type:'pie',
+					radius: ['50%', '70%'],
+					avoidLabelOverlap: false,
+					label: {
+						normal: {
+							show: false,
+							position: 'center'
+						},
+						emphasis: {
+							show: true,
+							textStyle: {
+								fontSize: '30',
+								fontWeight: 'bold'
+							}
+						}
+					},
+					labelLine: {
+						normal: {
+							show: false
+						}
+					},
+					data:[
+						{value:335, name:'处方药'},
+						{value:310, name:'非处方药'},
+						{value:234, name:'医疗器械'},
+						{value:135, name:'消毒用品'},
+						{value:1548, name:'妆特字化装品'},
+						{value:48, name:'其他'}
+					]
+				}
+			]
+		};
+	  var option2 = {
+	        tooltip: {
+				trigger: 'item',
+				formatter: "{a} <br/>{b}",
+				textStyle:{color:'#fff'}
+			},
+			legend: {
+				orient: 'vertical',
+				x: 'left',
+				data:['购药次数>3人数','购药次数<=3人数'],
+			    textStyle:{color:'#fff'}
+			},
+			series:[{
+			   name:'人数分析',
+			   type:'pie',
+			   radius : '55%',
+               center: ['50%', '50%'],
+			   data:[{value:28888,name:'购药次数>3人数'},{value:40000,name:'购药次数<=3人数'}]
+			   }
+			]
+	  
+	  } 
+	  var  option4 = {
+			title: {
+			},
+			tooltip: {
+				trigger: 'axis',
+				axisPointer: {
+					type: 'shadow'
+				}
+			},
+			legend: {
+				data: ['2011年'],
+				textStyle:{color:'#fff'}
+			},
+			grid: {
+				left: '3%',
+				right: '4%',
+				bottom: '3%',
+				containLabel: true
+			},
+			xAxis: {
+				type: 'value',
+				boundaryGap: [0, 0.01],
+				axisLine:{lineStyle:{color:'#fff'}}
+			},
+			yAxis: {
+				type: 'category',
+				data: ['处方药','非处方药','医疗器械','消毒用品','妆特字化装品','其他'],
+				axisLine:{lineStyle:{color:'#fff'}}
+			},
+			series: [
+				{
+					name: '2011年',
+					type: 'bar',
+					data: [18203, 23489, 29034, 104970, 131744, 630230]
+				}
+			]
+		};
+       chart1.setOption(option);
+	   chart2.setOption(option);
+	   chart3.setOption(option);
+	   chart4.setOption(option4);
+	   chart6.setOption(option1);
+	   chart5.setOption(option2);
+	}
+	chart();
+	});
+ </script>
+</head>
+<body>
+<!--
+<div id="datavLoading">
+  <a target="_blank" href="">
+    <img src="loading.gif"/>
+  </a>
+</div>
+-->
+<div class="dataLayout">
+  <div class="main-title">
+   <div class="wrapper">医保药店消费分析</div>   
+  </div>
+  <div class="border-left-top">
+    <div class="wrapper"></div>
+  </div>
+  <div class="border-right-bottom">
+    <div class="wrapper"></div>
+  </div>
+  <div class="sub-title sub-title-1">
+    <div class="wrapper">各类别购买平均金额</div>
+  </div>
+    <div class="sub-title sub-title-2">
+    <div class="wrapper">购药总额</div>
+  </div>
+    <div class="sub-title sub-title-3">
+    <div class="wrapper">购药次数的人数</div>
+  </div>
+    <div class="sub-title sub-title-4">
+    <div class="wrapper">购药总额</div>
+  </div>
+    <div class="sub-title sub-title-5">
+    <div class="wrapper">各类别平均金额</div>
+  </div>
+  <div class="sub-title sub-title-6">
+    <div class="wrapper">各类别购买人次</div>
+  </div>
+  <div class="sub-title sub-title-7">
+    <div class="wrapper">各类别购买人次</div>
+  </div>
+  <div class="sub-title sub-title-8">
+    <div class="wrapper">购买次数人数比例</div>
+  </div>
+  <div class="sub-title sub-title-9">
+    <div class="wrapper">各类别购买人次比例</div>
+  </div>
+  <div class="carouse-table carouse-table-1">
+    <div class="line header">
+		 <div class="index-list"></div>
+		 <div class="column column-title">类别</div>
+		 <div class="column column-title">购买平均金额</div>
+	  </div>
+	  <div class="line row">
+		<div class="column index"><div class="index-bg">1</div></div>
+		<div class="column cell-content">处方药</div>
+		<div class="column cell-content">1000</div>
+	  </div>  
+	  <div class="line row">
+		<div class="column index"><div class="index-bg">2</div></div>
+		<div class="column cell-content">非处方药</div>
+		<div class="column cell-content">20000</div>
+	  </div> 
+	  <div class="line row">
+		<div class="column index"><div class="index-bg">3</div></div>
+		<div class="column cell-content">医疗器械</div>
+		<div class="column cell-content"></div>
+	  </div>  
+	  <div class="line row">
+		<div class="column index"><div class="index-bg">4</div></div>
+		<div class="column cell-content">消毒用品</div>
+		<div class="column cell-content"></div>
+	  </div> 
+	  <div class="line row">
+		<div class="column index"><div class="index-bg">5</div></div>
+		<div class="column cell-content">妆特字化装品</div>
+		<div class="column cell-content"></div>
+	  </div>  
+	  <div class="line row">
+		<div class="column index"><div class="index-bg">6</div></div>
+		<div class="column cell-content">其他</div>
+		<div class="column cell-content"></div>
+	  </div>
+	   <div class="line row">
+		<div class="column index"><div class="index-bg">1</div></div>
+		<div class="column cell-content">处方药</div>
+		<div class="column cell-content">1000</div>
+	  </div>  
+	  <div class="line row">
+		<div class="column index"><div class="index-bg">2</div></div>
+		<div class="column cell-content">非处方药</div>
+		<div class="column cell-content">20000</div>
+	  </div> 
+	  <div class="line row">
+		<div class="column index"><div class="index-bg">3</div></div>
+		<div class="column cell-content">医疗器械</div>
+		<div class="column cell-content"></div>
+	  </div>  
+	  <div class="line row">
+		<div class="column index"><div class="index-bg">4</div></div>
+		<div class="column cell-content">消毒用品</div>
+		<div class="column cell-content"></div>
+	  </div> 
+	  <div class="line row">
+		<div class="column index"><div class="index-bg">5</div></div>
+		<div class="column cell-content">妆特字化装品</div>
+		<div class="column cell-content"></div>
+	  </div>  
+	  <div class="line row">
+		<div class="column index"><div class="index-bg">6</div></div>
+		<div class="column cell-content">其他</div>
+		<div class="column cell-content"></div>
+	  </div>
+  </div>
+  <div class="carouse-table carouse-table-2">
+   <div class="line header">
+     <div class="index-list"></div>
+	 <div class="column column-title">年份</div>
+	 <div class="column column-title">购药总金额</div>
+  </div>
+  <div class="line row">
+    <div class="column index"><div class="index-bg">1</div></div>
+	<div class="column cell-content">2005</div>
+	<div class="column cell-content">1000</div>
+  </div>  
+  <div class="line row">
+    <div class="column index"><div class="index-bg">2</div></div>
+	<div class="column cell-content">2006</div>
+	<div class="column cell-content">20000</div>
+  </div> 
+  <div class="line row">
+    <div class="column index"><div class="index-bg">3</div></div>
+	<div class="column cell-content">2007</div>
+	<div class="column cell-content"></div>
+  </div>  
+  <div class="line row">
+    <div class="column index"><div class="index-bg">4</div></div>
+	<div class="column cell-content">2008</div>
+	<div class="column cell-content">10000</div>
+  </div> 
+  <div class="line row">
+    <div class="column index"><div class="index-bg">5</div></div>
+	<div class="column cell-content">2009</div>
+	<div class="column cell-content">1111</div>
+  </div>  
+  <div class="line row">
+    <div class="column index"><div class="index-bg">6</div></div>
+	<div class="column cell-content">2010</div>
+	<div class="column cell-content">8888</div>
+  </div>
+   <div class="line row">
+    <div class="column index"><div class="index-bg">7</div></div>
+	<div class="column cell-content">2011</div>
+	<div class="column cell-content">1000</div>
+  </div>  
+  <div class="line row">
+    <div class="column index"><div class="index-bg">8</div></div>
+	<div class="column cell-content">2012</div>
+	<div class="column cell-content"></div>
+  </div> 
+  <div class="line row">
+    <div class="column index"><div class="index-bg">9</div></div>
+	<div class="column cell-content">2013</div>
+	<div class="column cell-content"></div>
+  </div>  
+  <div class="line row">
+    <div class="column index"><div class="index-bg">10</div></div>
+	<div class="column cell-content">2014</div>
+	<div class="column cell-content">123</div>
+  </div> 
+  <div class="line row">
+    <div class="column index"><div class="index-bg">11</div></div>
+	<div class="column cell-content">2015</div>
+	<div class="column cell-content">1223</div>
+  </div>  
+  <div class="line row">
+    <div class="column index"><div class="index-bg">12</div></div>
+	<div class="column cell-content">2016</div>
+	<div class="column cell-content">1233</div>
+  </div>
+    <div class="line row">
+    <div class="column index"><div class="index-bg">1</div></div>
+	<div class="column cell-content">2005</div>
+	<div class="column cell-content">1000</div>
+  </div>  
+  <div class="line row">
+    <div class="column index"><div class="index-bg">2</div></div>
+	<div class="column cell-content">2006</div>
+	<div class="column cell-content">20000</div>
+  </div> 
+  <div class="line row">
+    <div class="column index"><div class="index-bg">3</div></div>
+	<div class="column cell-content">2007</div>
+	<div class="column cell-content"></div>
+  </div>  
+  <div class="line row">
+    <div class="column index"><div class="index-bg">4</div></div>
+	<div class="column cell-content">2008</div>
+	<div class="column cell-content">10000</div>
+  </div> 
+  <div class="line row">
+    <div class="column index"><div class="index-bg">5</div></div>
+	<div class="column cell-content">2009</div>
+	<div class="column cell-content">1111</div>
+  </div>  
+  <div class="line row">
+    <div class="column index"><div class="index-bg">6</div></div>
+	<div class="column cell-content">2010</div>
+	<div class="column cell-content">8888</div>
+  </div>
+   <div class="line row">
+    <div class="column index"><div class="index-bg">7</div></div>
+	<div class="column cell-content">2011</div>
+	<div class="column cell-content">1000</div>
+  </div>  
+  <div class="line row">
+    <div class="column index"><div class="index-bg">8</div></div>
+	<div class="column cell-content">2012</div>
+	<div class="column cell-content"></div>
+  </div> 
+  <div class="line row">
+    <div class="column index"><div class="index-bg">9</div></div>
+	<div class="column cell-content">2013</div>
+	<div class="column cell-content"></div>
+  </div>  
+  <div class="line row">
+    <div class="column index"><div class="index-bg">10</div></div>
+	<div class="column cell-content">2014</div>
+	<div class="column cell-content">123</div>
+  </div> 
+  </div>
+  <div class="carouse-table carouse-table-3">
+   <div class="line header">
+     <div class="index-list"></div>
+	 <div class="column year">年份</div>
+	 <div class="column gt">购药次数>3人数</div>
+	 <div class="column lteq">购药次数<=3人数</div>
+  </div>
+  <div class="line row">
+    <div class="column index"><div class="index-bg">1</div></div>
+	<div class="column year">2005</div>
+	<div class="column gt">1000</div>
+	<div class="column lteq">1000</div>
+  </div>  
+  <div class="line row">
+    <div class="column index"><div class="index-bg">2</div></div>
+	<div class="column year">2005</div>
+	<div class="column gt">1000</div>
+	<div class="column lteq">1000</div>
+  </div>  
+  <div class="line row">
+    <div class="column index"><div class="index-bg">3</div></div>
+	<div class="column year">2005</div>
+	<div class="column gt">1000</div>
+	<div class="column lteq">1000</div>
+  </div>  
+  <div class="line row">
+    <div class="column index"><div class="index-bg">4</div></div>
+	<div class="column year">2005</div>
+	<div class="column gt">1000</div>
+	<div class="column lteq">1000</div>
+  </div>  
+  <div class="line row">
+    <div class="column index"><div class="index-bg">5</div></div>
+	<div class="column year">2005</div>
+	<div class="column gt">1000</div>
+	<div class="column lteq">1000</div>
+  </div>  
+  <div class="line row">
+    <div class="column index"><div class="index-bg">6</div></div>
+	<div class="column year">2005</div>
+	<div class="column gt">1000</div>
+	<div class="column lteq">1000</div>
+  </div>  
+  <div class="line row">
+    <div class="column index"><div class="index-bg">7</div></div>
+	<div class="column year">2005</div>
+	<div class="column gt">1000</div>
+	<div class="column lteq">1000</div>
+  </div>  
+  <div class="line row">
+    <div class="column index"><div class="index-bg">8</div></div>
+	<div class="column year">2005</div>
+	<div class="column gt">1000</div>
+	<div class="column lteq">1000</div>
+  </div>   
+  <div class="line row">
+    <div class="column index"><div class="index-bg">9</div></div>
+	<div class="column year">2005</div>
+	<div class="column gt">1000</div>
+	<div class="column lteq">1000</div>
+  </div>  
+  <div class="line row">
+    <div class="column index"><div class="index-bg">10</div></div>
+	<div class="column year">2005</div>
+	<div class="column gt">1000</div>
+	<div class="column lteq">1000</div>
+  </div>  
+  <div class="line row">
+    <div class="column index"><div class="index-bg">1</div></div>
+	<div class="column year">2005</div>
+	<div class="column gt">1000</div>
+	<div class="column lteq">1000</div>
+  </div> 
+  <div class="line row">
+    <div class="column index"><div class="index-bg">2</div></div>
+	<div class="column year">2005</div>
+	<div class="column gt">1000</div>
+	<div class="column lteq">1000</div>
+  </div> 
+  <div class="line row">
+    <div class="column index"><div class="index-bg">3</div></div>
+	<div class="column year">2005</div>
+	<div class="column gt">1000</div>
+	<div class="column lteq">1000</div>
+  </div> 
+    <div class="line row">
+    <div class="column index"><div class="index-bg">4</div></div>
+	<div class="column year">2005</div>
+	<div class="column gt">1000</div>
+	<div class="column lteq">1000</div>
+  </div> 
+  <div class="line row">
+    <div class="column index"><div class="index-bg">5</div></div>
+	<div class="column year">2005</div>
+	<div class="column gt">1000</div>
+	<div class="column lteq">1000</div>
+  </div> 
+  <div class="line row">
+    <div class="column index"><div class="index-bg">6</div></div>
+	<div class="column year">2005</div>
+	<div class="column gt">1000</div>
+	<div class="column lteq">1000</div>
+  </div>    
+</div>
+ <div id="chart-1"> 
+ </div>
+ <div id="chart-2">
+ </div>
+ <div id="chart-3">
+ </div>
+ <div id="chart-4">
+ </div>
+ <div id="chart-5">
+ </div>
+ <div id="chart-6">
+ </div>
+ <div id="timeline">
+ </div>
+</div>
+</body>
+</html>
