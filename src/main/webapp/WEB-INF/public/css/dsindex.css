@@ -1,0 +1,10 @@
+.chart_container{
+    width:100%;
+}
+.chart_container .chart{
+    height:500px;
+    width:50%;
+    min-width:300px;
+    background-color: #ccc;
+    float:left;
+}

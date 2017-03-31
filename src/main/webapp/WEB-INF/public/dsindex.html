@@ -7,8 +7,11 @@
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <!-- 用于图表展示与控制样式 -->
     <link href="css/vindex.css" rel="stylesheet">
+    <!--主样式-->
+    <link href="css/dsindex.css" rel="stylesheet">
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/echarts3/echarts.js"></script>
     <script type="text/javascript" src="js/dsindex.js"></script>
 </head>
 <body>
@@ -109,7 +112,10 @@
 
     <div class="right-content">
         <div class="chart_container" id="people">
-
+            <div id="people_top_left" class="chart"></div>
+            <div id="people_top_right" class="chart"></div>
+            <div id="people_bottom_left" class="chart"></div>
+            <div id="people_bottom_right"></div>
         </div>
         <div class="chart_container" id="times">
 
@@ -120,7 +126,7 @@
         <div class="chart_container" id="sum">
 
         </div>
-        <div class="spinner">
+        <div class="spinner" style="display:none;">
             <div class="rect1"></div>
             <div class="rect2"></div>
             <div class="rect3"></div>
