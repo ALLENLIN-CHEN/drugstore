@@ -18,7 +18,7 @@
       $(function(){
          var piechart = echarts.init(document.getElementById("bottom-chart"));
          $.ajax({
-         url:'drugstore/timespeople',
+         url:'drugstore/people',
          success:function(data){
           constructData(data);
           drawChart();

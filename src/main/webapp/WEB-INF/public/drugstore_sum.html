@@ -20,7 +20,7 @@
       $(function(){
         var piechart = echarts.init(document.getElementById("bottom-chart"));
         $.ajax({
-        url:'drugstore/consum',
+        url:'drugstore/sum',
         success:function(data){
 		   dataList = data.consum;
 		   if(dataList){

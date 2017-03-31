@@ -24,7 +24,7 @@
       var top_chart = echarts.init(document.getElementById("top-chart"));
       var bottom_chart = echarts.init(document.getElementById("bottom-chart"));
       $.ajax({
-      url:'drugstore/categorytimes',
+      url:'drugstore/times',
       success:function(data){
        constructData(data);
        drawChart();

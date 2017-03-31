@@ -25,20 +25,20 @@ import java.util.Map;
 public class DrugStoreController {
   @Resource
   private DrugStoreService drugStoreService;
-  @RequestMapping(value="/categorytimes")
+  @RequestMapping(value="/times")
   @ResponseBody
   public Map<Integer,Object> categoryTiems(Model m){return drugStoreService.getCatTimesData();}
-  @RequestMapping(value="/categoryconavg")
+  @RequestMapping(value="/avg")
   @ResponseBody
   public Map<Integer,Object> categoryConAvg(Model m){
     return drugStoreService.getCatConAvgData();
   }
-  @RequestMapping(value="/timespeople")
+  @RequestMapping(value="/people")
   @ResponseBody
   public List<RareFreqModel> purcharePeople(Model m){
      return drugStoreService.getPurchaseTimesData();
   }
-  @RequestMapping(value="/consum")
+  @RequestMapping(value="/sum")
   @ResponseBody
   public Map<String,Object> conSum(Model m){
     return drugStoreService.getConSum();

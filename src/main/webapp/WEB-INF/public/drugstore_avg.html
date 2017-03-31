@@ -27,7 +27,7 @@
      var piechart = echarts.init(document.getElementById("bottom-chart"));
       $.ajax(
       {
-      url:'drugstore/categoryconavg',
+      url:'drugstore/avg',
       success:function(data){
         constructData(data);
         drawChart();

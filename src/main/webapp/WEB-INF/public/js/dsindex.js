@@ -17,11 +17,16 @@ $(function(){
      role = $(target).attr('data-role');
      console.log(role+' '+url);
      data[role]||getData(url);
-     update();
+     //update(res);
   });
   function getData(url){
-    console.log(url+'getting....');
-    data[role]=1
+    $.ajax({
+      url:url,
+      success:function(res){
+        console.log(res);
+        update();
+      }
+    })
   }
   function update(){
      $(spinner).hide();
