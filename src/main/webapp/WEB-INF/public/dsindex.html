@@ -9,6 +9,7 @@
     <link href="css/vindex.css" rel="stylesheet">
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/dsindex.js"></script>
 </head>
 <body>
 <div class="navbar navbar-fixed-top navbar-inverse" >
@@ -87,56 +88,39 @@
             <label>医保药店消费分析图表</label>
         </div>
         <div class="sub-1 sub-item" style="display:block;">
-            <div class="sub-item-wrap">
+            <div class="sub-item-wrap" data-url="drugstore/people" data-role="people">
                 <i class="icon"></i>
-                <div class="type" data-url="charts/company/countByGender">购药次数人数分析</div>
+                <div class="type">购药次数人数分析</div>
             </div>
-            <div class="sub-item-wrap">
+            <div class="sub-item-wrap" data-url="drugstore/times" data-role="times">
                 <i class="icon"></i>
-                <div class="type" data-url="charts/company/ageRange">各类别购药人次分析</div>
+                <div class="type" >各类别购药人次分析</div>
             </div>
-            <div class="sub-item-wrap">
+            <div class="sub-item-wrap"  data-url="drugstore/sum" data-role="sum">
                 <i class="icon"></i>
-                <div class="type" data-url="charts/company/top10">购药总金额分析</div>
+                <div class="type">购药总金额分析</div>
             </div>
-            <div class="sub-item-wrap">
+            <div class="sub-item-wrap" data-url="drugstore/avg" data-role="avg">
                 <i class="icon"></i>
-                <div class="type" data-url="charts/company/top10">各类别购药平均金额分析</div>
-            </div>
-        </div>
-        <div class="item active" data-id="theme1"  data-index="1">
-            <label>医保药店消费分析数据列表</label>
-        </div>
-        <div class="sub-1 sub-item" style="display:block;">
-            <div class="sub-item-wrap">
-                <i class="icon"></i>
-                <div class="type" data-url="charts/company/countByGender">购药次数人数列表</div>
-            </div>
-            <div class="sub-item-wrap">
-                <i class="icon"></i>
-                <div class="type" data-url="charts/company/ageRange">各类别购药人次列表</div>
-            </div>
-            <div class="sub-item-wrap">
-                <i class="icon"></i>
-                <div class="type" data-url="charts/company/top10">购药总金额列表</div>
-            </div>
-            <div class="sub-item-wrap">
-                <i class="icon"></i>
-                <div class="type" data-url="charts/company/top10">各类别购药平均金额列表</div>
+                <div class="type" >各类别购药平均金额分析</div>
             </div>
         </div>
     </div>
 
     <div class="right-content">
-        <div class="chart_container"></div>
-        <div class="chart_container"></div>
-        <div class="chart_container"></div>
-        <div class="chart_container"></div>
-        <div class="table_container"></div>
-        <div class="table_container"></div>
-        <div class="table_container"></div>
-        <div class="table_container"></div>
-        <div class="spinner" style="display:none;">
+        <div class="chart_container" id="people">
+
+        </div>
+        <div class="chart_container" id="times">
+
+        </div>
+        <div class="chart_container" id="avg">
+
+        </div>
+        <div class="chart_container" id="sum">
+
+        </div>
+        <div class="spinner">
             <div class="rect1"></div>
             <div class="rect2"></div>
             <div class="rect3"></div>
