@@ -8,11 +8,14 @@
     <!-- 用于图表展示与控制样式 -->
     <link href="css/vindex.css" rel="stylesheet">
     <!--主控制样式-->
-    <link href="css/dsindex.css" rel="stylesheet">
+    <link href="css/dslist.css" rel="stylesheet">
+    <!--boostrap table css支持-->
+    <link href="css/bootstrap-table.min.css" rel="stylesheet"/>
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/echarts3/echarts.js"></script>
-    <script type="text/javascript" src="js/dsindex.js"></script>
+    <!--boostrap table js支持-->
+    <script type="text/javascript" src="js/bootstrap-table.min.js"></script>
+    <script type="text/javascript" src="js/dslist.js"></script>
 </head>
 <body>
 <div class="navbar navbar-fixed-top navbar-inverse" >
@@ -88,7 +91,7 @@
 <div class="scut-container">
     <div class="left-content">
         <div class="item active" data-id="theme1"  data-index="1">
-            <label>医保药店消费分析图表</label>
+            <label>医保药店消费分析列表</label>
         </div>
         <div class="sub-1 sub-item" style="display:block;">
             <div class="sub-item-wrap" data-url="drugstore/people" data-role="people">
@@ -111,40 +114,108 @@
     </div>
 
     <div class="right-content">
-        <div class="chart_container" id="people">
-            <div id="people_top">
-            </div>
-            <div class="row">
-                <div id="people_left"></div>
-                <div class="result"></div>
-            </div>
+        <!--列表容器-->
+        <div class="table-container" id="people">
+            <!--列表区-->
+            <table class="table text-center table-bordered">
+                <caption></caption>
+                <thead>
+                <th class="text-center">年份</th>
+                <th class="text-center">购药次数&gt;3的人数</th>
+                <th class="text-center">购药次数&lt;=3的人数</th>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+            <!--分页栏-->
+            <ul class="page">
+               <li><a href="">&laquo;</a></li>
+               <li><a href="">1</a></li>
+               <li><a href="">2</a></li>
+               <li><a href="">3</a></li>
+               <li><a href="">4</a></li>
+               <li><a href="">&raquo;</a></li>
+            <ul>
         </div>
-        <div class="chart_container" id="times">
-            <div class="row">
-                <div id="times_top_left"></div>
-                <div id="times_top_right"></div>
-            </div>
-            <div class="clear"></div>
-            <div class="row">
-                <div id="times_bottom_left"></div>
-            </div>
+        <div class="table-container" id="times">
+            <!--列表区-->
+            <table class="table text-center table-bordered">
+                <caption></caption>
+                <thead>
+                <th class="text-center">年份</th>
+                <th class="text-center">购买处方药人次</th>
+                <th class="text-center">购买非处方药人次</th>
+                <th class="text-center">购买医疗器械人次</th>
+                <th class="text-center">购买保健品人次</th>
+                <th class="text-center">购买“妆特字”化妆品人次</th>
+                <th class="text-center">购买消毒用品人次</th>
+                <th class="text-center">购买其他人次</th>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+            <!--分页栏-->
+            <ul class="page">
+                <li><a href="">&laquo;</a></li>
+                <li><a href="">1</a></li>
+                <li><a href="">2</a></li>
+                <li><a href="">3</a></li>
+                <li><a href="">4</a></li>
+                <li><a href="">&raquo;</a></li>
+            </ul>
         </div>
-        <div class="chart_container" id="avg">
-            <div class="row">
-                <div id="avg_top_left"></div>
-                <div id="avg_top_right"></div>
-            </div>
-            <div class="row">
-                <div id="avg_bottom_left"></div>
-            </div>
+        <div class="table-container" id="sum">
+            <!--列表区-->
+            <table class="table text-center table-bordered">
+                <caption></caption>
+                <thead>
+                <th class="text-center">年份</th>
+                <th class="text-center">购药总金额(元)</th>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+            <!--分页栏-->
+            <ul class="page">
+                <li><a href="">&laquo;</a></li>
+                <li><a href="">1</a></li>
+                <li><a href="">2</a></li>
+                <li><a href="">3</a></li>
+                <li><a href="">4</a></li>
+                <li><a href="">&raquo;</a></li>
+            </ul>
         </div>
-        <div class="chart_container" id="sum">
-            <div class="row">
-                <div id="sum_top"></div>
-            </div>
-            <div class="row">
-                <div id="sum_bottom"></div>
-            </div>
+        <div class="table-container" id="avg">
+            <!--列表区-->
+            <table class="table text-center table-bordered">
+                <caption></caption>
+                <thead>
+                <th class="text-center">年份</th>
+                <th class="text-center">购买处方药平均金额</th>
+                <th class="text-center">购买非处方药平均金额</th>
+                <th class="text-center">购买医疗器械平均金额</th>
+                <th class="text-center">购买保健品平均金额</th>
+                <th class="text-center">购买“妆特字”化妆品平均金额</th>
+                <th class="text-center">购买消毒用品平均金额</th>
+                <th class="text-center">购买其他平均金额</th>
+                </thead>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+            <!--分页栏-->
+            <ul class="page">
+                <li><a href="">&laquo;</a></li>
+                <li><a href="">1</a></li>
+                <li><a href="">2</a></li>
+                <li><a href="">3</a></li>
+                <li><a href="">4</a></li>
+                <li><a href="">&raquo;</a></li>
+            </ul>
         </div>
         <div class="spinner">
             <div class="rect1"></div>

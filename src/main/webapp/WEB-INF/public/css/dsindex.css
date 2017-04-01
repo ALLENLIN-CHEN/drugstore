@@ -1,4 +1,41 @@
 #people_top{
-  height:500px;
+  height:400px;
   width:100%;
+}
+#people_left{
+  height:400px;
+  width:50%;
+}
+.row{
+  width:100%;
+  height:400px;
+}
+#sum_top{
+  height:400px;
+  width:100%;
+}
+#sum_bottom{
+  height:400px;
+  width:70%;
+}
+#times_top_left,#avg_top_left{
+  float:left;
+  width:50%;
+  height:400px;
+}
+#times_top_right,#avg_top_right{
+  float:left;
+  width:50%;
+  height:400px;
+}
+.clear{
+  clear:both;
+}
+#times_bottom_left,#avg_bottom_left
+{
+  width:50%;
+  height:400px;
+}
+.row{
+margin-bottom:20px;
 }
