@@ -822,7 +822,7 @@ $(function(){
              },
      	    tooltip: {
      	    	show:true,
-     	        trigger:'axis',
+     	        trigger:'item',
      	        formatter:'{b}<br/>{a}: {c}人',
      	        axisPointer: {
      	            type:'shadow',

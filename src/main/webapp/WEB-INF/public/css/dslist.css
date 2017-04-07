@@ -18,3 +18,7 @@
 .table-container{
  display:none;
 }
+.table thead{
+  background:#08c;
+  color:#fff;
+}
