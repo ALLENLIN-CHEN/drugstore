@@ -315,6 +315,12 @@ $(function(){
     pie.setOption(top_left_option);
     bar.setOption(top_right_option);
     line.setOption(bottom_left_option);
+    pie.on('timelinechanged',function(param){
+      key = years[param.currentIndex];
+      baroption = bar.getOption();
+      baroption.series[0].data = bardata[key];
+      bar.setOption(baroption);
+    });
   }
   function draw_sum(){
     $('#sum').show();
@@ -766,6 +772,12 @@ $(function(){
     pie.setOption(top_left_option);
     bar.setOption(top_right_option);
     line.setOption(bottom_left_option);
+    pie.on('timelinechanged',function(param){
+         key = years[param.currentIndex];
+         baroption = bar.getOption();
+         baroption.series[0].data = bardata[key];
+         bar.setOption(baroption);
+    });
   }
   function reset(){
     $('.sub-item-wrap').removeClass('active');
