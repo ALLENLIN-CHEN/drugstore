@@ -27,6 +27,7 @@ $(function(){
   function success(res){
     console.log(res);
     //alert('asd')
+    data[role] = res;
     update();
   }
   function getData(url,fn){
@@ -60,10 +61,58 @@ $(function(){
     var pie = echarts.init($('#avg_top_left').get(0));
     var bar = echarts.init($('#avg_top_right').get(0));
     var line = echarts.init($('#avg_bottom_left').get(0));
+        var avglist = data['avg'];
+        var list1 = [];
+        var list2 = [];
+        var list3 = [];
+        var list4 = [];
+        var list5 = [];
+        var list6 = [];
+        var list7 = [];
+        var years = [];
+        var piedatas = [];
+        var bardata = {};
+        var tuple;
+        for(key in avglist){
+        	 tuple = avglist[key];
+        	 years.push(key);
+             list1.push(tuple['item1']);
+             list2.push(tuple['item2']);
+             list3.push(tuple['item3']);
+             list4.push(tuple['item4']);
+             list5.push(tuple['item5']);
+             list6.push(tuple['item6']);
+             list7.push(tuple['item7']);
+             var baritem = [];
+             baritem.push(tuple['item1']);
+             baritem.push(tuple['item2']);
+             baritem.push(tuple['item3']);
+             baritem.push(tuple['item4']);
+             baritem.push(tuple['item5']);
+             baritem.push(tuple['item6']);
+             baritem.push(tuple['item7']);
+             bardata[key] = baritem;
+             piedatas.push({
+                                                      series: [
+                                                        {data:[
+                                                           {name: '处方药', value:tuple['item1']},
+                                                           {name: '非处方药', value: tuple['item2']},
+                                                           {name: '医疗器械', value: tuple['item3']},
+                                                           {name: '保健品', value: tuple['item4']},
+                                                           {name: '妆特字化妆品', value: tuple['item5']},
+                                                           {name: '消毒用品', value: tuple['item6']},
+                                                           {name: '其他', value: tuple['item7']}
+                                                        ]}
+                                                      ]
+                                                   });
+    }
+    var color = ['#a3159a','#8aabf2','#ff7438','#fc9c12','#c3e332','#50c5c3','#029ed9'];
+    var index = 0;
     var top_left_option = {
         baseOption :{
+             color:color,
              timeline : {
-                 data : [2003,2004,2005,2008,2009,2010],
+                 data : years,
                  label : {
                  formatter : function(s) {
                     return s;
@@ -76,6 +125,9 @@ $(function(){
                  bottom:10,
                  right:40,
                  width:30,
+                 checkpointStyle:{
+                     color:'#fc9c12'
+                 },
                  controlStyle:{
                   position:'top'
                  },
@@ -99,39 +151,14 @@ $(function(){
                      name:'人次占比',
                      type:'pie',
                      center:['50%','50%'],
-                     radius:'50%'
+                     radius:'75%',
+                     roseType:'angle'
                      }
                  ]
              },
-             options:[{
-                 series: [
-                 {data:[
-                    {name: '处方药', value:1000},
-                    {name: '非处方药', value: 2000},
-                    {name: '医疗器械', value: 3000},
-                    {name: '保健品', value: 4000},
-                    {name: '妆特字化妆品', value: 5000},
-                    {name: '消毒用品', value: 6000},
-                    {name: '其他', value: 7000}
-                 ]}
-                 ]
-             },
-             {
-                  series: [
-                  {data:[
-                     {name: '处方药', value:1000},
-                     {name: '非处方药', value: 2000},
-                     {name: '医疗器械', value: 3000},
-                     {name: '保健品', value: 4000},
-                     {name: '妆特字化妆品', value: 5000},
-                     {name: '消毒用品', value: 6000},
-                     {name: '其他', value: 7000}
-                     ]}
-                  ]
-             }]
+             options:piedatas
     };
     var top_right_option = {
-        color: ['#3398DB'],
         tooltip : {
              trigger: 'axis',
              axisPointer : {            // 坐标轴指示器，坐标轴触发有效
@@ -147,7 +174,7 @@ $(function(){
         yAxis : [
            {
            type : 'category',
-           data : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+           data : ['处方药', '非处方药', '医疗器械', '保健品', '妆特字化妆品','消毒用品', '其他'],
            axisTick: {
               alignWithLabel: true
            }
@@ -163,12 +190,21 @@ $(function(){
            name:'直接访问',
            type:'bar',
            barWidth: '60%',
-           data:[10, 52, 200, 334, 390, 330, 220]
+           itemStyle:{
+             normal:{
+              color:function(){
+               c = color[index];
+               index = (++index)%7;
+               return c;
+              }
+             }
+           },
+           data:bardata['2010']
            }
          ]
        };
     var bottom_left_option = {
-		   color: ["#cff7cd", "#03c9a9", "#37adff", "#745afe", "#6cf0da", "#44d0ff", "#8b75fd", "#ffc272"],
+		   color:color,
 		   title:{
 		     text:''
 		   },
@@ -283,112 +319,134 @@ $(function(){
   function draw_sum(){
     $('#sum').show();
     //get chart div
+    var datalist = data[role]['consum'];
+    console.log(datalist);
+    var years = [];
+    var sums = [];
+    var oneyear;
+    for(var i=0;i<datalist.length;i++){
+       oneyear = datalist[i];
+       years.push(oneyear.year);
+       sums.push(oneyear.sum);
+    }
     var line = echarts.init($('#sum_top').get(0));
     var bar = echarts.init($('#sum_bottom').get(0));
     var top_option = {
-                                             			title:{
-                                             			},
-                                             			tooltip:{
-                                             			  trigger: 'asix',
-                                                           axisPointer: {
-                                                           lineStyle: {
-                                                             color: '#ddd'
-                                                           }
-                                                     },
-                                                     backgroundColor: 'rgba(255,255,255,1)',
+        grid:{
+            left:40,
+            containLabel:true
+        },
+        tooltip:{
+            show:true,
+            backgroundColor:'#384157',
+            borderColor:'#384157',
+            borderWidth:1,
+            formatter:'{b}:{c}',
+            extraCssText:'box-shadow: 0 0 5px rgba(0, 0, 0, 1)'
+        },
+        legend:{
+            data:['总金额(元)'],
+             textStyle:{
+                color :'#5c6076'
+            }
+        },
+        xAxis: {
+            data: years,
+            boundaryGap:false,
+            axisLine:{
+                show:false
+            },
+             axisLabel: {
+                textStyle: {
+                    color: '#5c6076'
+                }
+            },
+            axisTick:{
+                show:false
+            }
+        },
+        yAxis: {
+            ayisLine:{
+                show:false
+            },
+            min:'dataMin',
+             axisLabel: {
+                textStyle: {
+                    color: '#5c6076'
+                }
+            },
+            splitLine:{
+                show:true,
+                lineStyle:{
+                    color:'#2e3547'
+                }
+            },
+            axisLine: {
+                    lineStyle: {
+                        color: '#384157'
+                    }
+                }
+        },
 
-                                                     textStyle: {
-                                                         color: '#7588E4',
-                                                     },
-                                                     extraCssText: 'box-shadow: 0 0 5px rgba(0,0,0,0.3)'
-                                             			},
-                                             			legend:{
-                                             			   data:['总金额(元)']
-                                             			},
-                                             			xAxis:[
-                                                          {
-                                                             type: 'category',
-                                                             data: [2005,2006,2007,2008,2009,2010],
-                                                             boundaryGap: false,
-                                                             splitLine: {
-                                                                 show: true,
-                                                                 interval: 'auto',
-                                                                 lineStyle: {
-                                                                     color: ['#D4DFF5']
-                                                                 }
-                                                             },
-                                                             axisTick: {
-                                                                 show: false
-                                                             },
-                                                             axisLine: {
-                                                                 lineStyle: {
-                                                                     color: '#609ee9'
-                                                                 }
-                                                             },
-                                                             axisLabel: {
-                                                                 margin: 10,
-                                                                 textStyle: {
-                                                                     fontSize: 14
-                                                                 }
-                                                             }
-                                                         }
-                                             			],
-                                             			yAxis:{
-                                             			min:'dataMin',
-                                             			 type: 'value',
-                                                         splitLine: {
-                                                             lineStyle: {
-                                                                 color: ['#D4DFF5']
-                                                             }
-                                                         },
-                                                         axisTick: {
-                                                             show: false
-                                                         },
-                                                         axisLine: {
-                                                             lineStyle: {
-                                                                 color: '#609ee9'
-                                                             }
-                                                         },
-                                                         axisLabel: {
-                                                             margin: 10,
-                                                             textStyle: {
-                                                                 fontSize: 14
-                                                             }
-                                                         }
-                                             			},
-                                             			series:[{
-                                             			name:'总金额(元)',
-                                             			type: 'line',
-                                                         smooth: true,
-                                                         showSymbol: false,
-                                                         symbol: 'circle',
-                                                         symbolSize: 6,
-                                                         data: [100,2030,1256,38394,2999,30909],
-                                                         areaStyle: {
-                                                             normal: {
-                                                                 color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                                                     offset: 0,
-                                                                     color: 'rgba(199, 237, 250,0.5)'
-                                                                 }, {
-                                                                     offset: 1,
-                                                                     color: 'rgba(199, 237, 250,0.2)'
-                                                                 }], false)
-                                                             }
-                                                         },
-                                                         itemStyle: {
-                                                             normal: {
-                                                                 color: '#f7b851'
-                                                             }
-                                                         },
-                                                         lineStyle: {
-                                                             normal: {
-                                                                 width: 3
-                                                             }
-                                                         }
-                                             			}]
-                                             		  };
+        series: [
+            {
+                type: 'bar',
+                name:'linedemo',
+
+
+                tooltip:{
+                    show:false
+                },
+                animation:false,
+                barWidth:1.4,
+                hoverAnimation:false,
+                data:sums,
+                itemStyle:{
+                    normal:{
+                        color:'#f17a52',
+                        opacity:0.6,
+                        label:{
+                            show:false
+                        }
+                    }
+                }
+            },
+            {
+                type: 'line',
+                name:'总金额(元)',
+                smooth:true,
+                symbolSize:10,
+                animation:false,
+                lineWidth:1.2,
+                hoverAnimation:false,
+                data:sums,
+                symbol:'circle',
+                itemStyle:{
+                    normal:{
+                        color:'#f17a52',
+                        shadowBlur: 40,
+                        label:{
+                            show:true,
+                            position:'top',
+                            textStyle:{
+                                color:'#f17a52',
+
+                            }
+                        }
+                    }
+                },
+               areaStyle:{
+                    normal:{
+                        color:'#f17a52',
+                        opacity:0.08
+                    }
+                }
+
+            }
+        ]
+    };
     var bottom_option = {
-                           color: ['#3398DB'],
+                           color: ['#f17a52'],
                            tooltip : {
                                trigger: 'axis',
                                axisPointer : {            // 坐标轴指示器，坐标轴触发有效
@@ -396,31 +454,27 @@ $(function(){
                                }
                            },
                            grid: {
-                               left: '3%',
-                               right: '4%',
-                               bottom: '3%',
-                               containLabel: true
+                              left:50,
+                           },
+                           grid:{
+                           left:'100px'
                            },
                            xAxis : [
-                               {
-                                   type : 'category',
-                                   data : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-                                   axisTick: {
-                                       alignWithLabel: true
-                                   }
-                               }
-                           ],
-                           yAxis : [
-                               {
-                                   type : 'value'
-                               }
-                           ],
+                                          {
+                                          type: 'category',
+                                          data: years,
+
+                           }],
+                           yAxis : [{
+                              type: 'value',
+
+                           }],
                            series : [
                                {
-                                   name:'直接访问',
+                                   name:'购药总额',
                                    type:'bar',
-                                   barWidth: '60%',
-                                   data:[10, 52, 200, 334, 390, 330, 220]
+                                   barWidth: '50%',
+                                   data:sums
                                }
                            ]
                        };
@@ -429,13 +483,61 @@ $(function(){
   }
   function draw_times(){
    $('#times').show();
+   //ready doms
     var pie = echarts.init($('#times_top_left').get(0));
     var bar = echarts.init($('#times_top_right').get(0));
     var line = echarts.init($('#times_bottom_left').get(0));
+    //ready data
+    var timeslist = data['times'];
+    var list1 = [];
+    var list2 = [];
+    var list3 = [];
+    var list4 = [];
+    var list5 = [];
+    var list6 = [];
+    var list7 = [];
+    var years = [];
+    var piedatas = [];
+    var bardata = {};
+    var tuple;
+    for(key in timeslist){
+    	 tuple = timeslist[key];
+    	 years.push(key);
+         list1.push(tuple['item1']);
+         list2.push(tuple['item2']);
+         list3.push(tuple['item3']);
+         list4.push(tuple['item4']);
+         list5.push(tuple['item5']);
+         list6.push(tuple['item6']);
+         list7.push(tuple['item7']);
+         var baritem = [];
+         baritem.push(tuple['item1']);
+         baritem.push(tuple['item2']);
+         baritem.push(tuple['item3']);
+         baritem.push(tuple['item4']);
+         baritem.push(tuple['item5']);
+         baritem.push(tuple['item6']);
+         baritem.push(tuple['item7']);
+         bardata[key] = baritem;
+         piedatas.push({
+                                                  series: [
+                                                    {data:[
+                                                       {name: '处方药', value:tuple['item1']},
+                                                       {name: '非处方药', value: tuple['item2']},
+                                                       {name: '医疗器械', value: tuple['item3']},
+                                                       {name: '保健品', value: tuple['item4']},
+                                                       {name: '妆特字化妆品', value: tuple['item5']},
+                                                       {name: '消毒用品', value: tuple['item6']},
+                                                       {name: '其他', value: tuple['item7']}
+                                                    ]}
+                                                  ]
+                                               });
+    }
     var top_left_option = {
         baseOption :{
+             color: ['#ffdb6d', '#89c9e1', '#ce77b6', '#f29e29','#726dd1','#ffdec9','#04dd98'],
              timeline : {
-                 data : [2003,2004,2005,2008,2009,2010],
+                 data : years,
                  label : {
                  formatter : function(s) {
                     return s;
@@ -448,6 +550,9 @@ $(function(){
                  bottom:10,
                  right:40,
                  width:30,
+                 checkpointStyle:{
+                   color:'#f29e29'
+                 },
                  controlStyle:{
                   position:'top'
                  },
@@ -470,77 +575,85 @@ $(function(){
                      {
                      name:'人次占比',
                      type:'pie',
-                     center:['30%','50%'],
-                     radius:'50%'
+                     center:['50%','50%'],
+                     radius:['50%','85%'],
+                     label: {
+                                 normal: {
+                                     show: false,
+                                     position: 'center'
+                                 },
+                                 emphasis: {
+                                     show: true,
+                                     formatter: function(param) {
+                                         return param.percent.toFixed(0) + '%';
+                                     },
+                                     position:'center',
+                                     textStyle: {
+                                         fontSize: '30',
+                                         fontWeight: 'bold'
+                                     }
+                                 }
+                             },
+                     labelLine: {
+                             normal: {
+                                 show: true
+                              }
+                      }
                      }
                  ]
              },
-             options:[{
-                 series: [
-                 {data:[
-                    {name: '处方药', value:1000},
-                    {name: '非处方药', value: 2000},
-                    {name: '医疗器械', value: 3000},
-                    {name: '保健品', value: 4000},
-                    {name: '妆特字化妆品', value: 5000},
-                    {name: '消毒用品', value: 6000},
-                    {name: '其他', value: 7000}
-                 ]}
-                 ]
-             },
-             {
-                  series: [
-                  {data:[
-                     {name: '处方药', value:1000},
-                     {name: '非处方药', value: 2000},
-                     {name: '医疗器械', value: 3000},
-                     {name: '保健品', value: 4000},
-                     {name: '妆特字化妆品', value: 5000},
-                     {name: '消毒用品', value: 6000},
-                     {name: '其他', value: 7000}
-                     ]}
-                  ]
-             }]
+             options:piedatas
     };
+    var color = ['#ffdb6d', '#89c9e1', '#ce77b6', '#f29e29','#726dd1','#ffdec9','#04dd98'];
+    var index = 0;
     var top_right_option = {
-        color: ['#3398DB'],
-        tooltip : {
-             trigger: 'axis',
-             axisPointer : {            // 坐标轴指示器，坐标轴触发有效
-             type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
-             }
-        },
-        grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          containLabel: true
-        },
-        yAxis : [
-           {
-           type : 'category',
-           data : ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-           axisTick: {
-              alignWithLabel: true
-           }
-           }
-        ],
-         xAxis : [
-           {
-             type : 'value'
-           }
-         ],
-         series : [
-           {
-           name:'直接访问',
-           type:'bar',
-           barWidth: '60%',
-           data:[10, 52, 200, 334, 390, 330, 220]
-           }
-         ]
-       };
+
+    tooltip : {
+        trigger: 'axis',
+        axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+            type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+        }
+    },
+    grid: {
+        left: '3%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    yAxis : [
+        {
+            type : 'category',
+            data :['处方药', '非处方药', '医疗器械', '保健品', '妆特字化妆品','消毒用品', '其他'],
+            axisTick: {
+                alignWithLabel: true
+            }
+        }
+    ],
+    xAxis : [
+        {
+            type : 'value'
+        }
+    ],
+    series : [
+        {
+            name:'人次',
+            type:'bar',
+            barWidth: '60%',
+            itemStyle:{
+               normal:{
+                color:function(){
+                  c= color[index];
+                  index = (++index)%color.length;
+                  return c;
+                }
+               }
+            },
+            data:bardata['2010']
+        }
+    ]
+    };
     var bottom_left_option = {
-		   color: ["#cff7cd", "#03c9a9", "#37adff", "#745afe", "#6cf0da", "#44d0ff", "#8b75fd", "#ffc272"],
+	       color: ['#ffdb6d', '#89c9e1', '#ce77b6', '#f29e29','#726dd1','#ffdec9','#04dd98'],
 		   title:{
 		     text:''
 		   },
@@ -560,11 +673,12 @@ $(function(){
 			axisTick:{
 				show:false
 			 },
-			data:[2004,2005,2006,2007,2008,2009]
+			data:years
 		   }],
 		   yAxis:[{
 		    type:'value',
-			name:'人数(人)',
+			name:'人次(人)',
+			min:'dataMin',
 			axisTick:{
             show:false
 			},
@@ -584,7 +698,7 @@ $(function(){
 					  barBorderRadius:5
 				  }
                },
-               data:[190,200,300,500,6000,7000]
+               data:list1
 			 },
 			 {
 			   name:'非处方药',
@@ -594,7 +708,7 @@ $(function(){
 					  barBorderRadius:5
 				  }
                },
-               data:[568,900,678,2899,3888,2344]
+               data:list2
 			 },
 			 {
 			   name:'医疗器械',
@@ -604,7 +718,7 @@ $(function(){
 					  barBorderRadius:5
 				  }
                },
-               data:[2333,3489,2389,3944,233,4566]
+               data:list3
 			 },
 			 {
 			   name:'保健品',
@@ -614,7 +728,7 @@ $(function(){
 					  barBorderRadius:5
 				  }
                },
-               data:[2333,456,7999,323,4567,2323]
+               data:list4
 			 },
 			 {
 			   name:'妆特字化妆品',
@@ -624,7 +738,7 @@ $(function(){
 					  barBorderRadius:5
 				  }
                },
-               data:[2123,3467,3432,4455,4560,7892]
+               data:list5
 			 },
 		     {
 			   name:'消毒用品',
@@ -634,7 +748,7 @@ $(function(){
 					  barBorderRadius:5
 				  }
                },
-               data:[1212,3348,3898,4788,2900,3900]
+               data:list6
 			 },
 			 {
 			   name:'其他',
@@ -644,10 +758,11 @@ $(function(){
 					  barBorderRadius:5
 				  }
                },
-               data:[2123,3930,4900,3290,3890,3340]
+               data:list7
 			 }
 		   ]
 	};
+
     pie.setOption(top_left_option);
     bar.setOption(top_right_option);
     line.setOption(bottom_left_option);
@@ -660,21 +775,49 @@ $(function(){
   function draw_people(){
      $('#people').show();
      var top = echarts.init($('#people_top').get(0));
-     var myData=['大栅栏','天安门广场','故宫','景山','北海公园','后海','什刹海','西单','玉渊潭','中央电视塔','东单','王府井','南锣鼓巷','工体','潘家园','琉璃厂'];
-     var option = {
+     var peoplelist = data['people'];
+     var tuple;
+     var years = [];
+     var freqs = [];
+     var rares = [];
+     var labels = [];
+     var options = [];
+     for(var i=0;i<peoplelist.length;i++){
+      tuple = peoplelist[i];
+      years.push(tuple['year']);
+      labels.push(0);
+      freqs.push(tuple['freq']);
+      rares.push(tuple['rare']);
+      options.push({
+                        series:[{
+                           data:[
+                             {
+                                name:'次数>3的人数',
+                                value:tuple['freq']
+                             },
+                             {
+                             name:'次数<=3的人数',
+                             value:tuple['rare']
+                             }
+                           ]
+                        }]
+                      });
+     }
+ var option = {
+             color:['#61af69','#58d2e8'],
              title:{
-                text:'人数',
-                textStyle:{
+               textStyle:{
                      color:'#fff',
                      fontSize:16,
-                 }
+                 },
+
              },
              legend:{
-                 data:['帅哥','美女'],
+                 data:['购药次数>3人数','购药次数<=3人数'],
                  top:4,
                  right:'10%',
                  textStyle:{
-                     color:'#fff',
+                     color:'#333',
                  },
              },
      	    tooltip: {
@@ -685,25 +828,11 @@ $(function(){
      	            type:'shadow',
      	        }
      	    },
-     	    toolbox: {
-             feature: {
-                 dataView: {
-                     show: true,
-                     readOnly: false
-                 },
-                 restore: {
-                     show: true
-                 },
-                 saveAsImage: {
-                     show: true
-                 }
-             }
-         },
      	    grid:[{
      		    	show:false,
      		        left:'4%',
      		        top:60,
-     		        bottom:30,
+     		        bottom:60,
      		        containLabel: true,
      		        width:'46%',
      		    },
@@ -711,14 +840,14 @@ $(function(){
      		    	show:false,
      		        left:'50.5%',
      		        top:80,
-     		        bottom:30,
+     		        bottom:60,
      		        width:'4%',
      		    },
      		    {
      		    	show:false,
      		        right:'4%',
      		        top:60,
-     		        bottom:30,
+     		        bottom:60,
      		        containLabel: true,
      		        width:'46%',
      		    },
@@ -727,17 +856,17 @@ $(function(){
      	    xAxis:[{
      		        type: 'value',
      		        inverse:true,
-     		        axisLine: {show:false,},
+     		        axisLine: {show:true,},
      		        axisTick: {show:false,},
      		        position:'top',
      		        axisLabel: {
      		        	show:true,
-     		        	textStyle: {color:'#B2B2B2',fontSize:12,},
+     		        	textStyle: {color:'#333',fontSize:12,},
      		        },
      		        splitLine: {
      		        	show:true,
      		        	lineStyle:{
-     		        		color:'#1F2022',width: 1,
+     		        		color:'#ccc',width: 1,
      						type: 'solid',
      		        	},
      		        },
@@ -749,16 +878,16 @@ $(function(){
      		     {
      		     	gridIndex: 2,
      		        type: 'value',
-     		        axisLine: {show:false,},
+     		        axisLine: {show:true,},
      		        axisTick: {show:false,},
      		        position:'top',
      		        axisLabel: {
      		        	show:true,
-     					textStyle: {color:'#B2B2B2',fontSize:12,},		        },
+     					textStyle: {color:'#333',fontSize:12,},		        },
      		        splitLine: {
      		        	show:true,
      		        	lineStyle:{
-     		        		color:'#1F2022',width: 1,
+     		        		color:'#ccc',width: 1,
      						type: 'solid',
      		        	},
      		        },
@@ -776,11 +905,11 @@ $(function(){
      		        	show:false,
      		        	margin:8,
      		        	textStyle: {
-     						color:'#9D9EA0',fontSize: 12,
+     						color:'#333',fontSize: 12,
      					},
 
      		        },
-     		        data: myData,
+     		        data: years,
      		    },
      		    {
      		    	gridIndex: 1,
@@ -792,18 +921,20 @@ $(function(){
      		        axisLabel: {
      		        	show:true,
      		        	textStyle: {
-     						color:'#9D9EA0',fontSize: 12,
+     						color:'#333',fontSize: 12,
      					},
 
      		        },
-     		       data:myData.map(function(value){
-     		    		return {
-     		    			value:value,
-     		    			textStyle:{
-     		    				align:'center',
-     		    			}
-     		    		}
-     		    	}),
+    		       data:years.map(function(value){
+
+    		           return {
+
+    		               value:value,
+    		               textStyle:{
+    		                   align:'center'
+    		               }
+    		           }
+    		       })
      		    },
      		     {
      		    	gridIndex: 2,
@@ -815,145 +946,136 @@ $(function(){
      		        axisLabel: {
      		        	show:false,
      		        	textStyle: {
-     						color:'#9D9EA0',fontSize: 12,
+     						color:'#333',fontSize: 12,
      					},
 
      		        },
-     		        data:myData,
+     		        data:years,
      		    },
      		   ],
      	    series: [
-     	        {
-     	            name:'帅哥',
-     	            type: 'bar',
-     	            barGap: 20,
-     	            barWidth: 20,
-     	            label: {
-     		            normal: {
-     		            	show:false,
-     		            },
-     		            emphasis: {
-     		                show:true,
-     		            	position:'left',
-     		                offset:[0,0],
-     		                textStyle: {color: '#fff',fontSize: 14,},
-     		            },
-     	            },
-     	            itemStyle: {
-     					normal: {
-     						color:'#659F83',
-     					},
-     					emphasis: {
-     						color:'#08C7AE',
-     					},
-     				},
-     	            data: [400, 350, 300, 250, 200, 150, 100, 150, 200, 250, 300, 350, 400, 350, 300, 250],
-     	        },
+     	    	        {
+      	            name:'购药次数>3人数',
+      	            type: 'bar',
+      	            barGap: 20,
+      	            barWidth: 20,
+      	            label: {
+      		            normal: {
+      		            	show:false,
+      		            },
+      		            emphasis: {
+      		                show:true,
+      		            	position:'left',
+      		                offset:[0,0],
+      		                textStyle: {color: '#fff',fontSize: 14,},
+      		            },
+      	            },
+      	            itemStyle: {
+      					normal: {
+      						color:'#58d2e8',
+      					},
+      					emphasis: {
+      						color:'#0088cc',
+      					},
+      				},
+      	            data: freqs,
+      	        },
+      	        {
+                   type:'bar',
+      	           xAxisIndex: 1,
+                   yAxisIndex: 1,
+                   label:{
+                    normal:{
+                     show:false
+                    },
+                    emphasis:{
+                      show:false
+                    }
+                   },
+                   data:labels
 
-
-     	        {
-     	            name:'美女',
-     	            type: 'bar',
-     	            barGap: 20,
-     	            barWidth:20,
-     	            xAxisIndex: 2,
+      	        },
+      	        {
+      	            name:'购药次数<=3人数',
+      	            type: 'bar',
+      	            barGap: 20,
+      	            barWidth:20,
+      	            xAxisIndex: 2,
                      yAxisIndex: 2,
-     	            label: {
-     		           normal: {
-     		            	show:false,
-     		            },
-     		            emphasis: {
-     		                show:true,
-     		            	position:'right',
-     		                offset:[0,0],
-     		                textStyle: {color: '#fff',fontSize: 14,},
-     		            },
-     	            },
-     	            itemStyle: {
-     					normal: {
-     						color:'#F68989',
-     					},
-     					emphasis: {
-     						color:'#F94646',
-     					},
-     				},
-     	            data:[380, 370, 350, 330, 300, 290, 280, 270, 260, 110, 120, 130, 140, 350, 300, 250],
-     	        },
-     	    ]
-     	};
-     var pie = echarts.init($('#people_left').get(0));
-     var pieoption = {
-                     	baseOption :{
-                     				timeline : {
-                     				 data : [2003,2004,2005],
-                     				 label : {
-                     					formatter : function(s) {
-                     						return s;
-                     					}
-                     				 }
-                     			    },
-                     				title : {
-                     					},
-                     				tooltip : {
-                     						trigger: 'item',
-                     						formatter: "{c}"
-                     					},
-                     					legend: {
-                     					    align:'left',
-                     						data:['次数>3的人数','次数<=3的人数']
-                     					},
-                     					toolbox: {
-                     						show : false
-                     					},
-                     					series:[
-                     					  {
-                     					  name:'人数占比',
-                     					  type:'pie',
-                     					  center:['50%','50%'],
-                     					  radius:'50%'
-                     					  }
-                     					]
-                     				},
-                     				options:[{
-                                                         series:[{
-                                                           data:[{
-                                                           name:'次数>3的人数',
-                                                           value:1000
-                                                           },
-                                                           {
-                                                            name:'次数<=3的人数',
-                                                            value:200
-                                                           }]
-                                                           }]
-                                             },
-                                             {
-                                                                                                      series:[{
-                                                                                                        data:[{
-                                                                                                        name:'次数>3的人数',
-                                                                                                        value:1000
-                                                                                                        },
-                                                                                                        {
-                                                                                                         name:'次数<=3的人数',
-                                                                                                         value:200
-                                                                                                        }]
-                                                                                                        }]
-                                                                                          },
-                                                                                          {
-                                                                                                                                                   series:[{
-                                                                                                                                                     data:[{
-                                                                                                                                                     name:'次数>3的人数',
-                                                                                                                                                     value:1000
-                                                                                                                                                     },
-                                                                                                                                                     {
-                                                                                                                                                      name:'次数<=3的人数',
-                                                                                                                                                      value:200
-                                                                                                                                                     }]
-                                                                                                                                                     }]
-                                                                                                                                       }
+      	            label: {
+      		           normal: {
+      		            	show:false,
+      		            },
+      		            emphasis: {
+      		                show:true,
+      		            	position:'right',
+      		                offset:[0,0],
+      		                textStyle: {color: '#fff',fontSize: 14,},
+      		            },
+      	            },
+      	            itemStyle: {
+      					normal: {
+      						color:'#61af69',
+      					},
+      					emphasis: {
+      						color:'#b8f788',
+      					},
+      				},
+      	            data:rares,
+      	        }
 
-                                             ]
-                     	};
-                     	       pie.setOption(pieoption);
+     	  ],
+
+ 	};
+
+
+var pie = echarts.init($('#people_left').get(0));
+var pieoption = {
+        baseOption :{
+           color:['#58d2e8','#61af69'],
+           timeline : {
+              data : years,
+              autoPlay:true,
+              checkpointStyle:{
+                color:'#61ff69',
+                borderColor:'#61af69'
+              },
+              itemStyle:{
+                 emphasis:{
+                    color:'#61af69'
+                  }
+              },
+              label : {
+                  formatter : function(s) {
+                     return s;
+                  }
+              }
+           },
+           title : {
+           },
+           tooltip : {
+              trigger: 'item',
+              formatter: "{c}"
+           },
+           legend: {
+               align:'left',
+               data:['次数>3的人数','次数<=3的人数']
+           },
+           toolbox: {
+               show : false
+           },
+           series:[
+              {
+                name:'人数占比',
+                type:'pie',
+                center:['50%','50%'],
+                radius:'50%'
+              }
+           ]
+        },
+        options:options
+     };
+     pie.setOption(pieoption);
      top.setOption(option);
   }
  // draw_people();
