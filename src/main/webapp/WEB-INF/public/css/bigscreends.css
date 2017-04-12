@@ -158,7 +158,7 @@
   .carouse-table-2{
     top:208px;
 	width:328px;
-	height:495px;
+	height:270px;
 	overflow:hidden;
 	left:464px;
 	top:208px;
@@ -325,4 +325,11 @@
  left:44px;
  top:782px;
  z-index:22;
+}
+#timeline{
+  height:100px;
+  width:650px;
+  position:absolute;
+  top:620px;
+  left:44px;
 }
