@@ -75,8 +75,13 @@ $(function(){
         var years = [];
         var piedatas = [];
         var bardata = {};
+        var avg = [0,0,0,0,0,0,0];
+        var labels = ['处方药', '非处方药', '医疗器械', '保健品', '妆特字化妆品','消毒用品', '其他'];
+        var yearavg = [];
         var tuple;
+        var s = 0;
         for(key in avglist){
+             s = 0;
         	 tuple = avglist[key];
         	 years.push(key);
              list1.push(tuple['item1']);
@@ -86,6 +91,16 @@ $(function(){
              list5.push(tuple['item5']);
              list6.push(tuple['item6']);
              list7.push(tuple['item7']);
+
+             avg[0] += tuple['item1'];
+             avg[1] += tuple['item2'];
+             avg[2] += tuple['item3'];
+             avg[3] += tuple['item4'];
+             avg[4] += tuple['item5'];
+             avg[5] += tuple['item6'];
+             avg[6] += tuple['item7'];
+             s = s + tuple['item1']+tuple['item2']+tuple['item3']+tuple['item4']+tuple['item5']+tuple['item6']+tuple['item7'];
+             yearavg.push(s);
              var baritem = [];
              baritem.push(tuple['item1']);
              baritem.push(tuple['item2']);
@@ -324,6 +339,16 @@ $(function(){
       baroption.series[0].data = bardata[key];
       bar.setOption(baroption);
     });
+
+    var mavg = 0
+    var mi = 0;
+    for(var i=0;i<avg.length;i++){
+     if(avg[i]>mavg){
+      mavg = avg[i];
+      mi = i;
+     }
+    }
+    display_avg_result(avg[mi],labels[mi],years,yearavg);
   }
   function draw_sum(){
     $('#sum').show();
@@ -332,11 +357,31 @@ $(function(){
     console.log(datalist);
     var years = [];
     var sums = [];
+    var avg = 0;
+    var summ = 0;
+    var summi = 0;
+    var sumn = 0;
+    var sumni = 0;
+    var resyear = [];
+    for(var i=0;i<datalist.length;i++){
+       avg += datalist[i].sum;
+       if(datalist[i].sum>summ){
+         summ = datalist[i].sum;
+         summi = i;
+       }
+       if(datalist[i].sum<sumn){
+         sumn = datalist[i].sum;
+         sumni = i;
+       }
+    }
+    avg = avg/datalist.length;
     var oneyear;
     for(var i=0;i<datalist.length;i++){
        oneyear = datalist[i];
        years.push(oneyear.year);
        sums.push(oneyear.sum);
+       if(oneyear.sum>avg)
+         resyear.push(oneyear.year);
     }
     var line = echarts.init($('#sum_top').get(0));
     var bar = echarts.init($('#sum_bottom').get(0));
@@ -489,6 +534,7 @@ $(function(){
                        };
     line.setOption(top_option);
     bar.setOption(bottom_option);
+    display_sum_result(datalist[summi],datalist[sumni],resyear);
   }
   function draw_times(){
    $('#times').show();
@@ -498,6 +544,7 @@ $(function(){
     var line = echarts.init($('#times_bottom_left').get(0));
     //ready data
     var timeslist = data['times'];
+    var labels = ['处方药', '非处方药', '医疗器械', '保健品', '妆特字化妆品', '消毒用品','其他'];
     var list1 = [];
     var list2 = [];
     var list3 = [];
@@ -508,8 +555,11 @@ $(function(){
     var years = [];
     var piedatas = [];
     var bardata = {};
+    var sum = [0,0,0,0,0,0,0];
+    var yearsum = [];
     var tuple;
     for(key in timeslist){
+         var s = 0;
     	 tuple = timeslist[key];
     	 years.push(key);
          list1.push(tuple['item1']);
@@ -519,6 +569,15 @@ $(function(){
          list5.push(tuple['item5']);
          list6.push(tuple['item6']);
          list7.push(tuple['item7']);
+         sum[0] += tuple['item1'];
+         sum[1] += tuple['item2'];
+         sum[2] += tuple['item3'];
+         sum[3] += tuple['item4'];
+         sum[4] += tuple['item5'];
+         sum[5] += tuple['item6'];
+         sum[6] += tuple['item7'];
+         s = s+ tuple['item1']+tuple['item2']+tuple['item3']+tuple['item4']+tuple['item5']+tuple['item6']+tuple['item7'];
+         yearsum.push(s);
          var baritem = [];
          baritem.push(tuple['item1']);
          baritem.push(tuple['item2']);
@@ -541,6 +600,12 @@ $(function(){
                                                     ]}
                                                   ]
                                                });
+    }
+    var mi = 0
+    var summ = 0;
+    for(var i=0;i<sum.length;i++){
+      if(sum[i]>summ)
+       mi = i;
     }
     var top_left_option = {
         baseOption :{
@@ -781,6 +846,7 @@ $(function(){
          baroption.series[0].data = bardata[key];
          bar.setOption(baroption);
     });
+    display_times_result(sum[mi],labels[mi],years,yearsum);
   }
   function reset(){
     $('.sub-item-wrap').removeClass('active');
@@ -799,12 +865,28 @@ $(function(){
      var rares = [];
      var labels = [];
      var options = [];
+     var rarem = 0;
+     var rarei = 0;
+     var freqm = 0;
+     var freqi = 0;
+     var resyear = [];
      for(var i=0;i<peoplelist.length;i++){
       tuple = peoplelist[i];
       years.push(tuple['year']);
       labels.push(0);
       freqs.push(tuple['freq']);
       rares.push(tuple['rare']);
+      if(tuple['freq']>freqm){
+         freqm = tuple['freq'];
+         freqi = i;
+      }
+      if(tuple['rare']>rarem){
+           rarem = tuple['freq'];
+           rarei = i;
+       }
+       if(tuple['freq']>tuple['rare']){
+         resyear.push(tuple['year']);
+       }
       options.push({
                         series:[{
                            data:[
@@ -1094,6 +1176,69 @@ var pieoption = {
      };
      pie.setOption(pieoption);
      top.setOption(option);
+     display_people_result(peoplelist[freqi],peoplelist[rarei],resyear);
   }
+  function display_people_result(freq,rare,year){
+      $('#freq_year').html(freq['year']);
+      $('#freq_amount').html(freq['freq']);
+      $('#freq_ratio').html(Math.ceil(freq['freq']/(freq['freq']+freq['rare'])*10000)/100+"%");
+      $('#rare_year').html(freq['year']);
+      $('#rare_amount').html(freq['rare']);
+      $('#rare_ratio').html(Math.ceil(freq['rare']/(freq['freq']+freq['rare'])*10000)/100+"%");
+      $("#people_years").html("");
+      for(var i=0;i<year.length;i++){
+       $("#people_years").append( '<div class="item"><p class="item-top"><span></span></p><p class="item-bottom">'+year[i]+'</p></div>')
+      }
+  }
+  function display_sum_result(max,min,year){
+      $('#sum_max_year').html(max.year);
+      $('#sum_max_amount').html(max.sum);
+      $('#sum_min_year').html(min.year);
+      $('#sum_min_amount').html(min.sum);
+       $("#sum_years").html("");
+      for(var i=0;i<year.length;i++){
+         $("#sum_years").append( '<div class="item"><p class="item-top"><span></span></p><p class="item-bottom">'+year[i]+'</p></div>')
+      }
+  }
+  function display_times_result(max,label,years,yearsum){
+     var timelabel = years[0];
+     if(years.length>1){
+        timelabel += "-"+years[years.length-1];
+     }
+     $(".times_time_label").html(timelabel);
+     $("#times_max_cat").html(label);
+     $("#times_max_amount").html(max);
+     var mm = 0;
+     var mi = 0;
+     for(var i=0;i<yearsum.length;i++){
+       if(mm > yearsum[i])
+       {
+         mm = yearsum[i];
+         mi = i;
+       }
+     }
+     $("#times_max_year").html(years[mi]);
+     $("#time_year_amount").html(yearsum[mi]);
+  }
+   function display_avg_result(max,label,years,yearsum){
+       var timelabel = years[0];
+       if(years.length>1){
+          timelabel += "-"+years[years.length-1];
+       }
+       $(".avg_time_label").html(timelabel);
+       $("#avg_max_cat").html(label);
+       $("#avg_max_amount").html(max);
+       var mm = 0;
+       var mi = 0;
+       for(var i=0;i<yearsum.length;i++){
+         if(mm > yearsum[i])
+         {
+           mm = yearsum[i];
+           mi = i;
+         }
+       }
+       $("#avg_max_year").html(years[mi]);
+       $("#avg_year_amount").html(yearsum[mi]);
+    }
  // draw_people();
 })
