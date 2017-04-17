@@ -9,6 +9,8 @@
     <link href="css/vindex.css" rel="stylesheet">
     <!--主控制样式-->
     <link href="css/dsindex.css" rel="stylesheet">
+    <!--结论框制样式-->
+    <link href="css/conclusion.css" rel="stylesheet">
     <script type="text/javascript" src="js/jquery.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/echarts3/echarts.js"></script>
@@ -111,39 +113,306 @@
     </div>
 
     <div class="right-content">
-        <div class="chart_container" id="people">
-            <div id="people_top">
-            </div>
+        <div class="chart_container" id="people" style="display:none">
             <div class="row">
                 <div id="people_left"></div>
-                <div class="result"></div>
+                <div id="people_result">
+                    <div class="conclusion">
+                        <ul>
+                            <li class="cl_row">
+                                <div class="title"><h3><span class="top-left-arrow"></span>购药次数>3人数<span class="bottom-right-arrow"></span></h3></div>
+                                <div class="content">
+                                    <ul>
+                                        <li>
+                                            <div class="cl_label">最高值年份:</div>
+                                            <div class="counter">2014</div>
+                                        </li>
+                                        <div class="clear"></div>
+                                        <li>
+                                            <div class="cl_label">最高值(人):</div>
+                                            <div class="counter">2563</div>
+                                        </li>
+                                        <div class="clear"></div>
+                                        <li>
+                                            <div class="cl_label">占比:</div>
+                                            <div class="counter">100%</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <div class="clear"></div>
+                            <li class="cl_row">
+                                <div class="title"><h3><span class="top-left-arrow"></span>购药次数<=3人数<span class="bottom-right-arrow"></span></h3></div>
+                                <div class="content">
+                                    <ul>
+                                        <li>
+                                            <div class="cl_label">最高值年份:</div>
+                                            <div class="counter">2013</div>
+                                        </li>
+                                        <div class="clear"></div>
+                                        <li>
+                                            <div class="cl_label">最高值(人):</div>
+                                            <div class="counter">12563</div>
+                                        </li>
+                                        <div class="clear"></div>
+                                        <li>
+                                            <div class="cl_label">占比:</div>
+                                            <div class="counter">100%</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <div class="clear"></div>
+                            <li class="cl_row">
+                                <div class="title"><h3><span class="top-left-arrow"></span>购药次数>3人数大于购药次数<=3人数的年份<span class="bottom-right-arrow"></span></h3></div>
+                                <div class="itemlist">
+                                    <div class="item">
+                                        <p class="item-top"><span></span></p>
+                                        <p class="item-bottom">2011</p>
+                                    </div>
+                                    <div class="item">
+                                        <p class="item-top"><span></span></p>
+                                        <p class="item-bottom">2012</p>
+                                    </div>
+                                    <div class="item">
+                                        <p class="item-top"><span></span></p>
+                                        <p class="item-bottom">2013</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div id="people_top">
             </div>
         </div>
         <div class="chart_container" id="times">
             <div class="row">
-                <div id="times_top_left"></div>
-                <div id="times_top_right"></div>
+                <div id="times_bottom_left"></div>
+                <div id="times_result">
+                    <div class="conclusion">
+                        <ul>
+                            <li class="cl_row">
+                                <div class="title"><h3><span class="top-left-arrow"></span>购药次数>3人数<span class="bottom-right-arrow"></span></h3></div>
+                                <div class="content">
+                                    <ul>
+                                        <li>
+                                            <div class="cl_label">最高值年份:</div>
+                                            <div class="counter">2014</div>
+                                        </li>
+                                        <div class="clear"></div>
+                                        <li>
+                                            <div class="cl_label">最高值(人):</div>
+                                            <div class="counter">2563</div>
+                                        </li>
+                                        <div class="clear"></div>
+                                        <li>
+                                            <div class="cl_label">占比:</div>
+                                            <div class="counter">100%</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <div class="clear"></div>
+                            <li class="cl_row">
+                                <div class="title"><h3><span class="top-left-arrow"></span>购药次数<=3人数<span class="bottom-right-arrow"></span></h3></div>
+                                <div class="content">
+                                    <ul>
+                                        <li>
+                                            <div class="cl_label">最高值年份:</div>
+                                            <div class="counter">2013</div>
+                                        </li>
+                                        <div class="clear"></div>
+                                        <li>
+                                            <div class="cl_label">最高值(人):</div>
+                                            <div class="counter">12563</div>
+                                        </li>
+                                        <div class="clear"></div>
+                                        <li>
+                                            <div class="cl_label">占比:</div>
+                                            <div class="counter">100%</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <div class="clear"></div>
+                            <li class="cl_row">
+                                <div class="title"><h3><span class="top-left-arrow"></span>购药次数>3人数大于购药次数<=3人数的年份<span class="bottom-right-arrow"></span></h3></div>
+                                <div class="itemlist">
+                                    <div class="item">
+                                        <p class="item-top"><span></span></p>
+                                        <p class="item-bottom">2011</p>
+                                    </div>
+                                    <div class="item">
+                                        <p class="item-top"><span></span></p>
+                                        <p class="item-bottom">2012</p>
+                                    </div>
+                                    <div class="item">
+                                        <p class="item-top"><span></span></p>
+                                        <p class="item-bottom">2013</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
             <div class="clear"></div>
             <div class="row">
-                <div id="times_bottom_left"></div>
+                <div id="times_top_left"></div>
+                <div id="times_top_right"></div>
             </div>
         </div>
         <div class="chart_container" id="avg">
             <div class="row">
-                <div id="avg_top_left"></div>
-                <div id="avg_top_right"></div>
+                <div id="avg_bottom_left"></div>
+                <div id="avg_result">
+                    <div class="conclusion">
+                        <ul>
+                            <li class="cl_row">
+                                <div class="title"><h3><span class="top-left-arrow"></span>购药次数>3人数<span class="bottom-right-arrow"></span></h3></div>
+                                <div class="content">
+                                    <ul>
+                                        <li>
+                                            <div class="cl_label">最高值年份:</div>
+                                            <div class="counter">2014</div>
+                                        </li>
+                                        <div class="clear"></div>
+                                        <li>
+                                            <div class="cl_label">最高值(人):</div>
+                                            <div class="counter">2563</div>
+                                        </li>
+                                        <div class="clear"></div>
+                                        <li>
+                                            <div class="cl_label">占比:</div>
+                                            <div class="counter">100%</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <div class="clear"></div>
+                            <li class="cl_row">
+                                <div class="title"><h3><span class="top-left-arrow"></span>购药次数<=3人数<span class="bottom-right-arrow"></span></h3></div>
+                                <div class="content">
+                                    <ul>
+                                        <li>
+                                            <div class="cl_label">最高值年份:</div>
+                                            <div class="counter">2013</div>
+                                        </li>
+                                        <div class="clear"></div>
+                                        <li>
+                                            <div class="cl_label">最高值(人):</div>
+                                            <div class="counter">12563</div>
+                                        </li>
+                                        <div class="clear"></div>
+                                        <li>
+                                            <div class="cl_label">占比:</div>
+                                            <div class="counter">100%</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <div class="clear"></div>
+                            <li class="cl_row">
+                                <div class="title"><h3><span class="top-left-arrow"></span>购药次数>3人数大于购药次数<=3人数的年份<span class="bottom-right-arrow"></span></h3></div>
+                                <div class="itemlist">
+                                    <div class="item">
+                                        <p class="item-top"><span></span></p>
+                                        <p class="item-bottom">2011</p>
+                                    </div>
+                                    <div class="item">
+                                        <p class="item-top"><span></span></p>
+                                        <p class="item-bottom">2012</p>
+                                    </div>
+                                    <div class="item">
+                                        <p class="item-top"><span></span></p>
+                                        <p class="item-bottom">2013</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
             <div class="row">
-                <div id="avg_bottom_left"></div>
+                <div id="avg_top_left">dfhaifjdi</div>
+                <div id="avg_top_right"></div>
             </div>
         </div>
         <div class="chart_container" id="sum">
             <div class="row">
-                <div id="sum_top"></div>
+                <div id="sum_bottom"></div>
+                <div id="sum_result">
+                    <div class="conclusion">
+                        <ul>
+                            <li class="cl_row">
+                                <div class="title"><h3><span class="top-left-arrow"></span>购药次数>3人数<span class="bottom-right-arrow"></span></h3></div>
+                                <div class="content">
+                                    <ul>
+                                        <li>
+                                            <div class="cl_label">最高值年份:</div>
+                                            <div class="counter">2014</div>
+                                        </li>
+                                        <div class="clear"></div>
+                                        <li>
+                                            <div class="cl_label">最高值(人):</div>
+                                            <div class="counter">2563</div>
+                                        </li>
+                                        <div class="clear"></div>
+                                        <li>
+                                            <div class="cl_label">占比:</div>
+                                            <div class="counter">100%</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <div class="clear"></div>
+                            <li class="cl_row">
+                                <div class="title"><h3><span class="top-left-arrow"></span>购药次数<=3人数<span class="bottom-right-arrow"></span></h3></div>
+                                <div class="content">
+                                    <ul>
+                                        <li>
+                                            <div class="cl_label">最高值年份:</div>
+                                            <div class="counter">2013</div>
+                                        </li>
+                                        <div class="clear"></div>
+                                        <li>
+                                            <div class="cl_label">最高值(人):</div>
+                                            <div class="counter">12563</div>
+                                        </li>
+                                        <div class="clear"></div>
+                                        <li>
+                                            <div class="cl_label">占比:</div>
+                                            <div class="counter">100%</div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <div class="clear"></div>
+                            <li class="cl_row">
+                                <div class="title"><h3><span class="top-left-arrow"></span>购药次数>3人数大于购药次数<=3人数的年份<span class="bottom-right-arrow"></span></h3></div>
+                                <div class="itemlist">
+                                    <div class="item">
+                                        <p class="item-top"><span></span></p>
+                                        <p class="item-bottom">2011</p>
+                                    </div>
+                                    <div class="item">
+                                        <p class="item-top"><span></span></p>
+                                        <p class="item-bottom">2012</p>
+                                    </div>
+                                    <div class="item">
+                                        <p class="item-top"><span></span></p>
+                                        <p class="item-bottom">2013</p>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
             <div class="row">
-                <div id="sum_bottom"></div>
+                <div id="sum_top"></div>
             </div>
         </div>
         <div class="spinner">

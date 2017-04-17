@@ -4,6 +4,7 @@
 }
 #people_left{
   height:400px;
+  float:left;
   width:50%;
 }
 .row{
@@ -13,10 +14,6 @@
 #sum_top{
   height:400px;
   width:100%;
-}
-#sum_bottom{
-  height:400px;
-  width:50%;
 }
 #times_top_left,#avg_top_left{
   float:left;
@@ -31,11 +28,18 @@
 .clear{
   clear:both;
 }
-#times_bottom_left,#avg_bottom_left
+#times_bottom_left,#avg_bottom_left,#sum_bottom
 {
   width:50%;
   height:400px;
+  float:left;
 }
 .row{
 margin-bottom:20px;
+}
+#people_result,#times_result,#sum_result,#avg_result{
+ height:400px;
+ width:50%;
+ float:left;
+ overflow:hidden;
 }

@@ -65,7 +65,7 @@
  .border-right-bottom{
    position:absolute;
    left:1056px;
-   top:568px;
+   top:620px;/*568px;*/
    width:832px;
    height:496px;
    z-index:11;
@@ -88,13 +88,13 @@
     top:152px;
   }
   .sub-title-9{
-    width:300px;
-    left:44px;
+    width:330px;
+    left:38px;
 	top:744px;
   }
   .sub-title-8{
     width:300px;
-    left:384px;
+    left:394px;
 	top:744px;
   }
   .sub-title-7{
@@ -151,22 +151,21 @@
   .carouse-table-1{
     top:208px;
 	width:400px;
-	height:375px;
+	height:315px;
 	left:44px;
 	overflow:hidden;
   }
   .carouse-table-2{
     top:208px;
 	width:328px;
-	height:270px;
+	height:315px;
 	overflow:hidden;
 	left:464px;
-	top:208px;
   }
   .carouse-table-3{
    top:208px;
    width:400px;
-   height:400px;
+   height:315px;
    left:832px;
   }
  .line .header{
@@ -314,7 +313,7 @@
  position:absolute;
  height:256px;
  width:300px;
- left:384px;
+ left:394px;
  top:782px;
  z-index:22;
 }
@@ -322,14 +321,14 @@
  position:absolute;
  height:256px;
  width:340px;
- left:44px;
+ left:34px;
  top:782px;
  z-index:22;
 }
 #timeline{
   height:100px;
-  width:650px;
+  width:1200px;
   position:absolute;
-  top:620px;
-  left:44px;
+  top:1000px;
+  left:34px;
 }

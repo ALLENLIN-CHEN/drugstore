@@ -6,7 +6,10 @@ $(function(){
     'people':null,
     'times':null
   };
+  //container id
+  var ids = ['people','times','sum','avg'];
   var spinner = $('.spinner')[0];
+  reset();
   $(spinner).hide();
   $('.sub-item-wrap').on('click',clicklistener);
   function clicklistener(event){
@@ -781,7 +784,9 @@ $(function(){
   }
   function reset(){
     $('.sub-item-wrap').removeClass('active');
-    $('.chart_container').hide();
+    for(var i=0;i<ids.length;i++){
+      $('#'+ids[i]).hide();
+    }
   }
   //draw people charts
   function draw_people(){

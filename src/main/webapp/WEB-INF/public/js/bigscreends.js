@@ -137,8 +137,9 @@ $(function(){
 					avoidLabelOverlap: false,
 					label: {
 						normal: {
-							show: false,
-							position: 'center'
+							show: true,
+							position: 'inside',
+							formatter:'{d}%'
 						},
 						emphasis: {
 							show: true,
@@ -332,7 +333,7 @@ $(function(){
       var option5 = {
 	    color:['#03a9f4','#44d3e4'],
 	    legend: {
-	        data: ['购药次数>3的人数','购药次数<=2的人数'],
+	        data: ['购药次数>3的人数','购药次数<=3的人数'],
 	        textStyle:{
 	         color:'#fff'
 	        }
@@ -345,12 +346,14 @@ $(function(){
 	            center: ['50%', '60%'],
 	            label:{
 	              normal:{
-	               show:false
+	               show:true,
+	               position:'inside',
+	               formatter:'{d}%'
 	              }
 	            },
 	            data:[
 	                {value:335, name:'购药次数>3的人数'},
-	                {value:310, name:'购药次数<=2的人数'},
+	                {value:310, name:'购药次数<=3的人数'},
 	            ]
 	        }
 	    ]
@@ -575,8 +578,16 @@ $(function(){
     var data = [];
     for (var i = 9; i < 16; i++) {
         //xAxisData.push('5月' + i + '日');
-        data.push(Math.round(Math.random() * 500) + 200);
+        data.push(Math.round(Math.random() * 1000000) + 200);
     }
+    var max = 0;
+    data.map(function(value){
+       if(value>max)
+         max = value;
+    });
+    mdata = data.map(function(value){
+       return max*1.25;
+    });
     var option4 = {
         title: {
         },
@@ -611,7 +622,7 @@ $(function(){
             data: xAxisData
         }],
         xAxis: {
-            max: 1000,
+            max: max*1.25,
             axisLine: {
                 show: false
             },
@@ -631,13 +642,11 @@ $(function(){
                 }
             },
             barWidth: 20,
-            data: data.map(function (val) {
-                return 1000;
-            })
+            data:mdata
         }, {
             type: 'bar',
             data: data,
-            barWidth: 16,
+            barWidth: 18,
             itemStyle: {
                 normal: {
                     barBorderRadius: 20,
@@ -645,6 +654,13 @@ $(function(){
                     shadowColor: 'rgba(0, 0, 0, 0.4)',
                     shadowBlur: 20
                 }
+            },
+            label:{
+              normal:{
+                show:true,
+                position:'insideTopRight',
+                offset:[10,10]
+              }
             }
         }]
     };
