@@ -170,7 +170,14 @@ $(function(){
                      type:'pie',
                      center:['50%','50%'],
                      radius:'75%',
-                     roseType:'angle'
+                     roseType:'angle',
+                     label:{
+                       normal:{
+                        show:true,
+                        position:'outside',
+                        formatter:'{b}\n{d}'
+                       }
+                     }
                      }
                  ]
              },
@@ -205,7 +212,7 @@ $(function(){
          ],
          series : [
            {
-           name:'直接访问',
+           name:'平均金额',
            type:'bar',
            barWidth: '60%',
            itemStyle:{
@@ -622,7 +629,7 @@ $(function(){
                  inverse:true,
                  top:30,
                  bottom:10,
-                 right:40,
+                 right:30,
                  width:30,
                  checkpointStyle:{
                    color:'#f29e29'
@@ -653,8 +660,9 @@ $(function(){
                      radius:['50%','85%'],
                      label: {
                                  normal: {
-                                     show: false,
-                                     position: 'center'
+                                     show: true,
+                                     position: 'outside',
+                                     formatter:'{b}\n{d}'
                                  },
                                  emphasis: {
                                      show: true,
@@ -1168,7 +1176,14 @@ var pieoption = {
                 name:'人数占比',
                 type:'pie',
                 center:['50%','50%'],
-                radius:'50%'
+                radius:'50%',
+                label:{
+ 	              normal:{
+ 	               show:true,
+ 	               position:'outside',
+ 	               formatter:'{b}\n{d}%'
+ 	              }
+ 	            }
               }
            ]
         },
@@ -1192,9 +1207,9 @@ var pieoption = {
   }
   function display_sum_result(max,min,year){
       $('#sum_max_year').html(max.year);
-      $('#sum_max_amount').html(max.sum);
+      $('#sum_max_amount').text(Math.round(max.sum*100)/100);
       $('#sum_min_year').html(min.year);
-      $('#sum_min_amount').html(min.sum);
+      $('#sum_min_amount').html(Math.round(min.sum*100)/100);
        $("#sum_years").html("");
       for(var i=0;i<year.length;i++){
          $("#sum_years").append( '<div class="item"><p class="item-top"><span></span></p><p class="item-bottom">'+year[i]+'</p></div>')
@@ -1227,7 +1242,7 @@ var pieoption = {
        }
        $(".avg_time_label").html(timelabel);
        $("#avg_max_cat").html(label);
-       $("#avg_max_amount").html(max);
+       $("#avg_max_amount").html(Math.round(max*100)/100);
        var mm = 0;
        var mi = 0;
        for(var i=0;i<yearsum.length;i++){
@@ -1238,7 +1253,7 @@ var pieoption = {
          }
        }
        $("#avg_max_year").html(years[mi]);
-       $("#avg_year_amount").html(yearsum[mi]);
+       $("#avg_year_amount").html(Math.round(yearsum[mi]*100)/100);
     }
  // draw_people();
 })

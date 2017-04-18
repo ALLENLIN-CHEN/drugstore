@@ -41,15 +41,17 @@
 .conclusion .title{
       border-bottom:1px solid #08c;
     }
+    .content ul{
+       list-style:circle;
+       list-style-position:left;
+    }
     .content li{
-      list-style-type:circle;
       line-height:32px;
     }
     .conclusion .cl_label,.counter{
      display:inline-block;
      height:32px;
      line-height:32px;
-     float:left;
     }
     .conclusion .counter{
      margin-left:5px;
@@ -59,6 +61,7 @@
    .conclusion .clear{
       width:0;
       height:0;
+      display:none;
       clear:both;
     }
     .conclusion .item{
