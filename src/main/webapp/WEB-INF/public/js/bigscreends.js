@@ -1,5 +1,6 @@
 $(function(){
 	var index = 0;
+	var color = ['#a3159a','#8aabf2','#ff7438','#fc9c12','#c3e332','#50c5c3','#029ed9'];
 	var rows = $('.carouse-table-1 .row');
 	var windowsize = 6;
 	function scroll(){
@@ -54,8 +55,6 @@ $(function(){
 			 }
 		   }
 	}
-	var t2 = new CarouseTable($('.carouse-table-2 .row'),6,{'height':'45px'},{'height':0});
-	t2.start();
 
 	var t3 = new CarouseTable($('.carouse-table-3 .row'),10,{'height':'45px'},{'height':0});
 	t3.start();
@@ -65,9 +64,6 @@ $(function(){
 	}
 	function chart()
 	{
-	  var chart1 = echarts.init(document.getElementById('chart-1'));
-	  var chart2 = echarts.init(document.getElementById('chart-2'));
-	  var chart3 = echarts.init(document.getElementById('chart-3'));
 	  var chart4 = echarts.init(document.getElementById('chart-4'));
 	  var chart5 = echarts.init(document.getElementById('chart-5'));
 	  var chart6 = echarts.init(document.getElementById('chart-6'));
@@ -165,134 +161,8 @@ $(function(){
 				}
 			]
 		};
-	  var color = ['#a3159a','#8aabf2','#ff7438','#fc9c12','#c3e332','#50c5c3','#029ed9'];
-	  var option2 = {
-      		   color:color,
-      		   title:{
-      		     text:''
-      		   },
-      		   tooltip:{
-      			   trigger: 'axis',
-      			   axisPointer: { // 坐标轴指示器，坐标轴触发有效
-      				type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
-      			   }
-                 },
-      		   toolbox:{
-      		   },
-      		   grid:{
-      		     top:70,
-      		     left:60,
-      		     right:10,
-      		     bottom:20
-      		   },
-      		   legend:{
-      		     data: ['处方药', '非处方药', '医疗器械', '保健品', '妆特字化妆品', '消毒用品','其他'],
-      		     textStyle:{
-      		      color:'#fff'
-      		     }
-      		   },
-      		   xAxis:[{
-      			type: 'category',
-      			axisTick:{
-      				show:false
-      			 },
-      			axisLine:{
-      				lineStyle:{
-      					color:"#fff"
-      				}
-      			},
-      			data:[2004,2005,2006,2007,2008,2009]
-      		   }],
-      		   yAxis:[{
-      		    type:'value',
-      			name:'平均金额(元)',
-      			axisTick:{
-                  show:false
-      			},
-      			axisLine:{
-      				lineStyle:{
-      					color:"#fff"
-      				}
-      			},
-      			splitLine:{
-      				lineStyle:{
-      					color:"#fff"
-      				}
-      			}
-      		   }],
-      		   series:[
-      		     {
-      			   name:'处方药',
-                     type:'line',
-                     itemStyle:{
-      				  normal:{
-      					  barBorderRadius:5
-      				  }
-                     },
-                     data:[190,200,300,500,6000,7000]
-      			 },
-      			 {
-      			   name:'非处方药',
-                     type:'line',
-                     itemStyle:{
-      				  normal:{
-      					  barBorderRadius:5
-      				  }
-                     },
-                     data:[568,900,678,2899,3888,2344]
-      			 },
-      			 {
-      			   name:'医疗器械',
-                     type:'line',
-                     itemStyle:{
-      				  normal:{
-      					  barBorderRadius:5
-      				  }
-                     },
-                     data:[2333,3489,2389,3944,233,4566]
-      			 },
-      			 {
-      			   name:'保健品',
-                     type:'line',
-                     itemStyle:{
-      				  normal:{
-      					  barBorderRadius:5
-      				  }
-                     },
-                     data:[2333,456,7999,323,4567,2323]
-      			 },
-      			 {
-      			   name:'妆特字化妆品',
-                     type:'line',
-                     itemStyle:{
-      				  normal:{
-      					  barBorderRadius:5
-      				  }
-                     },
-                     data:[2123,3467,3432,4455,4560,7892]
-      			 },
-      		     {
-      			   name:'消毒用品',
-                     type:'line',
-                     itemStyle:{
-      				  normal:{
-      					  barBorderRadius:5
-      				  }
-                     },
-                     data:[1212,3348,3898,4788,2900,3900]
-      			 },
-      			 {
-      			   name:'其他',
-                     type:'line',
-                     itemStyle:{
-      				  normal:{
-      					  barBorderRadius:5
-      				  }
-                     },
-                     data:[2123,3930,4900,3290,3890,3340]
-      			 }
-      		   ]
-      	};
+
+
 	  var option4 = {
 			title: {
 			},
@@ -358,222 +228,7 @@ $(function(){
 	        }
 	    ]
 	};
-    var option3 = {
-        color:color,
-		title: {
-		},
-		tooltip: {
-			 trigger: 'axis',
-			axisPointer: {
-				lineStyle: {
-					color: '#57617B'
-				}
-			}
-		},
-		legend: {
-			icon: 'rect',
-			itemWidth: 14,
-			itemHeight: 5,
-			itemGap: 13,
-			right: '4%',
-			textStyle: {
-				fontSize: 12,
-				color: '#fff'
-			},
-			data:['处方药','非处方药','医疗器械','保健品','“妆特字”化妆品','消毒用品','其他'],
-			textStyle:{
-			 color:'#fff'
-			}
-		},
-		grid: {
-        left: '3%',
-        right: '4%',
-        bottom: '3%',
-        containLabel: true
-        },
-		toolbox: {
-			show: false
-		},
-		xAxis:  {
-        type: 'category',
-        boundaryGap: false,
-        axisLine: {
-            lineStyle: {
-                color: '#fff'
-            }
-        },
-        data: [2010,2011,2012,2013,2014,2015]
-        },
-		yAxis:
-		 [{
-			type: 'value',
-			axisTick: {
-				show: false
-			},
-			axisLine: {
-				lineStyle: {
-					color: '#fff'
-				}
-			},
-			axisLabel: {
-				margin: 10,
-				textStyle: {
-					fontSize: 14
-				},
-				formatter: '{value}人次'
-			},
-			splitLine: {
-				lineStyle: {
-					color: '#fff'
-				}
-			},
-			min:'dataMin'
-		}],
-		series: [
-			{
-				name:'处方药',
-				type:'line',
-				smooth: true,
-				symbol: 'circle',
-				symbolSize: 5,
-				showSymbol: false,
-				lineStyle: {
-					normal: {
-						width: 2
-					}
-				},
-				itemStyle: {
-					normal: {
-						color: 'rgb(137,189,27)',
-						borderColor: 'rgba(137,189,2,0.27)',
-						borderWidth: 12
 
-					}
-				},
-				data:[1000,2000,3000,4000,5000],
-			},
-			{
-				name:'非处方药',
-				type: 'line',
-				smooth: true,
-				symbol: 'circle',
-				symbolSize: 5,
-				showSymbol: false,
-				lineStyle: {
-					normal: {
-						width: 2
-					}
-				},
-				itemStyle: {
-					normal: {
-						color: 'rgb(0,136,212)',
-						borderColor: 'rgba(0,136,212,0.2)',
-						borderWidth: 12
-
-					}
-				},
-				data:[1200,3000,2300,4000,2700,3600]
-			},
-			{
-				name:'医疗器械',
-				type:'line',
-				smooth: true,
-				symbol: 'circle',
-				symbolSize: 5,
-				showSymbol: false,
-				lineStyle: {
-					normal: {
-						width: 2
-					}
-				},
-				itemStyle: {
-					normal: {
-
-						color: 'rgb(219,50,51)',
-						borderColor: 'rgba(219,50,51,0.2)',
-						borderWidth: 12
-					}
-				},
-				data:[800,3200,4300,2600,1200,3000]
-			},
-			{
-				name:'保健品',
-				type:'line',
-				 smooth: true,
-				symbol: 'circle',
-				symbolSize: 5,
-				showSymbol: false,
-				lineStyle: {
-					normal: {
-						width: 2
-					}
-				},
-				itemStyle: {
-					normal: {
-						borderWidth: 12
-					}
-				},
-				data:[1500,2300,1700,4800,5400,3500]
-			},
-			{
-				name:'“妆特字”化妆品',
-				type:'line',
-				 smooth: true,
-				symbol: 'circle',
-				symbolSize: 5,
-				showSymbol: false,
-				lineStyle: {
-					normal: {
-						width: 2
-					}
-				},
-				itemStyle: {
-					normal: {
-						borderWidth: 12
-					}
-				},
-				data:[3000,2400,3500,1900,3400,2800]
-			},
-			{
-				name:'消毒用品',
-				type:'line',
-				 smooth: true,
-				symbol: 'circle',
-				symbolSize: 5,
-				showSymbol: false,
-				lineStyle: {
-					normal: {
-						width: 2
-					}
-				},
-				itemStyle: {
-					normal: {
-						borderWidth: 12
-					}
-				},
-				data:[2700,4300,2800,1800,3400,1600]
-			},
-			{
-				name:'其他',
-				type:'line',
-				 smooth: true,
-				symbol: 'circle',
-				symbolSize: 5,
-				showSymbol: false,
-				lineStyle: {
-					normal: {
-						width:2
-					}
-				},
-				itemStyle: {
-					normal: {
-						borderWidth: 12
-					}
-				},
-				data:[3000,2000,2600,3700,4300,1800]
-			}
-		]
-      }
 	var xAxisData = ['处方药','非处方药','医疗器械','消毒用品','妆特字化装品','保健品','其他'];
     var data = [];
     for (var i = 9; i < 16; i++) {
@@ -664,125 +319,7 @@ $(function(){
             }
         }]
     };
-    var option1 = {
 
-        grid:{
-            left:10,
-            top:40,
-            bottom:0,
-            right:40,
-            containLabel:true
-        },
-        tooltip:{
-            show:true,
-            backgroundColor:'#384157',
-            borderColor:'#384157',
-            borderWidth:1,
-            formatter:'{b}:{c}',
-            extraCssText:'box-shadow: 0 0 5px rgba(0, 0, 0, 1)'
-        },
-        legend:{
-            right:20,
-            top:0,
-            data:['金额(元)'],
-             textStyle:{
-                color :'#fff'
-            }
-        },
-        xAxis: {
-            data: [2010,2011,2012,2013,2014,2015,2016],
-            boundaryGap:false,
-            axisLine:{
-                show:false
-            },
-             axisLabel: {
-                textStyle: {
-                    color: '#fff'
-                }
-            },
-            axisTick:{
-                show:false
-            }
-        },
-        yAxis: {
-            ayisLine:{
-                show:false
-            },
-             axisLabel: {
-                textStyle: {
-                    color: '#fff'
-                }
-            },
-            splitLine:{
-                show:true,
-                lineStyle:{
-                    color:'#fff'
-                }
-            },
-            axisLine: {
-                    lineStyle: {
-                        color: '#fff'
-                    }
-                }
-        },
-
-        series: [
-            {
-                type: 'bar',
-                name:'linedemo',
-
-
-                tooltip:{
-                    show:false
-                },
-                animation:false,
-                barWidth:1.4,
-                hoverAnimation:false,
-                data:[1000,1200,2000,3000,800,2000,300,8000],
-                itemStyle:{
-                    normal:{
-                        color:'#f17a52',
-                        opacity:0.6,
-                        label:{
-                            show:false
-                        }
-                    }
-                }
-            },
-            {
-                type: 'line',
-                name:'金额(元)',
-                smooth:true,
-                symbolSize:10,
-                animation:false,
-                lineWidth:1.2,
-                hoverAnimation:false,
-                data:[1000,1200,2000,3000,800,2000,300,8000],
-                symbol:'circle',
-                itemStyle:{
-                    normal:{
-                        color:'#f17a52',
-                        shadowBlur: 40,
-                        label:{
-                            show:true,
-                            position:'top',
-                            textStyle:{
-                                color:'#f17a52',
-
-                            }
-                        }
-                    }
-                },
-               areaStyle:{
-                    normal:{
-                        color:'#f17a52',
-                        opacity:0.08
-                    }
-                }
-
-            }
-        ]
-    };
     var timelineoption =  {
        timeline:{
          show:true,
@@ -807,9 +344,7 @@ $(function(){
          }
        }
     }
-       chart1.setOption(option1);
-	   chart2.setOption(option2);
-	   chart3.setOption(option3);
+
 	   chart4.setOption(option4);
 	   chart6.setOption(option6);
 	   chart5.setOption(option5);
@@ -835,28 +370,623 @@ $(function(){
 	 success:showTimes
 	 });
 	}
+	//所有的数据对象
+	var totaldata = {
+	 'people':null,
+	 'avg':null,
+	 'sum':null,
+	 'times':null
+	}
 	//记录数据渲染完成的计数，当==4时则更新界面使加载动画消失
 	var finished = 0;
 	function showPeople(data){
-	  console.log(data);
+	  var people = data;
+	  totaldata = data;
+      //填充滚动列表
+      //对数据排序
+	  people.map(function(a,b){
+	     return (b.rare+b.freq)-(a.rare+a.freq);
+	  });
+      var table2 = '<div class="line header"><div class="index-list"></div><div class="column column-title">年份</div><div class="column column-title">购药总金额</div></div>';
+      for(var i=0;i<Math.max(people.length,12);i++){
+         var index = i%people.length;
+         table2 += ' <div class="line row"><div class="column index"><div class="index-bg">'+(index+1)+'</div></div><div class="column cell-content">'+people[index].year+'</div><div class="column cell-content">'+people[index].freq+'</div><div class="column cell-content">'+people[index].rare+'</div></div>';
+      }
+      $('.carouse-table-3').html(table2);
+      //填充完毕使其滚动
+      var t3 = new CarouseTable($('.carouse-table-3 .row'),6,{'height':'45px'},{'height':0});
+      t3.start();
 	  finished++;
 	  update();
 	}
 	//更新与购药次数相关图表的初始化
 	function showTimes(data){
-	  console.log(data);
-	   finished++;
+	  totaldata.times = data;
+	  var list1 = [];
+	  var list2 = [];
+	  var list3 = [];
+	  var list4 = [];
+	  var list5 = [];
+	  var list6 = [];
+	  var list7 = [];
+	  var years = [];
+	  //准备数据
+	  for(year in data){
+	    years.push(year);
+	    list1.push(data[year]['item1']);
+	    list2.push(data[year]['item2']);
+	    list3.push(data[year]['item3']);
+	    list4.push(data[year]['item4']);
+	    list5.push(data[year]['item5']);
+	    list6.push(data[year]['item6']);
+	    list7.push(data[year]['item7']);
+	  }
+	  var option3 = {
+              color:color,
+      		title: {
+      		},
+      		tooltip: {
+      			 trigger: 'axis',
+      			axisPointer: {
+      				lineStyle: {
+      					color: '#57617B'
+      				}
+      			}
+      		},
+      		legend: {
+      			icon: 'rect',
+      			itemWidth: 14,
+      			itemHeight: 5,
+      			itemGap: 13,
+      			right: '4%',
+      			textStyle: {
+      				fontSize: 12,
+      				color: '#fff'
+      			},
+      			data:['处方药','非处方药','医疗器械','保健品','“妆特字”化妆品','消毒用品','其他'],
+      			textStyle:{
+      			 color:'#fff'
+      			}
+      		},
+      		grid: {
+              left: '3%',
+              right: '4%',
+              bottom: '3%',
+              containLabel: true
+              },
+      		toolbox: {
+      			show: false
+      		},
+      		xAxis:  {
+              type: 'category',
+              boundaryGap: false,
+              axisLine: {
+                  lineStyle: {
+                      color: '#fff'
+                  }
+              },
+              data: years
+              },
+      		yAxis:
+      		 [{
+      			type: 'value',
+      			axisTick: {
+      				show: false
+      			},
+      			axisLine: {
+      				lineStyle: {
+      					color: '#fff'
+      				}
+      			},
+      			axisLabel: {
+      				margin: 10,
+      				textStyle: {
+      					fontSize: 14
+      				},
+      				formatter: '{value}人次'
+      			},
+      			splitLine: {
+      				lineStyle: {
+      					color: '#fff'
+      				}
+      			},
+      			min:'dataMin'
+      		}],
+      		series: [
+      			{
+      				name:'处方药',
+      				type:'line',
+      				smooth: true,
+      				symbol: 'circle',
+      				symbolSize: 5,
+      				showSymbol: true,
+      				lineStyle: {
+      					normal: {
+      						width: 2
+      					}
+      				},
+      				itemStyle: {
+      					normal: {
+      						color: 'rgb(137,189,27)',
+      						borderColor: 'rgba(137,189,2,0.27)',
+      						borderWidth: 12
+      					}
+      				},
+      				label:{
+      				   normal:{
+                         show:true,
+                         formatter:'{c}'
+                       }
+                    },
+      				data:list1,
+      			},
+      			{
+      				name:'非处方药',
+      				type: 'line',
+      				smooth: true,
+      				symbol: 'circle',
+      				symbolSize: 5,
+      				showSymbol: true,
+      				lineStyle: {
+      					normal: {
+      						width: 2
+      					}
+      				},
+      				itemStyle: {
+      					normal: {
+      						color: 'rgb(0,136,212)',
+      						borderColor: 'rgba(0,136,212,0.2)',
+      						borderWidth: 12
+
+      					}
+      				},
+                    label:{
+      				   normal:{
+                         show:true,
+                         formatter:'{c}'
+                       }
+                    },
+      				data:list2
+      			},
+      			{
+      				name:'医疗器械',
+      				type:'line',
+      				smooth: true,
+      				symbol: 'circle',
+      				symbolSize: 5,
+      				showSymbol: true,
+      				lineStyle: {
+      					normal: {
+      						width: 2
+      					}
+      				},
+      				itemStyle: {
+      					normal: {
+
+      						color: 'rgb(219,50,51)',
+      						borderColor: 'rgba(219,50,51,0.2)',
+      						borderWidth: 12
+      					}
+      				},
+                    label:{
+       				   normal:{
+                          show:true,
+                          formatter:'{c}'
+                        }
+                     },
+      				data:list3
+      			},
+      			{
+      				name:'保健品',
+      				type:'line',
+      				 smooth: true,
+      				symbol: 'circle',
+      				symbolSize: 5,
+      				showSymbol: true,
+      				lineStyle: {
+      					normal: {
+      						width: 2
+      					}
+      				},
+      				itemStyle: {
+      					normal: {
+      						borderWidth: 12
+      					}
+      				},
+                    label:{
+       				   normal:{
+                          show:true,
+                          formatter:'{c}'
+                        }
+                    },
+      				data:list4
+      			},
+      			{
+      				name:'“妆特字”化妆品',
+      				type:'line',
+      				 smooth: true,
+      				symbol: 'circle',
+      				symbolSize: 5,
+      				showSymbol: true,
+      				lineStyle: {
+      					normal: {
+      						width: 2
+      					}
+      				},
+      				itemStyle: {
+      					normal: {
+      						borderWidth: 12
+      					}
+      				},
+                    label:{
+      				   normal:{
+                         show:true,
+                         formatter:'{c}'
+                       }
+                    },
+      				data:list5
+      			},
+      			{
+      				name:'消毒用品',
+      				type:'line',
+      				 smooth: true,
+      				symbol: 'circle',
+      				symbolSize: 5,
+      				showSymbol: true,
+      				lineStyle: {
+      					normal: {
+      						width: 2
+      					}
+      				},
+      				itemStyle: {
+      					normal: {
+      						borderWidth: 12
+      					}
+      				},
+                    label:{
+      				   normal:{
+                         show:true,
+                         formatter:'{c}'
+                       }
+                    },
+      				data:list6
+      			},
+      			{
+      				name:'其他',
+      				type:'line',
+      				 smooth: true,
+      				symbol: 'circle',
+      				symbolSize: 5,
+      				showSymbol: true,
+      				lineStyle: {
+      					normal: {
+      						width:2
+      					}
+      				},
+      				itemStyle: {
+      					normal: {
+      						borderWidth: 12
+      					}
+      				},
+                    label:{
+      				   normal:{
+                         show:true,
+                         formatter:'{c}'
+                       }
+                    },
+      				data:list7
+      			}
+      		]
+            }
+	  var chart3 = echarts.init(document.getElementById('chart-3'));
+	  chart3.setOption(option3);
+	  finished++;
 	  update();
 	}
 	//更新与购药总额相关图表的初始化
 	function showSum(data){
-	  console.log(data);
+	  var sums = data.consum;
+	  totaldata.sum = sums;
+	  var years = [];
+	  var sumlist = [];
+	  //组织折线图数据
+	  sums.map(function(value){
+	     years.push(value.year);
+	     sumlist.push(value.sum);
+	  });
+      var chart1 = echarts.init(document.getElementById('chart-1'));
+      var option1 = {
+
+              grid:{
+                  left:10,
+                  top:40,
+                  bottom:0,
+                  right:40,
+                  containLabel:true
+              },
+              tooltip:{
+                  show:true,
+                  backgroundColor:'#384157',
+                  borderColor:'#384157',
+                  borderWidth:1,
+                  formatter:'{b}:{c}',
+                  extraCssText:'box-shadow: 0 0 5px rgba(0, 0, 0, 1)'
+              },
+              legend:{
+                  right:20,
+                  top:0,
+                  data:['金额(元)'],
+                   textStyle:{
+                      color :'#fff'
+                  }
+              },
+              xAxis: {
+                  data: years,
+                  boundaryGap:false,
+                  axisLine:{
+                      show:false
+                  },
+                   axisLabel: {
+                      textStyle: {
+                          color: '#fff'
+                      }
+                  },
+                  axisTick:{
+                      show:false
+                  }
+              },
+              yAxis: {
+                  min:'dataMin',
+                  ayisLine:{
+                      show:false
+                  },
+                   axisLabel: {
+                      textStyle: {
+                          color: '#fff'
+                      }
+                  },
+                  splitLine:{
+                      show:true,
+                      lineStyle:{
+                          color:'#fff'
+                      }
+                  },
+                  axisLine: {
+                          lineStyle: {
+                              color: '#fff'
+                          }
+                      }
+              },
+
+              series: [
+                  {
+                      type: 'bar',
+                      name:'linedemo',
+
+
+                      tooltip:{
+                          show:false
+                      },
+                      animation:false,
+                      barWidth:1.4,
+                      hoverAnimation:false,
+                      data:sumlist,
+                      itemStyle:{
+                          normal:{
+                              color:'#f17a52',
+                              opacity:0.6,
+                              label:{
+                                  show:false
+                              }
+                          }
+                      }
+                  },
+                  {
+                      type: 'line',
+                      name:'金额(元)',
+                      smooth:true,
+                      symbolSize:10,
+                      animation:false,
+                      lineWidth:1.2,
+                      hoverAnimation:false,
+                      data:sumlist,
+                      symbol:'circle',
+                      itemStyle:{
+                          normal:{
+                              color:'#f17a52',
+                              shadowBlur: 40,
+                              label:{
+                                  show:true,
+                                  position:'top',
+                                  textStyle:{
+                                      color:'#f17a52',
+
+                                  }
+                              }
+                          }
+                      },
+                     areaStyle:{
+                          normal:{
+                              color:'#f17a52',
+                              opacity:0.08
+                          }
+                      }
+
+                  }
+              ]
+          };
+      //画折线图
+      chart1.setOption(option1);
+      //填充滚动列表
+      //对数据排序
+      sums.sort(function(a,b){
+        return b.sum-a.sum;
+      });
+      var table2 = '<div class="line header"><div class="index-list"></div><div class="column column-title">年份</div><div class="column column-title">购药总金额</div></div>';
+      for(var i=0;i<Math.max(sums.length,12);i++){
+         var index = i%sums.length;
+         table2 += ' <div class="line row"><div class="column index"><div class="index-bg">'+(index+1)+'</div></div><div class="column cell-content">'+sums[index].year+'</div><div class="column cell-content">'+sums[index].sum+'</div></div>';
+      }
+      $('.carouse-table-2').html(table2);
+      //填充完毕使其滚动
+      var t2 = new CarouseTable($('.carouse-table-2 .row'),6,{'height':'45px'},{'height':0});
+      t2.start();
 	  finished++;
 	  update();
 	}
 	//更新与购药平均金额图表的初始化
 	function showAvg(data){
-	  console.log(data);
+	  var chart2 = echarts.init(document.getElementById('chart-2'));
+	  totaldata.avg = data;
+	  var list1 = [];
+	  var list2 = [];
+	  var list3 = [];
+	  var list4 = [];
+	  var list5 = [];
+	  var list6 = [];
+	  var list7 = [];
+	  var years = [];
+	  //准备数据
+	  for(year in data){
+	    years.push(year);
+	    list1.push(data[year]['item1']);
+	    list2.push(data[year]['item2']);
+	    list3.push(data[year]['item3']);
+	    list4.push(data[year]['item4']);
+	    list5.push(data[year]['item5']);
+	    list6.push(data[year]['item6']);
+	    list7.push(data[year]['item7']);
+	  }
+	  var option2 = {
+            		   color:color,
+            		   title:{
+            		     text:''
+            		   },
+            		   tooltip:{
+            			   trigger: 'axis',
+            			   axisPointer: { // 坐标轴指示器，坐标轴触发有效
+            				type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+            			   }
+                       },
+            		   toolbox:{
+            		   },
+            		   grid:{
+            		     top:70,
+            		     left:60,
+            		     right:10,
+            		     bottom:20
+            		   },
+            		   legend:{
+            		     data: ['处方药', '非处方药', '医疗器械', '保健品', '妆特字化妆品', '消毒用品','其他'],
+            		     textStyle:{
+            		      color:'#fff'
+            		     }
+            		   },
+            		   xAxis:[{
+            			type: 'category',
+            			axisTick:{
+            				show:false
+            			 },
+            			axisLine:{
+            				lineStyle:{
+            					color:"#fff"
+            				}
+            			},
+            			data:years
+            		   }],
+            		   yAxis:[{
+            		    type:'value',
+            			name:'平均金额(元)',
+            		    min:'dataMin',
+            			axisTick:{
+                        show:false
+            			},
+            			axisLine:{
+            				lineStyle:{
+            					color:"#fff"
+            				}
+            			},
+            			splitLine:{
+            				lineStyle:{
+            					color:"#fff"
+            				}
+            			}
+            		   }],
+            		   series:[
+            		     {
+            			   name:'处方药',
+                           type:'line',
+                           itemStyle:{
+            				  normal:{
+            					  barBorderRadius:5
+            				  }
+                           },
+                           data:list1
+            			 },
+            			 {
+            			   name:'非处方药',
+                           type:'line',
+                           itemStyle:{
+            				  normal:{
+            					  barBorderRadius:5
+            				  }
+                           },
+                           data:list2
+            			 },
+            			 {
+            			   name:'医疗器械',
+                           type:'line',
+                           itemStyle:{
+            				  normal:{
+            					  barBorderRadius:5
+            				  }
+                           },
+                           data:list3
+            			 },
+            			 {
+            			   name:'保健品',
+                           type:'line',
+                           itemStyle:{
+            				  normal:{
+            					  barBorderRadius:5
+            				  }
+                           },
+                           data:list4
+            			 },
+            			 {
+            			   name:'妆特字化妆品',
+                           type:'line',
+                           itemStyle:{
+            				  normal:{
+            					  barBorderRadius:5
+            				  }
+                           },
+                           data:list5
+            			 },
+            		     {
+            			   name:'消毒用品',
+                           type:'line',
+                           itemStyle:{
+            				  normal:{
+            					  barBorderRadius:5
+            				  }
+                           },
+                           data:list6
+            			 },
+            			 {
+            			   name:'其他',
+                           type:'line',
+                           itemStyle:{
+            				  normal:{
+            					  barBorderRadius:5
+            				  }
+                           },
+                           data:list7
+            			 }
+            		   ]
+            	};
+      //为图填充数据
+	  chart2.setOption(option2);
 	  finished++;
 	  update();
 	}
@@ -864,7 +994,10 @@ $(function(){
 	function update(){
 	  if(finished==4){
 	   console.log('all finished');
-	   }
+	  }
+	}
+	function timechange(){
+
 	}
 	init();
 });
