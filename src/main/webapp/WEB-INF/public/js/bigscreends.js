@@ -2,22 +2,6 @@ $(function(){
 	var index = 0;
 	var color = ['#a3159a','#8aabf2','#ff7438','#fc9c12','#c3e332','#50c5c3','#029ed9'];
 	var rows = $('.carouse-table-1 .row');
-	var windowsize = 6;
-	function scroll(){
-	 if(index==6){
-	  for(var i=0;i<6;i++){
-		$(rows[i]).css({'height':'45px','margin-top':'10px'});
-	  }
-	  index = 0;
-	 }
-	 $(rows[index]).animate({'height':0,'margin':0},500);
-	 index++;
-	}
-	function reset(list,wsize,before){
-	  for(var i=0;i<list.length&&i<wsize;i++){
-	    $(list[i]).css(before);
-	  }
-	}
 	function CarouseTable(list,wsize,before,after){
 		   this.list = list;
 		   this.wsize = wsize;
@@ -34,7 +18,7 @@ $(function(){
 			   if(self.index==self.wsize){
 				 self.reset();
 				 return;
-				}
+			   }
 			   var item = self.list[self.index];
 			   $(item).animate(self.after,500);
 			   self.index++;
@@ -55,302 +39,7 @@ $(function(){
 			 }
 		   }
 	}
-
-	var t3 = new CarouseTable($('.carouse-table-3 .row'),10,{'height':'45px'},{'height':0});
-	t3.start();
-	var timer = setInterval(scroll,1500);
-	function init(){
-
-	}
-	function chart()
-	{
-	  var chart4 = echarts.init(document.getElementById('chart-4'));
-	  var chart5 = echarts.init(document.getElementById('chart-5'));
-	  var chart6 = echarts.init(document.getElementById('chart-6'));
-	  var timeline = echarts.init(document.getElementById('timeline'));
-	  var option = {
-			title: {
-			},
-			tooltip: {
-				trigger: 'axis'
-			},
-			legend: {
-				data:['最高','最低']
-			},
-			toolbox: {
-				show: false
-			},
-			xAxis:  {
-				type: 'category',
-				boundaryGap: false,
-				data: ['2005','2006','2007','2007','2008','2009','2010'],
-				axisLine:{lineStyle:{color:'#fff'}}
-			},
-			yAxis: {
-				type: 'value',
-				axisLabel: {
-					formatter: '{value} 万元'
-				},
-				axisLine:{lineStyle:{color:'#fff'}}
-			},
-			series: [
-				{
-					name:'购药总额',
-					type:'line',
-					data:[12, 110, 150, 130, 102, 113, 100],
-					markPoint: {
-						data: [
-							{type: 'max', name: '最大值'},
-							{type: 'min', name: '最小值'}
-						]
-					},
-					markLine: {
-						data: [
-							{type: 'average', name: '平均值'}
-						]
-					}
-				}
-			]
-		};
-
-	  var option6 = {
-	        color: ['#ffdb6d', '#89c9e1', '#ce77b6', '#f29e29','#726dd1','#ffdec9','#04dd98'],
-			tooltip: {
-				trigger: 'item',
-				formatter: "{a} <br/>{b}: {c} ({d}%)"
-			},
-			legend: {
-                align:'left',
-				data:['处方药','非处方药','医疗器械','消毒用品','妆特字化装品','其他'],
-				textStyle:{color:'#fff'}
-			},
-			series: [
-				{
-					name:'访问来源',
-					type:'pie',
-					radius: ['50%', '80%'],
-					center:['50%','60%'],
-					avoidLabelOverlap: false,
-					label: {
-						normal: {
-							show: true,
-							position: 'inside',
-							formatter:'{d}%'
-						},
-						emphasis: {
-							show: true,
-							textStyle: {
-								fontSize: '30',
-								fontWeight: 'bold'
-							}
-						}
-					},
-					labelLine: {
-						normal: {
-							show: false
-						}
-					},
-					data:[
-						{value:335, name:'处方药'},
-						{value:310, name:'非处方药'},
-						{value:234, name:'医疗器械'},
-						{value:135, name:'消毒用品'},
-						{value:1548, name:'妆特字化装品'},
-						{value:48, name:'其他'}
-					]
-				}
-			]
-		};
-
-
-	  var option4 = {
-			title: {
-			},
-			tooltip: {
-				trigger: 'axis',
-				axisPointer: {
-					type: 'shadow'
-				}
-			},
-			legend: {
-				data: ['2011年'],
-				textStyle:{color:'#fff'}
-			},
-			grid: {
-				left: '3%',
-				right: '4%',
-				bottom: '3%',
-				containLabel: true
-			},
-			xAxis: {
-				type: 'value',
-				boundaryGap: [0, 0.01],
-				axisLine:{lineStyle:{color:'#fff'}}
-			},
-			yAxis: {
-				type: 'category',
-				data: ['处方药','非处方药','医疗器械','消毒用品','妆特字化装品','其他'],
-				axisLine:{lineStyle:{color:'#fff'}}
-			},
-			series: [
-				{
-					name: '2011年',
-					type: 'bar',
-					data: [18203, 23489, 29034, 104970, 131744, 630230]
-				}
-			]
-		};
-      var option5 = {
-	    color:['#03a9f4','#44d3e4'],
-	    legend: {
-	        data: ['购药次数>3的人数','购药次数<=3的人数'],
-	        textStyle:{
-	         color:'#fff'
-	        }
-	    },
-	    series : [
-	        {
-	            name: '购药次数人数比例',
-	            type: 'pie',
-	            radius : '80%',
-	            center: ['50%', '60%'],
-	            label:{
-	              normal:{
-	               show:true,
-	               position:'inside',
-	               formatter:'{d}%'
-	              }
-	            },
-	            data:[
-	                {value:335, name:'购药次数>3的人数'},
-	                {value:310, name:'购药次数<=3的人数'},
-	            ]
-	        }
-	    ]
-	};
-
-	var xAxisData = ['处方药','非处方药','医疗器械','消毒用品','妆特字化装品','保健品','其他'];
-    var data = [];
-    for (var i = 9; i < 16; i++) {
-        //xAxisData.push('5月' + i + '日');
-        data.push(Math.round(Math.random() * 1000000) + 200);
-    }
-    var max = 0;
-    data.map(function(value){
-       if(value>max)
-         max = value;
-    });
-    mdata = data.map(function(value){
-       return max*1.25;
-    });
-    var option4 = {
-        title: {
-        },
-        tooltip:{
-          trigger:'item'
-        },
-        grid:{
-          width:430,
-          height:220,
-          left:80,
-          top:20
-        },
-        yAxis: [{
-            data: xAxisData,
-            axisLabel: {
-                textStyle: {
-                    color: '#fff'
-                }
-            },
-            splitLine: {
-                show: false
-            },
-            axisLine:{
-                show:false
-            },
-            axisTick:{
-                show:false
-            }
-        }, {
-            // 辅助 x 轴
-            show: false,
-            data: xAxisData
-        }],
-        xAxis: {
-            max: max*1.25,
-            axisLine: {
-                show: false
-            },
-            show:false
-        },
-        series: [{
-            // 辅助系列
-            type: 'bar',
-            silent: true,
-            yAxisIndex: 1,
-            itemStyle: {
-                normal: {
-                    barBorderRadius: 20,
-                    borderColor:'#fff',
-                    borderWidth:2,
-                    color: '#0e2a42'
-                }
-            },
-            barWidth: 20,
-            data:mdata
-        }, {
-            type: 'bar',
-            data: data,
-            barWidth: 18,
-            itemStyle: {
-                normal: {
-                    barBorderRadius: 20,
-                    color: '#03a9f4',
-                    shadowColor: 'rgba(0, 0, 0, 0.4)',
-                    shadowBlur: 20
-                }
-            },
-            label:{
-              normal:{
-                show:true,
-                position:'insideTopRight',
-                offset:[10,10]
-              }
-            }
-        }]
-    };
-
-    var timelineoption =  {
-       timeline:{
-         show:true,
-         data:[2010,2011,2012,2013,2014],
-         left:20,
-         right:20,
-         autoPlay:true,
-         checkpointStyle:{
-           color:'#0f7fec',
-           borderWidth:2,
-           borderColor:'#03a9f8'
-         },
-         label : {
-           formatter : function(s) {
-              return s;
-           },
-           normal:{
-             textStyle:{
-              color:'#fff'
-             }
-           }
-         }
-       }
-    }
-
-	   chart4.setOption(option4);
-	   chart6.setOption(option6);
-	   chart5.setOption(option5);
-	   timeline.setOption(timelineoption);
-	}
-	chart();
+	var labels = ['处方药','非处方药','医疗器械','消毒用品','妆特字化装品','保健品','其他'];
 	//加载数据并初始化图表
 	function init(){
 	 $.ajax({
@@ -377,22 +66,23 @@ $(function(){
 	 'sum':null,
 	 'times':null
 	}
+	var years = [];
 	//记录数据渲染完成的计数，当==4时则更新界面使加载动画消失
 	var finished = 0;
 	function showPeople(data){
 	  var people = data;
-	  totaldata = data;
+	  totaldata.people = data;
       //填充滚动列表
       //对数据排序
 	  people.map(function(a,b){
 	     return (b.rare+b.freq)-(a.rare+a.freq);
 	  });
-      var table2 = '<div class="line header"><div class="index-list"></div><div class="column column-title">年份</div><div class="column column-title">购药总金额</div></div>';
+      var table3 = '<div class="line header"><div class="index-list"></div><div class="column year">年份</div><div class="column gt">购药次数>3人数</div><div class="column lteq">购药次数<=3人数</div></div>';
       for(var i=0;i<Math.max(people.length,12);i++){
          var index = i%people.length;
-         table2 += ' <div class="line row"><div class="column index"><div class="index-bg">'+(index+1)+'</div></div><div class="column cell-content">'+people[index].year+'</div><div class="column cell-content">'+people[index].freq+'</div><div class="column cell-content">'+people[index].rare+'</div></div>';
+         table3 += ' <div class="line row"><div class="column index"><div class="index-bg">'+(index+1)+'</div></div><div class="column cell-content">'+people[index].year+'</div><div class="column cell-content">'+people[index].freq+'</div><div class="column cell-content">'+people[index].rare+'</div></div>';
       }
-      $('.carouse-table-3').html(table2);
+      $('.carouse-table-3').html(table3);
       //填充完毕使其滚动
       var t3 = new CarouseTable($('.carouse-table-3 .row'),6,{'height':'45px'},{'height':0});
       t3.start();
@@ -409,7 +99,6 @@ $(function(){
 	  var list5 = [];
 	  var list6 = [];
 	  var list7 = [];
-	  var years = [];
 	  //准备数据
 	  for(year in data){
 	    years.push(year);
@@ -512,12 +201,6 @@ $(function(){
       						borderWidth: 12
       					}
       				},
-      				label:{
-      				   normal:{
-                         show:true,
-                         formatter:'{c}'
-                       }
-                    },
       				data:list1,
       			},
       			{
@@ -540,12 +223,6 @@ $(function(){
 
       					}
       				},
-                    label:{
-      				   normal:{
-                         show:true,
-                         formatter:'{c}'
-                       }
-                    },
       				data:list2
       			},
       			{
@@ -568,12 +245,6 @@ $(function(){
       						borderWidth: 12
       					}
       				},
-                    label:{
-       				   normal:{
-                          show:true,
-                          formatter:'{c}'
-                        }
-                     },
       				data:list3
       			},
       			{
@@ -593,12 +264,6 @@ $(function(){
       						borderWidth: 12
       					}
       				},
-                    label:{
-       				   normal:{
-                          show:true,
-                          formatter:'{c}'
-                        }
-                    },
       				data:list4
       			},
       			{
@@ -618,12 +283,6 @@ $(function(){
       						borderWidth: 12
       					}
       				},
-                    label:{
-      				   normal:{
-                         show:true,
-                         formatter:'{c}'
-                       }
-                    },
       				data:list5
       			},
       			{
@@ -643,12 +302,6 @@ $(function(){
       						borderWidth: 12
       					}
       				},
-                    label:{
-      				   normal:{
-                         show:true,
-                         formatter:'{c}'
-                       }
-                    },
       				data:list6
       			},
       			{
@@ -668,12 +321,6 @@ $(function(){
       						borderWidth: 12
       					}
       				},
-                    label:{
-      				   normal:{
-                         show:true,
-                         formatter:'{c}'
-                       }
-                    },
       				data:list7
       			}
       		]
@@ -993,11 +640,296 @@ $(function(){
     //更新界面，如判断是否撤销动画
 	function update(){
 	  if(finished==4){
+	   showTimeline();
 	   console.log('all finished');
 	  }
 	}
-	function timechange(){
+	var chart4 = echarts.init(document.getElementById('chart-4'));
+    var chart5 = echarts.init(document.getElementById('chart-5'));
+    var chart6 = echarts.init(document.getElementById('chart-6'));
+    var t1;
 
+	function showTimeline(){
+	   var timeline = echarts.init(document.getElementById('timeline'));
+	   var timelineoption =  {
+              timeline:{
+                show:true,
+                data:years,
+                left:20,
+                right:20,
+                autoPlay:true,
+                playInterval:1500*7,
+                checkpointStyle:{
+                  color:'#0f7fec',
+                  borderWidth:2,
+                  borderColor:'#03a9f8'
+                },
+                label : {
+                  formatter : function(s) {
+                     return s;
+                  },
+                  normal:{
+                    textStyle:{
+                     color:'#fff'
+                    }
+                  }
+                }
+              }
+           }
+	   timeline.setOption(timelineoption);
+	   var times = totaldata['times'][years[0]];
+	   //购药人次第一年数据
+	   var timedata = [];
+	   var listdata = [];
+       var maxtimes = 0;
+
+       for(key in times){
+          timedata.push(times[key]);
+          if(times[key]>maxtimes){
+            maxtimes = times[key];
+          }
+       }
+	   var option4 = {
+               title: {
+               },
+               tooltip:{
+                 trigger:'item'
+               },
+               grid:{
+                 width:430,
+                 height:220,
+                 left:80,
+                 top:20
+               },
+               yAxis: [{
+                   data: labels,
+                   axisLabel: {
+                       textStyle: {
+                           color: '#fff'
+                       }
+                   },
+                   splitLine: {
+                       show: false
+                   },
+                   axisLine:{
+                       show:false
+                   },
+                   axisTick:{
+                       show:false
+                   }
+               }, {
+                   // 辅助 x 轴
+                   show: false,
+                   data: labels
+               }],
+               xAxis: {
+                   max:(maxtimes*1.25),
+                   axisLine: {
+                       show: false
+                   },
+                   show:false
+               },
+               series: [{
+                   // 辅助系列
+                   type: 'bar',
+                   silent: true,
+                   yAxisIndex: 1,
+                   itemStyle: {
+                       normal: {
+                           barBorderRadius: 20,
+                           borderColor:'#fff',
+                           borderWidth:2,
+                           color: '#0e2a42'
+                       }
+                   },
+                   barWidth: 20,
+                   data:[maxtimes*1.25,maxtimes*1.25,maxtimes*1.25,maxtimes*1.25,maxtimes*1.25,maxtimes*1.25,maxtimes*1.25]
+               }, {
+                   type: 'bar',
+                   data: timedata,
+                   barWidth: 18,
+                   itemStyle: {
+                       normal: {
+                           barBorderRadius: 20,
+                           color: '#03a9f4',
+                           shadowColor: 'rgba(0, 0, 0, 0.4)',
+                           shadowBlur: 20
+                       }
+                   },
+                   label:{
+                     normal:{
+                       show:true,
+                       position:'insideTopRight',
+                       offset:[10,10]
+                     }
+                   }
+               }]
+           };
+       //人数第一年数据
+       var people1 = totaldata['people'][0];
+       var option5 = {
+       	    color:['#03a9f4','#44d3e4'],
+       	    legend: {
+       	        data: ['购药次数>3的人数','购药次数<=3的人数'],
+       	        textStyle:{
+       	         color:'#fff'
+       	        }
+       	    },
+       	    series : [
+       	        {
+       	            name: '购药次数人数比例',
+       	            type: 'pie',
+       	            radius : '80%',
+       	            center: ['50%', '60%'],
+       	            label:{
+       	              normal:{
+       	               show:true,
+       	               position:'inside',
+       	               formatter:'{d}%'
+       	              }
+       	            },
+       	            data:[
+       	                {value:people1.freq, name:'购药次数>3的人数'},
+       	                {value:people1.rare, name:'购药次数<=3的人数'},
+       	            ]
+       	        }
+       	    ]
+       	};
+       var option6 = {
+       	        color: ['#ffdb6d', '#89c9e1', '#ce77b6', '#f29e29','#726dd1','#ffdec9','#04dd98'],
+       			tooltip: {
+       				trigger: 'item',
+       				formatter: "{a} <br/>{b}: {c} ({d}%)"
+       			},
+       			legend: {
+                    align:'left',
+       				data:labels,
+       				textStyle:{color:'#fff'}
+       			},
+       			series: [
+       				{
+       					name:'访问来源',
+       					type:'pie',
+       					radius: ['50%', '80%'],
+       					center:['50%','60%'],
+       					avoidLabelOverlap: false,
+       					label: {
+       						normal: {
+       							show: true,
+       							position: 'inside',
+       							formatter:'{d}%'
+       						},
+       						emphasis: {
+       							show: true,
+       							textStyle: {
+       								fontSize: '30',
+       								fontWeight: 'bold'
+       							}
+       						}
+       					},
+       					labelLine: {
+       						normal: {
+       							show: false
+       						}
+       					},
+       					data:[
+       						{value:times['item1'], name:'处方药'},
+       						{value:times['item2'], name:'非处方药'},
+       						{value:times['item3'], name:'医疗器械'},
+       						{value:times['item4'], name:'消毒用品'},
+       						{value:times['item5'], name:'保健品'},
+       						{value:times['item6'], name:'妆特字化装品'},
+       						{value:times['item7'], name:'其他'}
+       					]
+       				}
+       			]
+       		};
+	   chart4.setOption(option4);
+       chart6.setOption(option6);
+       chart5.setOption(option5);
+       //为滚动列表准备数据
+       var avgdata = totaldata['avg'][years[0]];
+       var avglist = [];
+       var i = 0;
+       for(key in avgdata){
+         avglist.push({'avg':avgdata[key],'i':i});
+         i++;
+       }
+       console.log(avglist);
+       avglist.sort(function(a,b){
+         return b.avg-a.avg;
+       });
+       var table1 ='<div class="line header"><div class="index-list"></div><div class="column column-title">类别</div><div class="column column-title">购买平均金额</div></div>';
+       var k = 0;
+       for(var j = 0;j<Math.max(avglist.length,14);j++){
+         k = j%avglist.length;
+         table1 += '<div class="line row"><div class="column index"><div class="index-bg">'+(k+1)+'</div></div><div class="column cell-content">'+labels[avglist[k]['i']]+'</div><div class="column cell-content">'+avglist[k]['avg']+'</div></div>';
+       }
+       $('.carouse-table-1').html(table1);
+       //填充完毕使其滚动
+       t1 = new CarouseTable($('.carouse-table-1 .row'),7,{'height':'45px'},{'height':0});
+       t1.start();
+	   timeline.on('timelinechanged',timechange);
+	}
+	function timechange(param){
+	       var currIndex = param.currentIndex;
+       	   var times = totaldata['times'][years[currIndex]];
+       	   //购药人次第一年数据
+       	   var timedata = [];
+       	   var listdata = [];
+           var maxtimes = 0;
+
+           for(key in times){
+                 timedata.push(times[key]);
+                 if(times[key]>maxtimes){
+                   maxtimes = times[key];
+                 }
+              }
+           //人数当年数据
+           var people1 = totaldata['people'][currIndex];
+           //更新chart4的数据
+           var option4 = chart4.getOption();
+           option4.xAxis.max = maxtimes*1.15;
+           option4.series[0].data = [maxtimes*1.15,maxtimes*1.15,maxtimes*1.15,maxtimes*1.15,maxtimes*1.15,maxtimes*1.15,maxtimes*1.15];
+           option4.series[1].data = timedata;
+           chart4.setOption(option4);
+           //更新chart5数据
+           var option5 = chart5.getOption();
+           option5.series[0].data[0].value = people1.freq;
+           option5.series[0].data[1].value = people1.rare;
+           chart5.setOption(option5);
+           //更新chart5数据
+           var option6 = chart6.getOption();
+           option6.series[0].data[0].value = times['item1'];
+           option6.series[0].data[1].value = times['item2'];
+           option6.series[0].data[2].value = times['item3'];
+           option6.series[0].data[3].value = times['item4'];
+           option6.series[0].data[4].value = times['item5']
+           option6.series[0].data[5].value = times['item6']
+           option6.series[0].data[6].value = times['item7']
+           chart6.setOption(option6);
+           //为滚动列表准备数据
+           var avgdata = totaldata['avg'][years[0]];
+           var avglist = [];
+           var i = 0;
+           for(key in avgdata){
+             avglist.push({'avg':avgdata[key],'i':i});
+             i++;
+           }
+           avglist.sort(function(a,b){
+              return b.avg-a.avg;
+           });
+           var table1 ='<div class="line header"><div class="index-list"></div><div class="column column-title">类别</div><div class="column column-title">购买平均金额</div></div>';
+           var k = 0;
+           for(var j = 0;j<Math.max(avglist.length,14);j++){
+               k = j%avglist.length;
+               table1 += '<div class="line row"><div class="column index"><div class="index-bg">'+(k+1)+'</div></div><div class="column cell-content">'+labels[avglist[k]['i']]+'</div><div class="column cell-content">'+avglist[k]['avg']+'</div></div>';
+           }
+           t1.stop();
+           $('.carouse-table-1').html(table1);
+           //填充完毕使其滚动
+           t1 = new CarouseTable($('.carouse-table-1 .row'),7,{'height':'45px'},{'height':0});
+           t1.start();
 	}
 	init();
 });
