@@ -329,3 +329,50 @@
   top:1000px;
   left:34px;
 }
+#conclusion{
+  width:1300px;
+  height:200px;
+  position:absolute;
+  top:535px;
+  left:50px;
+  color:#fff;
+}
+.content{
+  height:80px;
+}
+.col{
+float:left;
+margin-left:15px;
+line-height:40px;
+}
+.col .item-row{
+  height:40px;
+  font-size:20px;
+}
+.special{
+  font-size:30px;
+  color:#03a9f4;
+}
+.icon{
+  display:inline-block;
+  vertical-align:middle;
+  height:30px;
+  width:30px;
+  background:url('../images/list.png');
+  background-size:100%;
+}
+#status{
+  display:inline-block;
+  width:40px;
+  height:40px;
+  vertical-align:bottom;
+  background:url('../images/increasing.png');
+  background-size:100%;
+}
+.hidden{
+  display:inline-block;
+  vertical-align:middle;
+  height:30px;
+  width:30px;
+}
+

@@ -611,8 +611,10 @@ $(function(){
     var mi = 0
     var summ = 0;
     for(var i=0;i<sum.length;i++){
-      if(sum[i]>summ)
-       mi = i;
+      if(sum[i]>summ){
+         mi = i;
+         summ = sum[i];
+       }
     }
     var top_left_option = {
         baseOption :{

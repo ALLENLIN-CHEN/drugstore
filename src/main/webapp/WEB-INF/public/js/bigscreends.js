@@ -39,7 +39,7 @@ $(function(){
 			 }
 		   }
 	}
-	var labels = ['处方药','非处方药','医疗器械','消毒用品','妆特字化装品','保健品','其他'];
+	var labels = ['处方药','非处方药','医疗器械','保健品','妆特字化装品','消毒用品','其他'];
 	//加载数据并初始化图表
 	function init(){
 	 $.ajax({
@@ -641,6 +641,7 @@ $(function(){
 	function update(){
 	  if(finished==4){
 	   showTimeline();
+	   showResult();
 	   console.log('all finished');
 	  }
 	}
@@ -931,5 +932,89 @@ $(function(){
            t1 = new CarouseTable($('.carouse-table-1 .row'),7,{'height':'45px'},{'height':0});
            t1.start();
 	}
+	function showResult(){
+	console.log('in result');
+       $('.timelabel').html(years[0]+'-'+years[years.length-1]);
+       //$('#numyear').html(years.length);
+       counter($('#numyear'),0,years.length,1,0.5);
+       //console.log(totaldata.times)
+       //准备购药人次结论数据
+       var sumcat = [0,0,0,0,0,0,0];
+       var timeslist = totaldata.times;
+       var year;
+       for(var i=0;i<years.length;i++){
+         year = years[i];
+         sumcat[0] += timeslist[year]['item1'];
+         sumcat[1] += timeslist[year]['item2'];
+         sumcat[2] += timeslist[year]['item3'];
+         sumcat[3] += timeslist[year]['item4'];
+         sumcat[4] += timeslist[year]['item5'];
+         sumcat[5] += timeslist[year]['item6'];
+         sumcat[6] += timeslist[year]['item7'];
+       }
+       var index = 0;
+       var m = 0;
+       for(var i=0;i<sumcat.length;i++){
+         if(m<sumcat[i]){
+           index = i;
+           m = sumcat[i];
+         }
+       }
+       //购药人次结论展示
+       $('#times_max_cat').html(labels[index]);
+       //$('#times_max_amount').html(sumcat[index]);
+       counter($('#times_max_amount'),0,sumcat[index],10,1.5);
+       //准备购药平均金额数据
+       var avglist = totaldata.avg;
+       var cati = 0;
+       var avgm = 0;
+       var item;
+       for(var i=0;i<years.length;i++){
+         item = avglist[years[i]];
+         for(var j=1;j<=7;j++){
+           if(item['item'+j]>avgm){
+            cati = j-1;
+            avgm = item['item'+j];
+           }
+         }
+       }
+       $('#avg_max_cat').html(labels[cati]);
+       //$('#avg_max_amount').html(avgm);
+       counter($('#avg_max_amount'),0,avgm,10,1.5);
+       //准备购药总金额趋势分析
+       var sumlist = totaldata.sum;
+       console.log(sumlist);
+       //斜率k
+       var k = 0;
+       var xb=0,yb=0,xy=0,sx=0,sy=0;
+       for(var i=0;i<sumlist.length;i++){
+         xb += sumlist[i]['year'];
+         yb += sumlist[i]['sum'];
+         xy += sumlist[i]['year']*sumlist[i]['sum'];
+         sx += sumlist[i]['year']*sumlist[i]['year'];
+       }
+       xb = xb/sumlist.length;
+       yb = yb/sumlist.length;
+
+       k = (xy-sumlist*xb*yb)/(sx-sumlist.length*xb*xb);
+       //用最小二乘法计算斜率，如果斜率>0则为增，否则为减
+       if(k<0){
+          $('#status').css({background:url('../images/descreasing.png')});
+       }
+	}
+	function counter(dom,curr,target,speed,accurate){
+           if(curr>=target){
+             return;
+           }
+           step = target - curr;
+           speed = Math.ceil(speed * accurate);
+           if(speed>step){
+              speed = step;
+           }
+           setTimeout(function(){
+             $(dom).html(curr+speed);
+             counter(dom,curr+speed,target,speed+accurate,accurate);
+           },100);
+    }
 	init();
 });
