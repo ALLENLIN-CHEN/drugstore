@@ -999,10 +999,11 @@ $(function(){
        k = (xy-sumlist*xb*yb)/(sx-sumlist.length*xb*xb);
        //用最小二乘法计算斜率，如果斜率>0则为增，否则为减
        if(Math.abs(k-0)<e-2){
-         $('#status').css({background:url('../images/smooth.png')});
+         //$('#status').css({background:url('../images/smooth.png')});
+         $('#trend').html("基本稳定");
        }else{
          if(k<0){
-          $('#status').css({background:url('../images/descreasing.png')});
+          $('#trend').html("下降");
          }
        }
 	}
