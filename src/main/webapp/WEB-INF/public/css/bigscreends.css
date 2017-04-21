@@ -365,7 +365,7 @@ line-height:40px;
   display:inline-block;
   width:40px;
   height:40px;
-  vertical-align:bottom;
+  vertical-align:top;
   background:url('../images/increasing.png');
   background-size:100%;
 }

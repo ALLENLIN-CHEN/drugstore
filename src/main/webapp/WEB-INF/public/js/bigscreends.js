@@ -10,8 +10,8 @@ $(function(){
 		   this.index = 0;
 		   var self = this;
 		   this.start = function(){
-			   console.log('start...');
-			   console.log(self);
+			   //console.log('start...');
+			   //console.log(self);
 			   self.timer = setInterval(self.scroll,1000);
 		   }
 		   this.scroll = function(){
@@ -642,7 +642,7 @@ $(function(){
 	  if(finished==4){
 	   showTimeline();
 	   showResult();
-	   console.log('all finished');
+	  // console.log('all finished');
 	  }
 	}
 	var chart4 = echarts.init(document.getElementById('chart-4'));
@@ -856,7 +856,7 @@ $(function(){
          avglist.push({'avg':avgdata[key],'i':i});
          i++;
        }
-       console.log(avglist);
+      // console.log(avglist);
        avglist.sort(function(a,b){
          return b.avg-a.avg;
        });
@@ -933,7 +933,7 @@ $(function(){
            t1.start();
 	}
 	function showResult(){
-	console.log('in result');
+	//console.log('in result');
        $('.timelabel').html(years[0]+'-'+years[years.length-1]);
        //$('#numyear').html(years.length);
        counter($('#numyear'),0,years.length,1,0.5);
@@ -983,7 +983,7 @@ $(function(){
        counter($('#avg_max_amount'),0,avgm,10,1.5);
        //准备购药总金额趋势分析
        var sumlist = totaldata.sum;
-       console.log(sumlist);
+       //console.log(sumlist);
        //斜率k
        var k = 0;
        var xb=0,yb=0,xy=0,sx=0,sy=0;
@@ -998,8 +998,12 @@ $(function(){
 
        k = (xy-sumlist*xb*yb)/(sx-sumlist.length*xb*xb);
        //用最小二乘法计算斜率，如果斜率>0则为增，否则为减
-       if(k<0){
+       if(Math.abs(k-0)<e-2){
+         $('#status').css({background:url('../images/smooth.png')});
+       }else{
+         if(k<0){
           $('#status').css({background:url('../images/descreasing.png')});
+         }
        }
 	}
 	function counter(dom,curr,target,speed,accurate){

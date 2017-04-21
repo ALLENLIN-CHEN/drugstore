@@ -20,7 +20,7 @@ $(function(){
          $(spinner).show();
          url = $(target).attr('data-url');
          role = $(target).attr('data-role');
-         console.log(role+' '+url);
+         //console.log(role+' '+url);
          if(data[role]==null){
            getData(url);
          }else{
@@ -28,7 +28,7 @@ $(function(){
          }
   }
   function success(res){
-    console.log(res);
+    //console.log(res);
     //alert('asd')
     data[role] = res;
     update();
@@ -41,14 +41,14 @@ $(function(){
   }
   function update(){
      $(spinner).hide();
-     console.log('in updating...');
+     //console.log('in updating...');
      draw();
   }
   function draw(){
     //console.log('in draw...');
     if(role=='people'){
       draw_people();
-      console.log('people....');
+      //console.log('people....');
     }else if(role=='times'){
        draw_times();
     }else if(role=='avg'){
@@ -361,7 +361,7 @@ $(function(){
     $('#sum').show();
     //get chart div
     var datalist = data[role]['consum'];
-    console.log(datalist);
+   // console.log(datalist);
     var years = [];
     var sums = [];
     var avg = 0;

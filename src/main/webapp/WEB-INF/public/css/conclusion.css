@@ -40,6 +40,7 @@
 }
 .conclusion .title{
       border-bottom:1px solid #08c;
+      height:33px;
     }
     .content ul{
        list-style:circle;
