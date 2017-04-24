@@ -249,7 +249,7 @@ $(function(){
 			axisTick:{
 				show:false
 			 },
-			data:[2004,2005,2006,2007,2008,2009]
+			data:years
 		   }],
 		   yAxis:[{
 		    type:'value',
@@ -1206,6 +1206,9 @@ var pieoption = {
       for(var i=0;i<year.length;i++){
        $("#people_years").append( '<div class="item"><p class="item-top"><span></span></p><p class="item-bottom">'+year[i]+'</p></div>')
       }
+      if(year.length==0){
+        $('#people_year_box').hide();
+      }
   }
   function display_sum_result(max,min,year){
       $('#sum_max_year').html(max.year);
@@ -1216,6 +1219,9 @@ var pieoption = {
       for(var i=0;i<year.length;i++){
          $("#sum_years").append( '<div class="item"><p class="item-top"><span></span></p><p class="item-bottom">'+year[i]+'</p></div>')
       }
+       if(year.length==0){
+              $('#sum_year_box').hide();
+       }
   }
   function display_times_result(max,label,years,yearsum){
      var timelabel = years[0];
