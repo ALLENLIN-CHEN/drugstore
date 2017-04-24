@@ -1,0 +1,104 @@
+ .conclusion .cl_row{
+      list-style:none;
+      border-top:1px solid #08c;
+      padding:0;
+}
+.conclusion .cl_row h3{
+      position:relative;
+      height:32px;
+      background:#08c;
+      text-align:center;
+      line-height:32px;
+      font-weight:normal;
+      font-size:16px;
+      color:#fff;
+      display:inline-block;
+      padding:0 36px;
+      margin:0;
+}
+.conclusion .top-left-arrow{
+      display:inline-block;
+      width:0;
+      height:0;
+      position:absolute;
+      top:0;
+      left:0;
+      border:16px solid #08c;
+      border-top-color:#fff;
+      border-left-color:#fff;
+}
+.conclusion .bottom-right-arrow{
+      display:inline-block;
+      width:0;
+      height:0;
+      position:absolute;
+      bottom:0;
+      right:0;
+      border:16px solid #08c;
+      border-bottom-color:#fff;
+      border-right-color:#fff;
+}
+.conclusion .title{
+      border-bottom:1px solid #08c;
+      height:33px;
+    }
+    .content ul{
+       list-style:circle;
+       list-style-position:left;
+    }
+    .content li{
+      line-height:32px;
+    }
+    .conclusion .cl_label,.counter{
+     display:inline-block;
+     height:32px;
+     line-height:32px;
+    }
+    .conclusion .counter{
+     margin-left:5px;
+     font-size:24px;
+     color:red;
+    }
+   .conclusion .clear{
+      width:0;
+      height:0;
+      display:none;
+      clear:both;
+    }
+    .conclusion .item{
+      height:100px;
+      width:100px;
+      float:left;
+      margin-left:10px;
+      background:#ccc;
+    }
+   .conclusion .item-top{
+      position:relative;
+      height:20px;
+      padding:0;
+      margin-top:0;
+    }
+   .conclusion .item-top span{
+      display:inline-block;
+      height:8px;
+      width:8px;
+      border-radius:4px;
+      background:#08c;
+      position:absolute;
+      top:0;
+      left:50%;
+      margin-top:10px;
+      margin-left:-4px;
+    }
+    .conclusion .item-bottom{
+      height:80px;
+      text-align:center;
+      vertical-align:center;
+      line-height:60px;
+      color:red;
+      font-size:28px;
+    }
+   .conclusion .itemlist{
+      margin-top:10px;
+      margin-left:12px;
+    }

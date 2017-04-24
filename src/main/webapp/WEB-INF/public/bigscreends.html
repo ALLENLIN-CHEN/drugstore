@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>医保药店消费分析大屏</title>
+  <meta charset="utf-8"/>
+  <link rel="stylesheet" href="css/bigscreends.css"/>
+  <script src='js/jquery-1.7.2.min.js'></script>
+  <script src="js/echarts3/echarts.min.js"></script>
+  <script src="js/bigscreends.js"></script>
+</head>
+<body>
+<!--
+<div id="datavLoading">
+  <a target="_blank" href="">
+    <img src="loading.gif"/>
+  </a>
+</div>-->
+<div class="dataLayout">
+  <div class="main-title">
+   <div class="wrapper">医保药店消费分析</div>   
+  </div>
+  <div class="border-left-top">
+    <div class="wrapper"></div>
+  </div>
+  <div class="border-right-bottom">
+    <div class="wrapper"></div>
+  </div>
+  <div class="sub-title sub-title-1">
+    <div class="wrapper">各类别购买平均金额</div>
+  </div>
+    <div class="sub-title sub-title-2">
+    <div class="wrapper">购药总额</div>
+  </div>
+    <div class="sub-title sub-title-3">
+    <div class="wrapper">购药次数的人数</div>
+  </div>
+    <div class="sub-title sub-title-4">
+    <div class="wrapper">购药总额</div>
+  </div>
+    <div class="sub-title sub-title-5">
+    <div class="wrapper">各类别平均金额</div>
+  </div>
+  <div class="sub-title sub-title-6">
+    <div class="wrapper">各类别购买人次</div>
+  </div>
+  <div class="sub-title sub-title-7">
+    <div class="wrapper">各类别购买人次</div>
+  </div>
+  <div class="sub-title sub-title-8">
+    <div class="wrapper">购买次数人数比例</div>
+  </div>
+  <div class="sub-title sub-title-9">
+    <div class="wrapper">各类别购买人次比例</div>
+  </div>
+  <div class="carouse-table carouse-table-1">
+    <div class="line header">
+		 <div class="index-list"></div>
+		 <div class="column column-title">类别</div>
+		 <div class="column column-title">购买平均金额</div>
+	  </div>
+  </div>
+  <div class="carouse-table carouse-table-2">
+      <div class="line header">
+         <div class="index-list"></div>
+         <div class="column column-title">年份</div>
+         <div class="column column-title">购药总金额</div>
+      </div>
+  </div>
+  <div class="carouse-table carouse-table-3">
+   <div class="line header">
+     <div class="index-list"></div>
+	 <div class="column year">年份</div>
+	 <div class="column gt">购药次数&gt;3人数</div>
+	 <div class="column lteq">购药次数&lt;=3人数</div>
+  </div>
+ </div>
+ <div id="conclusion">
+     <div class="title"><h3><span class="special timelabel">2010-2015</span>年间</h3></div>
+     <div class="content">
+         <div class="times col">
+             <div class="item-row"><span class="icon"></span>购买人次最多的药类:<span class="special" id="times_max_cat">妆特字化妆品</span></div>
+             <div class="item-row"><span class="hidden"></span>总人次为:<span class="special" id="times_max_amount"></span></div>
+         </div>
+         <div class="avg col">
+             <div class="item-row"><span class="icon"></span>人们花钱最多的药类:<span class="special" id="avg_max_cat">妆特字化妆品</span></div>
+             <div class="item-row"><span class="hidden"></span>平均金额为(￥):<span class="special" id="avg_max_amount"></span></div>
+         </div>
+         <div class="sum col">
+             <div class="item-row"><span class="icon"></span>总体而言，在<span class="special" id="numyear">6</span>年间</div>
+             <div class="item-row"><span class="hidden"></span>人们在医保药店的消费大体是<span class="special" id="trend">上升</span></div>
+         </div>
+     </div>
+ </div>
+ <div id="chart-1"> 
+ </div>
+ <div id="chart-2">
+ </div>
+ <div id="chart-3">
+ </div>
+ <div id="chart-4">
+ </div>
+ <div id="chart-5">
+ </div>
+ <div id="chart-6">
+ </div>
+ <div id="timeline">
+ </div>
+</div>
+</body>
+</html>

@@ -140,7 +140,7 @@ function bar1(year,data)
         ]
     };
 
-// Enable data zoom when user click bar.
+   // Enable data zoom when user click bar.
     var zoomSize = 6;
     myChart.on('click', function (params) {
         console.log(dataAxis[Math.max(params.dataIndex - zoomSize / 2, 0)]);
@@ -151,7 +151,7 @@ function bar1(year,data)
         });
     });
 
-// 使用刚指定的配置项和数据显示图表。
+    // 使用刚指定的配置项和数据显示图表。
     myChart.setOption(option);
     hideLoading();
 

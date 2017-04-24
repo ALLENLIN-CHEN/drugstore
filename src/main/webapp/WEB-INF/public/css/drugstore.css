@@ -1,0 +1,87 @@
+*{
+	margin:0;
+	padding:0;
+}
+.container{
+	width:80%;
+	margin:0 auto;
+}
+.main{
+	width:100%;
+}
+.main .left{
+	float:left;
+    width:20%;
+	background:#fff;
+}
+.main .right{
+	float:right;
+	width:80%;
+	background:#fff;	
+}
+.menu{
+	width:60%;
+	margin:0 auto;
+}
+.menu li a{
+  text-decoration:none;
+}
+.container .left{
+	float:left;
+    width:20%;
+	background:#fff;
+}
+.container .right{
+	float:right;
+	width:80%;
+	background:#fff;
+}
+.menu li:hover
+{
+	background:#08c;
+}
+.active{
+	background:#08c;
+}
+.chart-container{
+	width:90%;
+    margin:0 auto;
+}
+.chart-container .chart-title{
+	height:35px;
+	width:100%;
+	background-color:#08c;
+	color:#fff;
+	border-radius:4px;
+	line-height:35px;
+	font-family:"微软雅黑";
+	text-indent:10px;
+	font-size:16px;
+}
+.page{
+	height:35px;
+	line-height:30px;
+}
+.page li{
+ display:inline-block;
+ list-style:none;
+ text-align:center;
+ border:1px solid #ccc;
+ width:30px;
+}
+.page li a{
+	text-decoration:none;
+}
+.page li:hover{
+	background:#ccc;
+}
+#top-chart{
+	margin-top:10px;
+	width:100%;
+	height:800px;
+}
+#bottom-chart{
+	margin-top:10px;
+	width:100%;
+	height:600px;
+}

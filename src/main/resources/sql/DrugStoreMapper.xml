@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.scut.mychart.mapper.DrugStoreMapper">
+    <!-- 开启二级缓存 -->
+    <cache size="1024" readOnly="true" />
+
+    <select id="selectSumList" resultType="org.scut.mychart.model.SumModel" useCache="true">
+        <![CDATA[
+			select year(dissipate) as year,sum(monetary) as sum
+            FROM ybyd3
+            where  year(dissipate) is not null
+            group by year order by year asc
+		]]>
+    </select>
+    <select id="selectRarePurchaseData" resultType="org.scut.mychart.model.PurchaseCounterModel" useCache="true">
+        <![CDATA[
+			SELECT count(t2.id) as total,t2.year as year from
+            (select id,num,year
+            from (select social_security_card as id,count(*) as num,year(dissipate) as year FROM ybyd3
+            group by social_security_card,year order by num asc) t1
+            where t1.num<=3 and t1.year is not null) t2
+            group by t2.year order by t2.year asc
+		]]>
+    </select>
+    <select id="selectFreqPurchaseData" resultType="org.scut.mychart.model.PurchaseCounterModel" useCache="true">
+        <![CDATA[
+			SELECT count(t2.id) as total,t2.year as year from
+            (select id,num,year
+            from (select social_security_card as id,count(*) as num,year(dissipate) as year FROM ybyd3
+            group by social_security_card,year order by num asc) t1
+            where t1.num>3 and t1.year is not null) t2
+            group by t2.year order by t2.year asc
+		]]>
+    </select>
+    <select id="selectCatTimesList" resultType="org.scut.mychart.model.CategoryTimesModel" useCache="true">
+        <![CDATA[
+			select count(*) as num,year(dissipate) as year,consumption_category as con
+            FROM ybyd3
+            where  year(dissipate) is not null
+            group by con,year order by year asc
+		]]>
+    </select>
+    <select id="selectCatConAvgList" resultType="org.scut.mychart.model.CategoryConAvgModel" useCache="true">
+        <![CDATA[
+          select avg(monetary) as avg,year(dissipate) as year,consumption_category as con
+          FROM ybyd3
+          where  year(dissipate) is not null
+          group by year,con order by year asc
+        ]]>
+    </select>
+</mapper>

@@ -1,0 +1,24 @@
+.page{
+	height:35px;
+	line-height:30px;
+}
+.page li{
+ display:inline-block;
+ list-style:none;
+ text-align:center;
+ border:1px solid #ccc;
+ width:30px;
+}
+.page li a{
+	text-decoration:none;
+}
+.page li:hover{
+	background:#ccc;
+}
+.table-container{
+ display:none;
+}
+.table thead{
+  background:#08c;
+  color:#fff;
+}
